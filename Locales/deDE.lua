@@ -1,321 +1,346 @@
-﻿-- Deutsch (German)	
---------------------	--------------------
-if (GetLocale() == "deDE") then	
-	
--- Binding names	
-BINDING_HEADER_FACTIONIZER	= "Factionizer"
-BINDING_NAME_SHOWCONFIG	= "Optionen zeigen"
-BINDING_NAME_SHOWDETAILS	= "Ruf-Detailfenster zeigen"
-	
-FIZ_TXT	= {}
-FIZ_TXT.Mob = {}
--- help	
-FIZ_TXT.help	= "Ein Addon, um Deinen Ruf zu managen"
-FIZ_TXT.command	= "Kommando nicht erkannt"
-FIZ_TXT.usage	= "Benutzung"
-FIZ_TXT.helphelp	= "Zeigt diesen Hilfstext"
-FIZ_TXT.helpabout	= "zeigt Informationen zu den Autoren an"
-FIZ_TXT.helpstatus	= "zeigt den Konfigurationsstatus an"
--- about	
-FIZ_TXT.by	= "von"
-FIZ_TXT.version	= "Version"
-FIZ_TXT.date	= "Datum"
-FIZ_TXT.web	= "Webseite"
-FIZ_TXT.slash	= "Slash Kommando"
-FIZ_TXT_STAND_LV	= {}
-FIZ_TXT_STAND_LV[0]	= "Unbekannt"
-FIZ_TXT_STAND_LV[1]	= "Hasserfüllt"
-FIZ_TXT_STAND_LV[2]	= "Feindselig"
-FIZ_TXT_STAND_LV[3]	= "Unfreundlich"
-FIZ_TXT_STAND_LV[4]	= "Neutral"
-FIZ_TXT_STAND_LV[5]	= "Freundlich"
-FIZ_TXT_STAND_LV[6]	= "Wohlwollend"
-FIZ_TXT_STAND_LV[7]	= "Respektvoll"
-FIZ_TXT_STAND_LV[8]	= "Ehrfürchtig"
--- status	
-FIZ_TXT.status	= "Status"
-FIZ_TXT.disabled	= "inaktiv"
-FIZ_TXT.enabled	= "aktiv"
-FIZ_TXT.statMobs	= "Mobs zeigen [M]"
-FIZ_TXT.statQuests	= "Quests zeigen [Q]"
-FIZ_TXT.statInstances	= "Instanzen zeigen [D]"
-FIZ_TXT.statItems	= "Gegenstände zeigen [I]"
-FIZ_TXT.statGeneral	= "Allgemein zeigen [G]"
-FIZ_TXT.statMissing	= "Fehlenden Ruf zeigen"
-FIZ_TXT.statDetails	= "Erweiteres Detailfenster zeigen"
-FIZ_TXT.statChat	= "Detaillierte Chatmeldungen"
-FIZ_TXT.statNoGuildChat	= "Kein Chat für Gildenruf"
-FIZ_TXT.statSuppress	= "Originalmeldungen im Chat unterdrücken"
-FIZ_TXT.statPreview	= "Voransicht für Ruf im Ruffenster anzeigen"
-FIZ_TXT.statSwitch	= "Automatisch Rufbalken umschalten"
-FIZ_TXT.statNoGuildSwitch	= "Für Gildenruf nicht umschalten"
-FIZ_TXT.statSilentSwitch	= "Keine Meldungen bei Balkenwechsel"
-FIZ_TXT.statGuildCap	= "Gildenruflimit im Chat anzeigen"
--- XML UI elements	
-FIZ_TXT.showQuests	= "Quests"
-FIZ_TXT.showInstances	= "Instanzen"
-FIZ_TXT.showMobs	= "Mobs"
-FIZ_TXT.showItems	= "Gegenstände"
-FIZ_TXT.showGeneral	= "Allgemeines"
-FIZ_TXT.showAll	= "Alles zeigen"
-FIZ_TXT.showNone	= "Nichts zeigen"
-FIZ_TXT.expand	= "Aufklappen"
-FIZ_TXT.collapse	= "Zuklappen"
-FIZ_TXT.supressNoneFaction	= "Ausschluss löschen: Fraktion"
-FIZ_TXT.supressNoneGlobal	= "Ausschluss löschen: Alle"
-FIZ_TXT.suppressHint	= "Rechtsklick auf eine Quest, um sie von der Summe auszuschliessen."
-FIZ_TXT.clearSessionGain	= "Zähler für diesmal zurücksetzen"
--- options dialog	
-FIZ_TXT.showMissing	= "Fehlenden Ruf im Ruffenster anzeigen"
-FIZ_TXT.extendDetails	= "Erweitertes Detailfenster anzeigen"
-FIZ_TXT.gainToChat	= "Detaillierte Rufsteigerungen in den Chat schreiben"
-FIZ_TXT.noGuildGain	= "Keinen Chat für Gildenruf"
-FIZ_TXT.suppressOriginalGain	= "Originalmeldungen zu Rufsteigerung unterdrücken"
-FIZ_TXT.showPreviewRep	= "Rufvorschau im Ruffenster zeigen"
-FIZ_TXT.switchFactionBar	= "Fraktionsbalken automatisch anpassen, wenn der Ruf steigt"
-FIZ_TXT.noGuildSwitch	= "Fraktionsbalken für Gildenruf nicht umschalten"
-FIZ_TXT.silentSwitch	= "Keine Chatmeldung wenn Balken umgeschaltet wird"
-FIZ_TXT.guildCap	= "Gildenruflimit im Chat anzeigen"
-FIZ_TXT.defaultChatFrame	= "Standard-Chatfenster verwenden"
-FIZ_TXT.chatFrame	= "Verwende Chatfenster %d (%s)"
-FIZ_TXT.usingDefaultChatFrame	= "Verwende Standard-Chatfenster"
-FIZ_TXT.usingChatFrame	= "Verwende Chatfenster"
--- various LUA	
-FIZ_TXT.options	= "Optionen"
-FIZ_TXT.orderByStanding	= "Nach Ruf sortieren"
-FIZ_TXT.lookup	= "Schlage Fraktion "
-FIZ_TXT.allFactions	= "Zeige alle Fraktionen"
-FIZ_TXT.missing	= "(zur nächsten)"
-FIZ_TXT.missing2	= "Fehlend"
-FIZ_TXT.heroic	= "Heroisch"
-FIZ_TXT.normal	= "Normal"
-FIZ_TXT.switchBar	= "Rufbalken umgeschaltet auf"
--- FIZ_ShowFactions	
-FIZ_TXT.faction	= "Fraktion"
-FIZ_TXT.is	= "ist"
-FIZ_TXT.withStanding	= "mit Ruf"
-FIZ_TXT.needed	= "notwendig"
-FIZ_TXT.mob	= "[Mob]"
-FIZ_TXT.limited	= "ist limitiert auf"
-FIZ_TXT.limitedPl	= "sind limitiert auf"
-FIZ_TXT.quest	= "[Quest]"
-FIZ_TXT.instance	= "[Instanz]"
-FIZ_TXT.items	= "[Gegenstand]"
-FIZ_TXT.unknown	= "ist diesem Spieler nicht bekannt."
--- mob Details
-FIZ_TXT.tmob	= "Trash Mobs"
-FIZ_TXT.oboss	= "andere Chef"
-FIZ_TXT.aboss	= "Alle Bosse"
-FIZ_TXT.pboss	= "Per Boss"
-FIZ_TXT.fclear	= "voll klar"
-FIZ_TXT.AU	= "Gewöhnliche"
-FIZ_TXT.AN	= "Benannte"
-FIZ_TXT.BB	= "Bloodsail Bukanier"
-FIZ_TXT.SSP	= "Southsea Piraten"
-FIZ_TXT.Wa	= "Wastewander"
-FIZ_TXT.VCm	= "Venture Co. mob"
-FIZ_TXT.Mob.MoshOgg_Spellcrafter = "Zauberkundiger der Mosh'Ogg"
-FIZ_TXT.Mob.BoulderfistOgre = "Oger der Felsfäuste"
--- Quest Details	
-FIZ_TXT.cdq	= "Andere Stadt tägliche Koch-Quests"
-FIZ_TXT.coq	= "Andere Stadt tägliche Koch-Quests"
-FIZ_TXT.fdq	= "Andere Stadt tägliche Angel-Quests"
-FIZ_TXT.foq	= "Andere Stadt tägliche Angel-Quests"
-FIZ_TXT.ndq	= "keine tägliche Quests"
-FIZ_TXT.deleted	= "überholt"
-FIZ_TXT.Championing	= "Championing (Wappenrock)"
-FIZ_TXT.bpqfg	= "Durch Prozent der Quest Fraktion Verstärkung"
-	
--- items Details	
-FIZ_TXT.cbadge	= "Belobigungsabzeichen Andere Stadt"
--- instance Details	
-FIZ_TXT.srfd	= "Übergreifen von kerker"
-FIZ_TXT.tbd	= "ToBe Done"
-FIZ_TXT.nci	= "Cataclysm Instanzen (Normale)"
-FIZ_TXT.hci	= "Cataclysm Instanzen (Heroische)"
--- ToBeDone general	
-FIZ_TXT.tfr	= "Tiller Farming rep"
-FIZ_TXT.nswts	= "Nicht sicher, wenn diese beginnt"
-FIZ_TXT.mnd	= "Max. Anzahl von tägliche Quests"
-FIZ_TXT.mnds	= "Die maximale Anzahl von Tageszeitungen ist"
-	
-	
-	
-	
-	
--- ReputationDetails	
-FIZ_TXT.currentRep	= "Aktueller Ruf"
-FIZ_TXT.neededRep	= "Benötigter Ruf"
-FIZ_TXT.missingRep	= "Fehlender Ruf"
-FIZ_TXT.repInBag	= "Ruf in Taschen"
-FIZ_TXT.repInBagBank	= "Ruf in Taschen und Bank"
-FIZ_TXT.repInQuest	= "Ruf durch Quests"
-FIZ_TXT.factionGained	= "Diesmal erhalten"
-FIZ_TXT.noInfo	= "Keine Informationen für diese Fraktion/Rufstufe verfügbar."
-FIZ_TXT.toExalted	= "Ruf bis Ehrfürchtig"
--- to chat	
-FIZ_TXT.stats	= " (Gesamt: %s%d, übrig: %d)"
--- config changed	
-FIZ_TXT.configQuestion	= "Einige (neue) Einstellungen wurden gesetzt. Dies wird pro Einstellung nur einmal gemacht. Es ist empfohlen, die Factionizer-Optionen zu prüfen."
-FIZ_TXT.showConfig	= "Zeige Optionen"
-FIZ_TXT.later	= "Später"
--- UpdateList	
-FIZ_TXT.mobShort	= "[M]"
-FIZ_TXT.questShort	= "[Q]"
-FIZ_TXT.instanceShort	= "[D]"
-FIZ_TXT.itemsShort	= "[I]"
-FIZ_TXT.generalShort	= "[G]"
-FIZ_TXT.mobHead	= "Ruf steigern durch Töten dieses Mobs"
-FIZ_TXT.questHead	= "Ruf steigern durch Erfüllen dieser Quest"
-FIZ_TXT.instanceHead	= "Ruf steigern durch Bewältigen dieser Instanz"
-FIZ_TXT.itemsHead	= "Ruf steigern durch Abgeben dieser Gegenstände"
-FIZ_TXT.generalHead	= "Allgemeine Information, wie Du Ruf steigern kannst"
-FIZ_TXT.mobTip	= "Jedesmal, wenn Du diesen Mob tötest, steigert das Deinen Ruf. Wenn Du das oft genug machst, hilft Dir das, die nächste Rufstufe zu erreichen."
-FIZ_TXT.questTip	= "Jedesmal, wenn Du diese wiederholbare oder Tagesquest erfüllst, steigert das Deinen Ruf. Wenn Du das oft genug machst, hilft Dir das, die nächste Rufstufe zu erreichen."
-FIZ_TXT.instanceTip	= "Jedesmal, wenn Du diese Instanz bewältigst, steigert das Deinen Ruf. Wenn Du das oft genug machst, hilft Dir das, die nächste Rufstufe zu erreichen."
-FIZ_TXT.itemsName	= "Gegenstände abgeben"
-FIZ_TXT.itemsTip	= "Jedesmal, wenn Du die aufgeführten Gegenstände abgibst, steigert das Deinen Ruf. Wenn Du das oft genug machst, hilft Dir das, die nächste Rufstufe zu erreichen."
-FIZ_TXT.generalTip	= "Diese Information, wie man den Ruf steigern kann, bezieht sich nicht notwendigerweise auf wiederholbare Methoden."
-FIZ_TXT.allOfTheAbove	= "Summe der %d aufgeführten Quests"
-FIZ_TXT.questSummaryHead	= FIZ_TXT.allOfTheAbove
-FIZ_TXT.questSummaryTip	= "Dieser Eintrag zeigt eine Zusammenfassung aller oben aufgeführten Quests.\r\nWenn alle aufgeführten Quests Tagesquests sind, kannst Du aus der Summe abschätzen, wie lange es dauern wird, um die nächste Rufstufe zu erreichen, wenn Du sie täglich machst."
-FIZ_TXT.complete	= "Erfüllt"
-FIZ_TXT.active	= "Aktiv"
-FIZ_TXT.inBag	= "In Taschen"
-FIZ_TXT.turnIns	= "Abgeben:"
-FIZ_TXT.reputation	= "Ruf:"
-FIZ_TXT.reputationCap	= "Ruflimit:"
-FIZ_TXT.reputationCapCurrent	= "Aktueller Ruf:"
-FIZ_TXT.inBagBank	= "In Taschen und Bank"
-FIZ_TXT.questCompleted	= "Quest erfüllt"
-FIZ_TXT.timesToDo	= "Zu erfüllen:"
-FIZ_TXT.instance2	= "Instanz:"
-FIZ_TXT.mode	= "Modus:"
-FIZ_TXT.timesToRun	= "Zu bewältigen:"
-FIZ_TXT.mob2	= "Mob:"
-FIZ_TXT.location	= "Ort:"
-FIZ_TXT.toDo	= "Zu erledigen:"
-FIZ_TXT.quest2	= "Suche:"
-FIZ_TXT.itemsRequired	= "Benötigte Gegenstände"
-FIZ_TXT.general2	= "Allgemein:"
-FIZ_TXT.maxStanding	= "Gibt ruf bis"
--- skills	
-FIZ_TXT.skillHerb	= "Kräuterkunde"
-FIZ_TXT.skillMine	= "Bergbau"
-FIZ_TXT.skillSkin	= "Kürschnerei"
-FIZ_TXT.skillAlch	= "Alchemie"
-FIZ_TXT.skillBlack	= "Schmieden"
-FIZ_TXT.skillEnch	= "Verzauberkunst"
-FIZ_TXT.skillEngi	= "Ingenieurskunst"
-FIZ_TXT.skillIncrip	= "Inschriftenkunde"
-FIZ_TXT.skillJewel	= "Juwelenschleifen"
-FIZ_TXT.skillLeath	= "Lederverarbeitung"
-FIZ_TXT.skillTail	= "Schneiderei"
-FIZ_TXT.skillAid	= "Erste Hilfe"
-FIZ_TXT.skillArch	= "Archäologie"
-FIZ_TXT.skillCook	= "Kochkunst"
-FIZ_TXT.skillFish	= "Angeln"
--- Tooltip	
-FIZ_TXT.elements	= {}
-FIZ_TXT.elements.name	= {}
-FIZ_TXT.elements.tip	= {}
-	
-FIZ_TXT.elements.name.FIZ_OptionsButton	= FIZ_TXT.options
-FIZ_TXT.elements.tip.FIZ_OptionsButton	= "Öffnet ein Fenster, in welchem Factionizer konfiguriert werden kann."
-FIZ_TXT.elements.name.FIZ_OrderByStandingCheckBox	= FIZ_TXT.orderByStanding
-FIZ_TXT.elements.tip.FIZ_OrderByStandingCheckBox	= "Wenn diese Option nicht aktiviert ist, wird die Fraktionsliste wie im Original (Blizzard) sortiert, d.h. logisch und alphabetisch gruppiert.\r\n\r\nWenn diese Option aktiviert ist, wird die Fraktionsliste nach Ruf sortiert.\r\n\r\nUm |cFFFAA0A0inaktive"
-	
-FIZ_TXT.elements.name.FIZ_ShowMobsButton	= FIZ_TXT.showMobs
-FIZ_TXT.elements.tip.FIZ_ShowMobsButton	= "Diese Option aktivieren, um Mobs anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
-FIZ_TXT.elements.name.FIZ_ShowQuestButton	= FIZ_TXT.showQuests
-FIZ_TXT.elements.tip.FIZ_ShowQuestButton	= "Diese Option aktivieren, um Quests anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
-FIZ_TXT.elements.name.FIZ_ShowItemsButton	= FIZ_TXT.showItems
-FIZ_TXT.elements.tip.FIZ_ShowItemsButton	= "Diese Option aktivieren, um Gegenstände anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
-FIZ_TXT.elements.name.FIZ_ShowInstancesButton	= FIZ_TXT.showInstances
-FIZ_TXT.elements.tip.FIZ_ShowInstancesButton	= "Diese Option aktivieren, um Instanzen anzuzeigen, mit denen Du Deinen Ruf steigern kannst."
-FIZ_TXT.elements.name.FIZ_ShowGeneralButton	= FIZ_TXT.showGeneral
-FIZ_TXT.elements.tip.FIZ_ShowGeneralButton	= "Diese Option aktivieren, um allgemeine Informationen zur Rufsteigerung anzuzeigen."
-	
-FIZ_TXT.elements.name.FIZ_ShowAllButton	= FIZ_TXT.showAll
-FIZ_TXT.elements.tip.FIZ_ShowAllButton	= "Auf diesen Knopf klicken, um alle vier links stehenden Optionen zu aktivieren. Es werden Mobs, Quests, Gegenstände und Instanzen angezeigt, die Deinen Ruf der ausgewählten Fraktion verbessern."
-FIZ_TXT.elements.name.FIZ_ShowNoneButton	= FIZ_TXT.showNone
-FIZ_TXT.elements.tip.FIZ_ShowNoneButton	= "Auf diesen Knopf klicken, um alle vier links stehenden Optionen zu deaktivieren. \r\nEs werden dadurch keine Methoden mehr angezeigt, die Ruf mit der ausgewählten Fraktion verbessern."
-	
-FIZ_TXT.elements.name.FIZ_ExpandButton	= FIZ_TXT.expand
-FIZ_TXT.elements.tip.FIZ_ExpandButton	= "Auf diesen Knopf klicken, um alle Einträge aufzuklappen. Dies zeigt die Gegenstände an, die für die jeweiligen Sammelquests benötigt werden."
-FIZ_TXT.elements.name.FIZ_CollapseButton	= FIZ_TXT.collapse
-FIZ_TXT.elements.tip.FIZ_CollapseButton	= "Auf diesen Knopf klicken, um alle Einträge zuzuklappen. Dies zeigt keine Gegenstände mehr an, die für die jeweiligen Sammelquests benötigt werden."
-FIZ_TXT.elements.name.FIZ_SupressNoneFactionButton	= FIZ_TXT.supressNoneFaction
-FIZ_TXT.elements.tip.FIZ_SupressNoneFactionButton	= "Auf diesen Knopf klicken, um die Quests für diese Fraktion wieder zu aktivieren, die durch Rechtsklicken deaktiviert wurden."
-FIZ_TXT.elements.name.FIZ_SupressNoneGlobalButton	= FIZ_TXT.supressNoneGlobal
-FIZ_TXT.elements.tip.FIZ_SupressNoneGlobalButton	= "Auf diesen Knopf klicken, um die Quests für alle Fraktionen wieder zu aktivieren, die durch Rechtsklicken deaktiviert wurden."
-FIZ_TXT.elements.name.FIZ_ClearSessionGainButton	= FIZ_TXT.clearSessionGain
-FIZ_TXT.elements.tip.FIZ_ClearSessionGainButton	= "Auf diesen Knopf klicken, um den Zähler für die Rufsteigerung seit Spielstart zurückzusetzen."
-	
-FIZ_TXT.elements.name.FIZ_EnableMissingBox	= FIZ_TXT.showMissing
-FIZ_TXT.elements.tip.FIZ_EnableMissingBox	= "Diese Option aktivieren, um im Ruffenster hinter der Rufstufe die fehlenden Rufpunkte anzuzeigen, die nötig sind, um die nächste Stufe zu erreichen."
-FIZ_TXT.elements.name.FIZ_ExtendDetailsBox	= FIZ_TXT.extendDetails
-FIZ_TXT.elements.tip.FIZ_ExtendDetailsBox	= "Diese Option aktivieren, um eine erweiterte Version anzuzeigen.\r\nZusätzlich zum normalen Fenster, werden dann die fehlenden Rufpunkte angezeigt und eine Liste von Mobs, Quests, Gegenständen und Instanzen, mit denen sich der Ruf der ausgewählten Frakt"
-FIZ_TXT.elements.name.FIZ_GainToChatBox	= FIZ_TXT.gainToChat
-FIZ_TXT.elements.tip.FIZ_GainToChatBox	= "Diese Option aktivieren, um im Chat den Ruf mit aller Fraktionen anzuzeigen.\r\nDies weicht von der Standardeinstellung ab, welche nur den gestiegenen Ruf der Hauptfraktion anzeigt."
-FIZ_TXT.elements.name.FIZ_NoGuildGainBox	= FIZ_TXT.noGuildGain
-FIZ_TXT.elements.tip.FIZ_NoGuildGainBox	= "Diese Option aktivieren, um für Gildenruf keine Meldungen in den Chat zu schreiben."
-FIZ_TXT.elements.name.FIZ_SupressOriginalGainBox	= FIZ_TXT.suppressOriginalGain
-FIZ_TXT.elements.tip.FIZ_SupressOriginalGainBox	= "Diese Option aktivieren, um die Standard-Rufmeldungen im Chat zu unterdrücken.\r\nDies ist sinnvoll, wenn die erweiterten Meldungen aktiviert wurden, damit die Rufmeldungen nicht zweimal angezeigt werden."
-FIZ_TXT.elements.name.FIZ_ShowPreviewRepBox	= FIZ_TXT.showPreviewRep
-FIZ_TXT.elements.tip.FIZ_ShowPreviewRepBox	= "Diese Option aktivieren, um den Ruf, der durch Abgeben von erfüllten Quests und gesammelten Gegenständen gesteigert werden kann, als grauen Balken über dem normalen Rufbalken im Ruffenster anzuzeigen."
-FIZ_TXT.elements.name.FIZ_SwitchFactionBarBox	= FIZ_TXT.switchFactionBar
-FIZ_TXT.elements.tip.FIZ_SwitchFactionBarBox	= "Diese Option aktivieren, um den Rufbalken automatisch auf die Fraktion umzuschalten, für die zuletzt Ruf gesteigert wurde."
-FIZ_TXT.elements.name.FIZ_NoGuildSwitchBox	= FIZ_TXT.noGuildSwitch
-FIZ_TXT.elements.tip.FIZ_NoGuildSwitchBox	= "Diese Option aktivieren, um den Rufbalken nicht umzuschalten, wenn Gildenruf gesteigert wird."
-FIZ_TXT.elements.name.FIZ_SilentSwitchBox	= FIZ_TXT.silentSwitch
-FIZ_TXT.elements.tip.FIZ_SilentSwitchBox	= "Diese Option aktivieren, um den Rufbalken still (ohne Hinweise im Chat) umzuschalten."
-FIZ_TXT.elements.name.FIZ_GuildCapBox	= FIZ_TXT.guildCap
-FIZ_TXT.elements.name.FIZ_ChatFrameSlider	= "Chatfenster"
-FIZ_TXT.elements.tip.FIZ_ChatFrameSlider	= "Wähle aus, in welchem Chatfenster Factionizer seine Meldungen anzeigt."
-	
-FIZ_TXT.elements.name.FIZ_OptionEnableMissing	= FIZ_TXT.elements.name.FIZ_EnableMissingBox
-FIZ_TXT.elements.tip.FIZ_OptionEnableMissing	= FIZ_TXT.elements.tip.FIZ_EnableMissingBox
-FIZ_TXT.elements.name.FIZ_OptionEnableMissingCB	= FIZ_TXT.elements.name.FIZ_EnableMissingBox
-FIZ_TXT.elements.tip.FIZ_OptionEnableMissingCB	= FIZ_TXT.elements.tip.FIZ_EnableMissingBox
-FIZ_TXT.elements.name.FIZ_OptionExtendDetails	= FIZ_TXT.elements.name.FIZ_ExtendDetailsBox
-FIZ_TXT.elements.tip.FIZ_OptionExtendDetails	= FIZ_TXT.elements.tip.FIZ_ExtendDetailsBox
-FIZ_TXT.elements.name.FIZ_OptionExtendDetailsCB	= FIZ_TXT.elements.name.FIZ_ExtendDetailsBox
-FIZ_TXT.elements.tip.FIZ_OptionExtendDetailsCB	= FIZ_TXT.elements.tip.FIZ_ExtendDetailsBox
-FIZ_TXT.elements.name.FIZ_OptionGainToChat	= FIZ_TXT.elements.name.FIZ_GainToChatBox
-FIZ_TXT.elements.tip.FIZ_OptionGainToChat	= FIZ_TXT.elements.tip.FIZ_GainToChatBox
-FIZ_TXT.elements.name.FIZ_OptionGainToChatCB	= FIZ_TXT.elements.name.FIZ_GainToChatBox
-FIZ_TXT.elements.tip.FIZ_OptionGainToChatCB	= FIZ_TXT.elements.tip.FIZ_GainToChatBox
-FIZ_TXT.elements.name.FIZ_OptionNoGuildGain	= FIZ_TXT.elements.name.FIZ_NoGuildGainBox
-FIZ_TXT.elements.tip.FIZ_OptionNoGuildGain	= FIZ_TXT.elements.tip.FIZ_NoGuildGainBox
-FIZ_TXT.elements.name.FIZ_OptionNoGuildGainCB	= FIZ_TXT.elements.name.FIZ_NoGuildGainBox
-FIZ_TXT.elements.tip.FIZ_OptionNoGuildGainCB	= FIZ_TXT.elements.tip.FIZ_NoGuildGainBox
-FIZ_TXT.elements.name.FIZ_OptionSupressOriginalGain	= FIZ_TXT.elements.name.FIZ_SupressOriginalGainBox
-FIZ_TXT.elements.tip.FIZ_OptionSupressOriginalGain	= FIZ_TXT.elements.tip.FIZ_SupressOriginalGainBox
-FIZ_TXT.elements.name.FIZ_OptionSupressOriginalGainCB	= FIZ_TXT.elements.name.FIZ_SupressOriginalGainBox
-FIZ_TXT.elements.tip.FIZ_OptionSupressOriginalGainCB	= FIZ_TXT.elements.tip.FIZ_SupressOriginalGainBox
-FIZ_TXT.elements.name.FIZ_OptionShowPreviewRep	= FIZ_TXT.elements.name.FIZ_ShowPreviewRepBox
-FIZ_TXT.elements.tip.FIZ_OptionShowPreviewRep	= FIZ_TXT.elements.tip.FIZ_ShowPreviewRepBox
-FIZ_TXT.elements.name.FIZ_OptionShowPreviewRepCB	= FIZ_TXT.elements.name.FIZ_ShowPreviewRepBox
-FIZ_TXT.elements.tip.FIZ_OptionShowPreviewRepCB	= FIZ_TXT.elements.tip.FIZ_ShowPreviewRepBox
-FIZ_TXT.elements.name.FIZ_OptionSwitchFactionBar	= FIZ_TXT.elements.name.FIZ_SwitchFactionBarBox
-FIZ_TXT.elements.tip.FIZ_OptionSwitchFactionBar	= FIZ_TXT.elements.tip.FIZ_SwitchFactionBarBox
-FIZ_TXT.elements.name.FIZ_OptionSwitchFactionBarCB	= FIZ_TXT.elements.name.FIZ_SwitchFactionBarBox
-FIZ_TXT.elements.tip.FIZ_OptionSwitchFactionBarCB	= FIZ_TXT.elements.tip.FIZ_SwitchFactionBarBox
-FIZ_TXT.elements.name.FIZ_OptionNoGuildSwitch	= FIZ_TXT.elements.name.FIZ_NoGuildSwitchBox
-FIZ_TXT.elements.tip.FIZ_OptionNoGuildSwitch	= FIZ_TXT.elements.tip.FIZ_NoGuildSwitchBox
-FIZ_TXT.elements.name.FIZ_OptionNoGuildSwitchCB	= FIZ_TXT.elements.name.FIZ_NoGuildSwitchBox
-FIZ_TXT.elements.tip.FIZ_OptionNoGuildSwitchCB	= FIZ_TXT.elements.tip.FIZ_NoGuildSwitchBox
-FIZ_TXT.elements.name.FIZ_OptionSilentSwitch	= FIZ_TXT.elements.name.FIZ_SilentSwitchBox
-FIZ_TXT.elements.tip.FIZ_OptionSilentSwitch	= FIZ_TXT.elements.tip.FIZ_SilentSwitchBox
-FIZ_TXT.elements.name.FIZ_OptionSilentSwitchCB	= FIZ_TXT.elements.name.FIZ_SilentSwitchBox
-FIZ_TXT.elements.tip.FIZ_OptionSilentSwitchCB	= FIZ_TXT.elements.tip.FIZ_SilentSwitchBox
-FIZ_TXT.elements.name.FIZ_OptionGuildCap	= FIZ_TXT.elements.name.FIZ_GuildCapBox
-FIZ_TXT.elements.tip.FIZ_OptionGuildCap	= FIZ_TXT.elements.tip.FIZ_GuildCapBox
-FIZ_TXT.elements.name.FIZ_OptionGuildCapCB	= FIZ_TXT.elements.name.FIZ_GuildCapBox
-FIZ_TXT.elements.tip.FIZ_OptionGuildCapCB	= FIZ_TXT.elements.tip.FIZ_GuildCapBox
-FIZ_TXT.elements.name.FIZ_OptionChatFrameSlider	= FIZ_TXT.elements.name.FIZ_ChatFrameSlider
-FIZ_TXT.elements.tip.FIZ_OptionChatFrameSlider	= FIZ_TXT.elements.tip.FIZ_ChatFrameSlider
-end	
-	
-	
+--[[
+	Factionizer - German (deDE) Localization
+	Author: Urbin, A_Nolan, gOOvER
+	License: GNU General Public License v2.0 (GPL-2.0)
+]]
+
+local AceLocale = LibStub("AceLocale-3.0")
+local L = AceLocale:NewLocale("Factionizer", "deDE")
+if not L then return end
+
+-- Binding names
+L["BINDING_HEADER_FACTIONIZER"] = "Factionizer"
+L["BINDING_NAME_SHOWCONFIG"] = "Optionen anzeigen"
+L["BINDING_NAME_SHOWDETAILS"] = "Ruf-Detailfenster anzeigen"
+
+-- General & CLI
+L["by"] = "von"
+L["version"] = "Version"
+L["date"] = "Datum"
+L["web"] = "Webseite"
+L["help"] = "Chat-Befehlshilfe"
+L["usage"] = "Benutzung"
+L["helphelp"] = "Zeigt diesen Hilfetext an"
+L["helpabout"] = "Zeigt Autoren- und Versionsinformationen an"
+L["helpstatus"] = "Zeigt den aktuellen Konfigurationsstatus an"
+L["command"] = "Befehl konnte nicht verarbeitet werden"
+L["status"] = "Aktuelle Einstellungen"
+L["enabled"] = "aktiviert"
+L["disabled"] = "deaktiviert"
+L["options"] = "Optionen"
+L["configQuestion"] = "Einige (neue) Einstellungen wurden standardmäßig aktiviert. Dies geschieht nur einmal pro Einstellung. Möchtest du die Factionizer-Optionen jetzt überprüfen?"
+L["showConfig"] = "Optionen öffnen"
+L["later"] = "Später"
+
+-- Standings & Reputation Window
+L["missing"] = "(bis nächste)"
+L["missing2"] = "Fehlend"
+L["orderByStanding"] = "Nach Rufstufe sortieren"
+L["currentRep"] = "Aktueller Ruf"
+L["neededRep"] = "Benötigter Ruf"
+L["missingRep"] = "Fehlender Ruf"
+L["repInBag"] = "Ruf in Taschen"
+L["repInBagBank"] = "Ruf in Taschen & Bank"
+L["repInQuest"] = "Ruf durch Quests"
+L["factionGained"] = "In dieser Sitzung erhalten"
+L["toExalted"] = "Ruf bis Ehrfürchtig"
+L["nextLevel"] = "Nächste Stufe"
+L["noInfo"] = "Keine Informationen für diese Fraktion und/oder Rufstufe verfügbar."
+L["suppressHint"] = "Rechtsklick auf eine Quest, um sie aus der Zusammenfassung auszuschließen"
+L["switchBar"] = "Wechsle beobachtete Rufleiste zu"
+L["stats"] = " (Gesamt: %s%d, Fehlend: %d)"
+L["paragon"] = "Paragon"
+L["renown"] = "Ruhmstufe %d"
+
+-- Detail Frame Checkboxes & Buttons
+L["showQuests"] = "Quests"
+L["showInstances"] = "Instanzen"
+L["showMobs"] = "Gegner"
+L["showItems"] = "Gegenstände"
+L["showGeneral"] = "Allgemein"
+L["showAll"] = "Alle"
+L["showNone"] = "Keine"
+L["expand"] = "Aufklappen"
+L["collapse"] = "Zuklappen"
+L["supressNoneFaction"] = "Ausschl. löschen (Fraktion)"
+L["supressNoneGlobal"] = "Ausschl. löschen (Alle)"
+L["clearSessionGain"] = "Sitzungszähler zurücksetzen"
+
+-- Options & Status Labels
+L["showMissing"] = "Fehlenden Ruf im Ruffenster anzeigen"
+L["extendDetails"] = "Erweitertes Ruf-Detailfenster anzeigen"
+L["gainToChat"] = "Detaillierte Rufzuwachs-Nachrichten im Chat ausgeben"
+L["noGuildGain"] = "Keine Chat-Nachrichten für Gildenruf schreiben"
+L["suppressOriginalGain"] = "Originale Blizzard-Rufnachrichten im Chat unterdrücken"
+L["showPreviewRep"] = "Abgebbaren Ruf (Taschen/Bank/Quests) als Vorschau in der Rufleiste zeigen"
+L["switchFactionBar"] = "Rufleiste automatisch auf die Fraktion umschalten, bei der Ruf erlangt wurde"
+L["noGuildSwitch"] = "Rufleiste nicht für Gildenruf umschalten"
+L["silentSwitch"] = "Keine Chat-Nachricht beim Umschalten der Rufleiste"
+L["minimapButton"] = "Minikarten-Symbol anzeigen"
+L["minimapButtonTip"] = "Zeigt das Factionizer-Symbol an der Minikarte für schnellen Zugriff auf das Ruffenster und die Optionen."
+L["minimapTooltipLeft"] = "|cFFFFFFFFLinksklick:|r Ruffenster umschalten"
+L["minimapTooltipRight"] = "|cFFFFFFFFRechtsklick:|r Factionizer-Optionen öffnen"
+L["generalOptions"] = "Allgemeine Optionen"
+L["chatOptions"] = "Chat & Rufleiste"
+L["filterOptions"] = "Rufquellen-Filter"
+L["actionsGroup"] = "Sitzung & Unterdrückung"
+L["profiles"] = "Profile"
+
+L["statMobs"] = "Gegner anzeigen"
+L["statQuests"] = "Quests anzeigen"
+L["statInstances"] = "Instanzen anzeigen"
+L["statItems"] = "Gegenstände anzeigen"
+L["statGeneral"] = "Allgemeines anzeigen"
+L["statMissing"] = "Fehlenden Ruf anzeigen"
+L["statDetails"] = "Erweiterte Details anzeigen"
+L["statChat"] = "Detaillierte Chat-Nachricht"
+L["statNoGuildChat"] = "Kein Chat für Gildenruf"
+L["statSuppress"] = "Originalen Chat unterdrücken"
+L["statPreview"] = "Ruf-Vorschau anzeigen"
+L["statSwitch"] = "Rufleiste automatisch wechseln"
+L["statNoGuildSwitch"] = "Kein Wechsel bei Gildenruf"
+L["statSilentSwitch"] = "Lautloser Leistenwechsel"
+
+-- Entry Types & Tooltips
+L["instanceShort"] = "[I]"
+L["instanceHead"] = "Instanz abschließen"
+L["instanceTip"] = "Schließe diesen Dungeon ab, um Ruf zu erhalten."
+L["instance2"] = "Instanz:"
+L["mode"] = "Schwierigkeitsgrad:"
+L["normal"] = "Normal"
+L["heroic"] = "Heroisch"
+L["reputation"] = "Ruf:"
+L["timesToRun"] = "Durchläufe benötigt:"
+L["maxStanding"] = "Gibt Ruf bis:"
+
+L["mobShort"] = "[M]"
+L["mobHead"] = "Gegner besiegen"
+L["mobTip"] = "Jedes Mal, wenn du diesen Gegner besiegst, erhältst du Ruf. Wenn du dies oft genug tust, erreichst du die nächste Rufstufe."
+L["mob2"] = "Gegner:"
+L["location"] = "Ort:"
+L["toDo"] = "Anzahl benötigt:"
+
+L["questShort"] = "[Q]"
+L["questHead"] = "Quest abschließen"
+L["questTip"] = "Jedes Mal, wenn du diese wiederholbare oder tägliche Quest abschließt, erhältst du Ruf. Rechtsklick, um sie aus der Zusammenfassung ein-/auszuschließen."
+L["quest2"] = "Quest:"
+L["itemsRequired"] = "Benötigte Gegenstände"
+L["active"] = "Aktiv"
+L["complete"] = "Abgeschlossen"
+L["inBag"] = "In Taschen"
+L["inBagBank"] = "In Taschen und Bank"
+L["turnIns"] = "Abgaben:"
+L["questCompleted"] = "Quest abgeschlossen"
+L["allOfTheAbove"] = "Zusammenfassung der %d oben gelisteten Quests"
+L["questSummaryHead"] = "Zusammenfassung aller %d Quests"
+L["questSummaryTip"] = "Dieser Eintrag zeigt eine Zusammenfassung aller oben aufgeführten Quests.\r\nDies ist nützlich unter der Annahme, dass es sich um tägliche Quests handelt, da so angezeigt wird, wie viele Tage es dauert, bis du die nächste Rufstufe erreichst."
+L["timesToDo"] = "Tage/Durchläufe:"
+
+L["itemsShort"] = "[G]"
+L["itemsName"] = "Gegenstände abgeben"
+L["itemsHead"] = "Gegenstandsabgabe"
+L["itemsTip"] = "Jedes Mal, wenn du die aufgeführten Gegenstände abgibst, erhältst du Ruf."
+
+L["generalShort"] = "[A]"
+L["generalHead"] = "Allgemeine Informationen"
+L["generalTip"] = "Jedes Mal, wenn du diese Aktivität ausführst, erhältst du Ruf."
+L["general2"] = "Aktivität:"
+
+-- Content Strings & Abbreviations
+L["srfd"] = "Zusatzruf aus Dungeons"
+L["tbd"] = "Offen"
+L["mnd"] = "Maximale Anzahl täglicher Quests"
+L["nci"] = "Normale Cataclysm-Instanzen"
+L["hci"] = "Heroische Cataclysm-Instanzen"
+L["tmob"] = "Trash-Gegner"
+L["oboss"] = "Andere Bosse"
+L["aboss"] = "Alle Bosse"
+L["pboss"] = "Pro Boss"
+L["fclear"] = "Kompletter Durchlauf"
+L["AU"] = "Jeder unbenannte"
+L["AN"] = "Jeder benannte"
+L["BB"] = "Blutsegelbukaniere"
+L["SSP"] = "Südmeerpiraten"
+L["Wa"] = "Wüstenläufer"
+L["VCm"] = "Jeder Gegner der Venture Co."
+L["cdq"] = "Tägliche Kochquests der Hauptstädte"
+L["coq"] = "Tägliche Kochquests anderer Städte"
+L["fdq"] = "Tägliche Angelquests der Hauptstädte"
+L["foq"] = "Tägliche Angelquests anderer Städte"
+L["ndq"] = "keine täglichen Quests"
+L["deleted"] = "Veraltet"
+L["Championing"] = "Wappenrock-Ruf (Champion)"
+L["bpqfg"] = "Prozentualer Anteil am Quest-Rufzuwachs"
+L["djdq"] = "Tägliche Juwelenschleifer-Quests in Dalaran"
+L["cbadge"] = "Belobigungsabzeichen anderer Städte"
+L["tfr"] = "Ackerbauern-Ernteruf"
+L["nswts"] = "Unklar, wann dies startet"
+
+-- Professions
+L["skillHerb"] = "Kräuterkunde"
+L["skillSkin"] = "Kürschnerei"
+L["skillMine"] = "Bergbau"
+L["skillAlch"] = "Alchemie"
+L["skillBlack"] = "Schmiedekunst"
+L["skillEnch"] = "Verzauberkunst"
+L["skillEngi"] = "Ingenieurskunst"
+L["skillIncrip"] = "Inschriftenkunde"
+L["skillJewel"] = "Juwelenschleifen"
+L["skillLeath"] = "Lederverarbeitung"
+L["skillTail"] = "Schneiderei"
+L["skillAid"] = "Erste Hilfe"
+L["skillArch"] = "Archäologie"
+L["skillCook"] = "Kochkunst"
+L["skillFish"] = "Angeln"
+
+-- Standing Levels
+L["STAND_LV_0"] = "Unbekannt"
+L["STAND_LV_1"] = "Hasserfüllt"
+L["STAND_LV_2"] = "Feindselig"
+L["STAND_LV_3"] = "Unfreundlich"
+L["STAND_LV_4"] = "Neutral"
+L["STAND_LV_5"] = "Freundlich"
+L["STAND_LV_6"] = "Wohlwollend"
+L["STAND_LV_7"] = "Respektvoll"
+L["STAND_LV_8"] = "Ehrfürchtig"
+
+-- UI Element Tooltips
+L["ELEM_NAME_FIZ_OptionsButton"] = "Factionizer-Optionen"
+L["ELEM_TIP_FIZ_OptionsButton"] = "Öffnet die Factionizer-Konfiguration."
+L["ELEM_NAME_FIZ_OrderByStandingCheckBox"] = "Nach Rufstufe sortieren"
+L["ELEM_TIP_FIZ_OrderByStandingCheckBox"] = "Wenn diese Option nicht ausgewählt ist, wird die Fraktionsliste in der Standard-Blizzard-Sortierung nach Gruppen angezeigt.\r\n\r\nWenn diese Option ausgewählt ist, wird die Fraktionsliste nach Rufstufe sortiert.\r\n\r\nUm |cFFFAA0A0inaktive|r Fraktionen zu sehen, deaktiviere diese Option und scrolle ans Ende der Liste."
+L["ELEM_NAME_FIZ_ShowMobsButton"] = "Gegner anzeigen"
+L["ELEM_TIP_FIZ_ShowMobsButton"] = "Aktiviere diese Option, um Gegner anzuzeigen, die du für Rufzuwachs besiegen kannst."
+L["ELEM_NAME_FIZ_ShowQuestButton"] = "Quests anzeigen"
+L["ELEM_TIP_FIZ_ShowQuestButton"] = "Aktiviere diese Option, um Quests anzuzeigen, die du für Rufzuwachs abschließen kannst."
+L["ELEM_NAME_FIZ_ShowItemsButton"] = "Gegenstände anzeigen"
+L["ELEM_TIP_FIZ_ShowItemsButton"] = "Aktiviere diese Option, um Gegenstände anzuzeigen, die du für Rufzuwachs abgeben kannst."
+L["ELEM_NAME_FIZ_ShowInstancesButton"] = "Instanzen anzeigen"
+L["ELEM_TIP_FIZ_ShowInstancesButton"] = "Aktiviere diese Option, um Instanzen anzuzeigen, die du für Rufzuwachs abschließen kannst."
+L["ELEM_NAME_FIZ_ShowGeneralButton"] = "Allgemeines anzeigen"
+L["ELEM_TIP_FIZ_ShowGeneralButton"] = "Aktiviere diese Option, um allgemeine Möglichkeiten zum Rufzuwachs anzuzeigen."
+L["ELEM_NAME_FIZ_ShowAllButton"] = "Alle anzeigen"
+L["ELEM_TIP_FIZ_ShowAllButton"] = "Klicke hier, um alle vier links stehenden Filter zu aktivieren.\r\nDadurch werden Gegner, Quests, Gegenstände und Instanzen für die ausgewählte Fraktion angezeigt."
+L["ELEM_NAME_FIZ_ShowNoneButton"] = "Keine anzeigen"
+L["ELEM_TIP_FIZ_ShowNoneButton"] = "Klicke hier, um alle vier links stehenden Filter zu deaktivieren."
+L["ELEM_NAME_FIZ_ExpandButton"] = "Alle aufklappen"
+L["ELEM_TIP_FIZ_ExpandButton"] = "Klicke hier, um alle Einträge in der Liste aufzuklappen und benötigte Quest-Gegenstände anzuzeigen."
+L["ELEM_NAME_FIZ_CollapseButton"] = "Alle zuklappen"
+L["ELEM_TIP_FIZ_CollapseButton"] = "Klicke hier, um alle Einträge in der Liste zuzuklappen."
+L["ELEM_NAME_FIZ_SupressNoneFactionButton"] = "Ausschlüsse zurücksetzen (Fraktion)"
+L["ELEM_TIP_FIZ_SupressNoneFactionButton"] = "Klicke hier, um alle durch Rechtsklick ausgeschlossenen Quests für diese Fraktion wieder zu aktivieren."
+L["ELEM_NAME_FIZ_SupressNoneGlobalButton"] = "Ausschlüsse zurücksetzen (Alle)"
+L["ELEM_TIP_FIZ_SupressNoneGlobalButton"] = "Klicke hier, um alle durch Rechtsklick ausgeschlossenen Quests für alle Fraktionen wieder zu aktivieren."
+L["ELEM_NAME_FIZ_ClearSessionGainButton"] = "Sitzungszähler zurücksetzen"
+L["ELEM_TIP_FIZ_ClearSessionGainButton"] = "Klicke hier, um den Zähler für den in dieser Sitzung erhaltenen Ruf zurückzusetzen."
+L["ELEM_NAME_FIZ_EnableMissingBox"] = "Fehlenden Ruf anzeigen"
+L["ELEM_TIP_FIZ_EnableMissingBox"] = "Fügt im Ruffenster hinter der aktuellen Rufstufe jeder Fraktion die bis zur nächsten Stufe fehlenden Rufpunkte hinzu."
+L["ELEM_NAME_FIZ_ExtendDetailsBox"] = "Erweitertes Detailfenster"
+L["ELEM_TIP_FIZ_ExtendDetailsBox"] = "Zeigt ein erweitertes Ruf-Detailfenster mit fehlendem Ruf, Gegenständen in Taschen/Bank und einer Liste aller Möglichkeiten zur Rufsteigerung an."
+L["ELEM_NAME_FIZ_GainToChatBox"] = "Detaillierte Chat-Nachrichten"
+L["ELEM_TIP_FIZ_GainToChatBox"] = "Zeigt bei jedem Rufzuwachs detaillierte Chat-Nachrichten mit Sitzungsgewinn und verbleibendem Ruf an."
+L["ELEM_NAME_FIZ_NoGuildGainBox"] = "Kein Gildenruf im Chat"
+L["ELEM_TIP_FIZ_NoGuildGainBox"] = "Unterdrückt detaillierte Chat-Nachrichten für Gildenruf."
+L["ELEM_NAME_FIZ_SupressOriginalGainBox"] = "Standard-Chatnachrichten unterdrücken"
+L["ELEM_TIP_FIZ_SupressOriginalGainBox"] = "Unterdrückt die Standard-Rufzuwachsnachrichten des Spiels, damit Rufgewinne nicht doppelt im Chat stehen."
+L["ELEM_NAME_FIZ_ShowPreviewRepBox"] = "Ruf-Vorschau in der Leiste"
+L["ELEM_TIP_FIZ_ShowPreviewRepBox"] = "Zeigt Ruf, der durch Abgabe von Gegenständen in Taschen/Bank und abgeschlossenen Quests sofort erlangt werden kann, als grauen Vorschaubalken in der Rufleiste an."
+L["ELEM_NAME_FIZ_SwitchFactionBarBox"] = "Rufleiste automatisch wechseln"
+L["ELEM_TIP_FIZ_SwitchFactionBarBox"] = "Wechselt die beobachtete Fraktion der Erfahrungs-/Rufleiste automatisch auf die Fraktion, bei der zuletzt Ruf erhalten wurde."
+L["ELEM_NAME_FIZ_NoGuildSwitchBox"] = "Kein Wechsel auf Gildenruf"
+L["ELEM_TIP_FIZ_NoGuildSwitchBox"] = "Verhindert, dass die beobachtete Rufleiste bei Gildenruf-Zuwächsen umgeschaltet wird."
+L["ELEM_NAME_FIZ_SilentSwitchBox"] = "Lautloser Rufleisten-Wechsel"
+L["ELEM_TIP_FIZ_SilentSwitchBox"] = "Schaltet die beobachtete Rufleiste ohne Hinweis im Chat um."
+
+-- 7.0.0 Modern UI, LDB Tooltip & Options Strings
+L["faction"] = "Fraktion"
+L["standing"] = "Rufstufe"
+L["session"] = "Sitzung"
+L["noActiveFactions"] = "Keine aktiven Fraktionen gefunden."
+L["qtipRowLeft"] = "Zeile Linksklick:"
+L["qtipRowLeftDesc"] = "Ruf-Details öffnen"
+L["qtipRowRight"] = "Zeile Rechtsklick:"
+L["qtipRowRightDesc"] = "Als Rufleiste beobachten"
+L["qtipIconLeft"] = "Icon Linksklick:"
+L["qtipIconLeftDesc"] = "Ruffenster umschalten"
+L["qtipIconRight"] = "Icon Rechtsklick:"
+L["qtipIconRightDesc"] = "Optionen öffnen"
+L["dock"] = "Andocken"
+L["detach"] = "Lösen"
+L["categories"] = "KATEGORIEN"
+L["notifications"] = "Benachrichtigungen"
+L["sharingExport"] = "Teilen & Export"
+L["about"] = "Über"
+L["aboutTitle"] = "Über Factionizer"
+L["profileLabel"] = "Profil:"
+L["statusbarTexture"] = "Statusleisten-Textur (LibSharedMedia)"
+L["statusbarTextureTip"] = "Textur für die Ruf-Vorschau und die Fortschrittsbalken im Detailfenster."
+L["showMinimap"] = "Minikarten-Symbol anzeigen"
+L["showMinimapTip"] = "Blendet das Factionizer-Symbol an der Minikarte ein oder aus."
+L["detachWindow"] = "Detailfenster vom Ruffenster lösen (frei bewegbar)"
+L["detachWindowTip"] = "Wenn aktiviert, merkt sich das Detailfenster seine frei verschobene Bildschirmposition, anstatt am Blizzard-Ruffenster anzudocken."
+L["windowScale"] = "Skalierung des Detailfensters (oder Strg + Mausrad)"
+L["windowGroupTitle"] = "Fensterposition, Skalierung & Minikarte"
+L["writeChatMessage"] = "Detaillierte Rufzuwachs-Nachrichten im Chat ausgeben"
+L["suppressOriginalChat"] = "Originale Blizzard-Rufnachrichten im Chat unterdrücken"
+L["visibleSourcesTitle"] = "Sichtbare Rufquellen"
+L["quickSourceActions"] = "Schnellaktionen für Rufquellen"
+L["suppressNone"] = "Ausgeschlossene Quests zurücksetzen (Alle)"
+L["sinkHeader"] = "Ausgabeziel für Benachrichtigungen (LibSink-2.0)"
+L["sendTestAlert"] = "Test-Benachrichtigung senden"
+L["sendTestAlertDesc"] = "Sendet eine Beispiel-Rufbenachrichtigung an das ausgewählte Ausgabeziel."
+L["commSyncGroup"] = "Gilden- & Gruppen-Synchronisation (AceComm-3.0)"
+L["enableCommSync"] = "Quest-/Gegenstandsausschlüsse von Gruppe, Raid & Gilde empfangen"
+L["enableCommSyncDesc"] = "Übernimmt automatisch ausgeschlossene Quests, die von anderen Factionizer-Nutzern in deiner Gruppe oder Gilde geteilt werden."
+L["shareGuild"] = "Ausschlüsse teilen (Gilde)"
+L["shareGroup"] = "Ausschlüsse teilen (Gruppe / Raid)"
+L["exportImportGroup"] = "Profil & Ausschlüsse Export / Import (LibDeflate)"
+L["exportString"] = "Export-String (Strg+C zum Kopieren)"
+L["exportStringDesc"] = "Komprimierte Zeichenkette mit deinen aktuellen Profileinstellungen und ausgeschlossenen Quests."
+L["importString"] = "Import-String (Einfügen & Importieren klicken)"
+L["importBtn"] = "Profil & Ausschlüsse importieren"
+L["importSuccess"] = "Profil erfolgreich importiert!"
+L["importFailed"] = "Import fehlgeschlagen: "
+L["dbSummaryTitle"] = "Datenbank- & Profilübersicht"
+L["linksTitle"] = "GitHub, Wago.io & Unterstützung (Strg+C)"
+L["supportDonate"] = "Unterstützen & Spenden (gOOvER)"
+L["aboutDesc"] = "\nUmfassender Ruf-Assistent für alle World of Warcraft-Erweiterungen (Classic, Forever, TBC, Wrath, Cataclysm, Mists of Pandaria, Warlords of Draenor, Legion, Battle for Azeroth, Shadowlands, Dragonflight, The War Within und Midnight).\n"
+L["reputationDetails"] = "Ruf-Details"
+L["uiFontSize"] = "UI-Schriftgröße (10 - 18 pt)"
+L["authorsLabel"] = "Autoren:"
+L["architectureLabel"] = "Architektur:"
+L["expansionModules"] = "Erweiterungs-Module:"
+L["registeredZones"] = "Registrierte Zonen:"
+L["suppressedQuestsCount"] = "Ausgeschlossene Quests:"
+L["githubRepo"] = "GitHub-Repository"
+L["commNotInGroup"] = "Teilen nicht möglich (in keiner Gruppe oder Gilde)."
+L["commSharedVia"] = "Quest-/Gegenstandsausschlüsse über %s geteilt."
+L["commReceivedFrom"] = "%d Ausschlüsse von %s empfangen."
+L["worldQuests"] = "Weltquests"
+L["emissaryQuest"] = "Abgesandtenquest"
+L["weeklyQuest"] = "Wöchentliche Quest"
+L["contractWQ"] = "Vertrag (Weltquests)"
+L["covenantCalling"] = "Pakt-Berufung"
+L["bountifulDelve"] = "Großzügige Tiefe"
+L["specialAssignment"] = "Spezialauftrag"
+L["extendDetailsTip"] = "Zeigt ein erweitertes Ruf-Detailfenster mit fehlendem Ruf, Gegenständen in Taschen/Bank und einer Liste aller Möglichkeiten zur Rufsteigerung an."
+L["showMissingTip"] = "Fügt im Ruffenster hinter der aktuellen Rufstufe jeder Fraktion die bis zur nächsten Stufe fehlenden Rufpunkte hinzu."
+L["orderByStandingTip"] = "Wenn diese Option nicht ausgewählt ist, wird die Fraktionsliste in der Standard-Blizzard-Sortierung nach Gruppen angezeigt.\r\n\r\nWenn diese Option ausgewählt ist, wird die Fraktionsliste nach Rufstufe sortiert.\r\n\r\nUm |cFFFAA0A0inaktive|r Fraktionen zu sehen, deaktiviere diese Option und scrolle ans Ende der Liste."
+L["showPreviewRepTip"] = "Zeigt Ruf, der durch Abgabe von Gegenständen in Taschen/Bank und abgeschlossenen Quests sofort erlangt werden kann, als grauen Vorschaubalken in der Rufleiste an."
+L["writeChatMessageTip"] = "Zeigt bei jedem Rufzuwachs detaillierte Chat-Nachrichten mit Sitzungsgewinn und verbleibendem Ruf an."
+L["noGuildGainTip"] = "Unterdrückt detaillierte Chat-Nachrichten für Gildenruf."
+L["suppressOriginalChatTip"] = "Unterdrückt die Standard-Rufzuwachsnachrichten des Spiels, damit Rufgewinne nicht doppelt im Chat stehen."
+L["switchFactionBarTip"] = "Wechselt die beobachtete Fraktion der Erfahrungs-/Rufleiste automatisch auf die Fraktion, bei der zuletzt Ruf erhalten wurde."
+L["noGuildSwitchTip"] = "Verhindert, dass die beobachtete Rufleiste bei Gildenruf-Zuwächsen umgeschaltet wird."
+L["silentSwitchTip"] = "Schaltet die beobachtete Rufleiste ohne Hinweis im Chat um."
+L["showQuestsTip"] = "Aktiviere diese Option, um Quests anzuzeigen, die du für Rufzuwachs abschließen kannst."
+L["showItemsTip"] = "Aktiviere diese Option, um Gegenstände anzuzeigen, die du für Rufzuwachs abgeben kannst."
+L["showMobsTip"] = "Aktiviere diese Option, um Gegner anzuzeigen, die du für Rufzuwachs besiegen kannst."
+L["showInstancesTip"] = "Aktiviere diese Option, um Instanzen anzuzeigen, die du für Rufzuwachs abschließen kannst."
+L["showGeneralTip"] = "Aktiviere diese Option, um allgemeine Möglichkeiten zum Rufzuwachs anzuzeigen."
+L["showAllTip"] = "Klicke hier, um alle vier links stehenden Filter zu aktivieren.\r\nDadurch werden Gegner, Quests, Gegenstände und Instanzen für die ausgewählte Fraktion angezeigt."
+L["showNoneTip"] = "Klicke hier, um alle vier links stehenden Filter zu deaktivieren."
+L["suppressNoneTip"] = "Klicke hier, um alle durch Rechtsklick ausgeschlossenen Quests für alle Fraktionen wieder zu aktivieren."
+
+
+

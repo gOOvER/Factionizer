@@ -1,16 +1,70 @@
-## Interface: 70100
-## Title: Factionizer
-## Version: 7.0.0-alpha
-## Author: gOOvER (Scheol), Malorne-EU
-## URL: http://wow.curseforge.com/addons/factionizer/
-## Description: Tells you what you can do to improve your faction
-## Notes: Tells you what you can do to improve your factions
-## SavedVariables: FIZ_Data
-## SavedVariablesPerCharacter: FIZ_Suppressed
-## OptionalDeps: Ace3, LibQTip-1.0, LibStub, CallbackHandler-1.0
+## Interface: 11508, 11509, 16001, 20505, 20506, 30405, 38002, 40402, 50503, 50504, 120007, 120100, 120105, 120107
+## Interface-Retail: 120007, 120100, 120105, 120107
+## Interface-Classic: 11508, 11509, 16001
+## Interface-BCC: 20505, 20506
+## Interface-Wrath: 30405, 38002
+## Interface-Cata: 40402
+## Interface-Mists: 50503, 50504
+## Title: Factionizer |cff00aa007.0.0|r
+## Notes: Reputation management tool showing how to gain reputation with any faction (Ace3 Edition)
+## Notes-deDE: Ruf-Verwaltungs-Addon, das anzeigt, wie man Ruf bei allen Fraktionen steigern kann (Ace3 Edition)
+## Author: Urbin, Millán-Aszune, gOOvER
+## Version: 7.0.0
+## X-Date: 2026-11-07
+## X-Category: Reputation
+## X-Website: https://github.com/gOOvER/Factionizer
+## IconTexture: Interface\Icons\Achievement_Reputation_01
+## AddonCompartmentFunc: Factionizer_OnAddonCompartmentClick
+## AddonCompartmentFuncOnEnter: Factionizer_OnAddonCompartmentEnter
+## AddonCompartmentFuncOnLeave: Factionizer_OnAddonCompartmentLeave
+## SavedVariables: FactionizerDB
+## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, LibDataBroker-1.1, LibDBIcon-1.0, LibSharedMedia-3.0, HereBeDragons-2.0, LibQTip-1.0, LibWindow-1.1, LibSink-2.0, LibDeflate
 
 embeds.xml
-content.lua
-mapping.lua
-locale.xml
-Factionizer.xml
+
+# Locales
+Locales\enUS.lua
+Locales\deDE.lua
+Locales\frFR.lua
+Locales\esES.lua
+Locales\esMX.lua
+Locales\itIT.lua
+Locales\koKR.lua
+Locales\ptBR.lua
+Locales\ruRU.lua
+Locales\zhCN.lua
+Locales\zhTW.lua
+Locales\FactionizerLocale.lua
+
+# Data
+Data\Constants.lua
+Data\Mapping.lua
+Data\Content.lua
+Data\Content_Classic.lua
+Data\Content_Forever.lua
+Data\Content_TBC.lua
+Data\Content_Wrath.lua
+Data\Content_Cata.lua
+Data\Content_MoP.lua
+Data\Content_WoD.lua
+Data\Content_Legion.lua
+Data\Content_BfA.lua
+Data\Content_SL.lua
+Data\Content_DF.lua
+Data\Content_TWW.lua
+Data\Content_Midnight.lua
+
+# Core
+Core\Polyfills.lua
+Core\Util.lua
+Core\Storage.lua
+Core\Reputation.lua
+Core\Commands.lua
+Core\Main.lua
+
+# GUI
+GUI\UIStyle.lua
+GUI\Options.lua
+GUI\Minimap.lua
+GUI\ReputationFrame.lua
+GUI\DetailFrame.lua

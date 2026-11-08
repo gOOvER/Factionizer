@@ -1,10 +1,10 @@
 <Bindings>
-	<Binding name="SHOWCONFIG" header="FACTIONIZER" runOnUp="true">
+	<Binding name="SHOWCONFIG" header="FACTIONIZER" category="ADDONS" runOnUp="true">
 		if ( keystate == "down" ) then
 			FIZ_ToggleConfigWindow()
 		end
 	</Binding>
-	<Binding name="SHOWDETAILS" header="FACTIONIZER" runOnUp="true">
+	<Binding name="SHOWDETAILS" category="ADDONS" runOnUp="true">
 		if ( keystate == "down" ) then
 			FIZ_ToggleDetailWindow()
 		end

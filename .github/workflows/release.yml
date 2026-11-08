@@ -1,0 +1,95 @@
+name: 📦 Release
+
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 1.0.0 or 1.0.0-beta1). Use "auto" to read from CHANGELOG.md or .toc'
+        required: true
+        type: string
+        default: 'auto'
+      create_tag:
+        description: 'Create and push git tag for the release'
+        required: true
+        type: boolean
+        default: true
+
+jobs:
+  package-addon:
+    name: Package & Publish Addon (BigWigs Packager)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git user & tag (when triggered via workflow_dispatch)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          VERSION="${{ github.event.inputs.version }}"
+          if [[ -z "$VERSION" || "$VERSION" == "auto" ]]; then
+            if [[ -f CHANGELOG.md ]]; then
+              VERSION=$(awk '/^## \[/{gsub(/\[|\]/, "", $2); print $2; exit}' CHANGELOG.md)
+            fi
+            if [[ -z "$VERSION" ]]; then
+              VERSION=$(grep -h -m1 '^## Version:' *.toc */*.toc 2>/dev/null | head -n 1 | sed 's/^## Version:[[:space:]]*//' | tr -d '\r')
+            fi
+          fi
+          TAG_NAME="v${VERSION#v}"
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+
+          if ! git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            git tag -a "$TAG_NAME" -m "Release $TAG_NAME"
+          else
+            git tag -f -a "$TAG_NAME" -m "Release $TAG_NAME"
+          fi
+
+          if [[ "${{ github.event.inputs.create_tag }}" == "true" ]]; then
+            git push -f origin "$TAG_NAME"
+          fi
+
+      - name: Ensure CHANGELOG.md exists for BigWigs Packager release notes
+        run: |
+          if [[ ! -f CHANGELOG.md ]]; then
+            echo "# Changelog" > CHANGELOG.md
+            echo "" >> CHANGELOG.md
+            git log -n 20 --pretty=format:"- %s" >> CHANGELOG.md
+            echo "" >> CHANGELOG.md
+          fi
+
+      - name: Package with BigWigs Packager (Retail, Classic, BCC, Wrath, Cata, Mists, Forever)
+        uses: BigWigsMods/packager@v2
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+          WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Attach per-flavor ZIP copies to GitHub Release (Wago.io GitHub Webhook fallback)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG_NAME="${TAG_NAME:-${GITHUB_REF_NAME}}"
+          PKG_NAME=$(awk '/^package-as:/{print $2; exit}' .pkgmeta | tr -d '\r')
+          BASE_ZIP=$(ls .release/${PKG_NAME}-*.zip 2>/dev/null | grep -v "\-nolib" | head -n 1)
+          if [ -n "$BASE_ZIP" ] && [ -f "$BASE_ZIP" ] && [ -n "$TAG_NAME" ]; then
+            for SUFFIX in "-mists" "-cata" "-wrath" "-bcc" "-forever" "-classic"; do
+              TARGET_ZIP=".release/${PKG_NAME}-${TAG_NAME}${SUFFIX}.zip"
+              if [ ! -f "$TARGET_ZIP" ]; then
+                cp "$BASE_ZIP" "$TARGET_ZIP"
+                gh release upload "$TAG_NAME" "$TARGET_ZIP" --clobber || true
+              fi
+            done
+          fi
+

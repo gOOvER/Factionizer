@@ -1,0 +1,30 @@
+# OS / Editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*.tmp
+*.bak
+*.orig
+*~
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# External libraries downloaded via .pkgmeta
+libs/
+
+# Changelog (do not include in AddOns folder / repo)
+CHANGELOG.md
+
+# Build / Release artifacts
+pkg/
+release/
+.release/
+dist/
+*.zip
+*.tar
+*.tar.gz

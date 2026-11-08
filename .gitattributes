@@ -1,0 +1,9 @@
+.github export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+.luacheckrc export-ignore
+.pkgmeta export-ignore
+CHANGELOG.md export-ignore
+README.md export-ignore
+LICENSE export-ignore
+

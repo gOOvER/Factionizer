@@ -1,0 +1,50 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  luacheck:
+    name: Lua Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Lua and luacheck
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y lua5.1 luarocks
+        sudo luarocks install luacheck
+
+    - name: Run luacheck
+      run: |
+        echo "Running luacheck..."
+        luacheck --no-color --codes . || true
+
+  toc-validation:
+    name: TOC Validation
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Validate TOC files
+      run: |
+        FOUND=0
+        for toc in *.toc */*.toc; do
+          if [ -f "$toc" ]; then
+            echo "✅ TOC file found: $toc"
+            FOUND=1
+          fi
+        done
+        if [ "$FOUND" -eq 0 ]; then
+          echo "❌ No TOC file found!"
+          exit 1
+        fi
+

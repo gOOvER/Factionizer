@@ -1,318 +1,346 @@
--- Default (English)		
---------------------	--------------------	
-		
-		
--- Binding names		
-BINDING_HEADER_FACTIONIZER	= "Factionizer"	
-BINDING_NAME_SHOWCONFIG	= "Show options window"	
-BINDING_NAME_SHOWDETAILS	= "Show reputation detail window"	
-		
-FIZ_TXT	= {}
-FIZ_TXT.Mob = {}
--- help		
-FIZ_TXT.help	= "A tool to manage your reputation"	
-FIZ_TXT.command	= "Could not parse command"	
-FIZ_TXT.usage	= "Usage"	
-FIZ_TXT.helphelp	= "Show this help text"	
-FIZ_TXT.helpabout	= "Show author information"	
-FIZ_TXT.helpstatus	= "Show configuration status"	
--- about		
-FIZ_TXT.by	= "by"	
-FIZ_TXT.version	= "Version"	
-FIZ_TXT.date	= "Date"	
-FIZ_TXT.web	= "Website"	
-FIZ_TXT.slash	= "Slash command"	
-FIZ_TXT_STAND_LV	= {}	
-FIZ_TXT_STAND_LV[0]	= "Unknown"	
-FIZ_TXT_STAND_LV[1]	= "Hated"	
-FIZ_TXT_STAND_LV[2]	= "Hostile"	
-FIZ_TXT_STAND_LV[3]	= "Unfriendly"	
-FIZ_TXT_STAND_LV[4]	= "Neutral"	
-FIZ_TXT_STAND_LV[5]	= "Friendly"	
-FIZ_TXT_STAND_LV[6]	= "Honored"	
-FIZ_TXT_STAND_LV[7]	= "Revered"	
-FIZ_TXT_STAND_LV[8]	= "Exalted"	
--- status		
-FIZ_TXT.status	= "Status"	
-FIZ_TXT.disabled	= "disabled"	
-FIZ_TXT.enabled	= "enabled"	
-FIZ_TXT.statMobs	= "Show Mobs [M]"	
-FIZ_TXT.statQuests	= "Show Quests [Q]"	
-FIZ_TXT.statInstances	= "Show Instances [D]"	
-FIZ_TXT.statItems	= "Show Items [I]"	
-FIZ_TXT.statGeneral	= "Show General [G]"	
-FIZ_TXT.statMissing	= "Show missing reputation"	
-FIZ_TXT.statDetails	= "Show extended detail frame"	
-FIZ_TXT.statChat	= "Detailed chat message"	
-FIZ_TXT.statNoGuildChat	= "No chat for guild rep"	
-FIZ_TXT.statSuppress	= "Suppress original chat message"	
-FIZ_TXT.statPreview	= "Show preview rep in reputation frame"	
-FIZ_TXT.statSwitch	= "Automatically switch faction of rep bar"	
-FIZ_TXT.statNoGuildSwitch	= "No switching for guild rep"	
-FIZ_TXT.statSilentSwitch	= "No message when switching bar"	
-FIZ_TXT.statGuildCap	= "Show guild reputation cap in chat"	
--- XML UI elements		
-FIZ_TXT.showQuests	= "Show Quests"	
-FIZ_TXT.showInstances	= "Show Instances"	
-FIZ_TXT.showMobs	= "Show Mobs"	
-FIZ_TXT.showItems	= "Show Items"	
-FIZ_TXT.showGeneral	= "Show General"	
-FIZ_TXT.showAll	= "Show All"	
-FIZ_TXT.showNone	= "Show None"	
-FIZ_TXT.expand	= "Expand"	
-FIZ_TXT.collapse	= "Collapse"	
-FIZ_TXT.supressNoneFaction	= "Clear exclusion for faction"	
-FIZ_TXT.supressNoneGlobal	= "Clear exclusion for all"	
-FIZ_TXT.suppressHint	= "Right-click on a quest to exclude it from the summary"	
-FIZ_TXT.clearSessionGain	= "Clear session gain counter"	
--- options dialog		
-FIZ_TXT.showMissing	= "Show missing reputation in reputation frame"	
-FIZ_TXT.extendDetails	= "Show extended reputation detail frame"	
-FIZ_TXT.gainToChat	= "Write detailed faction gain messages to chat window"	
-FIZ_TXT.noGuildGain	= "Do not write to chat for guild reputation"	
-FIZ_TXT.suppressOriginalGain	= "Supress original faction gain messages"	
-FIZ_TXT.showPreviewRep	= "Show reputation that can be handed in in reputation frame"	
-FIZ_TXT.switchFactionBar	= "Switch reputation bar to faction for whom just gained reputation"	
-FIZ_TXT.noGuildSwitch	= "Do not switch reputation bar for guild reputation"	
-FIZ_TXT.silentSwitch	= "No message to chat when switching bar"	
-FIZ_TXT.guildCap	= "Show guild reputation cap in chat"	
-FIZ_TXT.defaultChatFrame	= "Using default chat frame"	
-FIZ_TXT.chatFrame	= "Using chat frame %d (%s)"	
-FIZ_TXT.usingDefaultChatFrame	= "Now using default chat frame"	
-FIZ_TXT.usingChatFrame	= "Now using chat frame"	
--- various LUA		
-FIZ_TXT.options	= "Options"	
-FIZ_TXT.orderByStanding	= "Order by Standing"	
-FIZ_TXT.lookup	= "Looking up faction "	
-FIZ_TXT.allFactions	= "Listing all factions"	
-FIZ_TXT.missing	= "(to next)"	
-FIZ_TXT.missing2	= "Missing"	
-FIZ_TXT.heroic	= "Heroic"	
-FIZ_TXT.normal	= "Normal"	
-FIZ_TXT.switchBar	= "Changing reputation bar to"	
--- FIZ_ShowFactions		
-FIZ_TXT.faction	= "Faction"	
-FIZ_TXT.is	= "is"	
-FIZ_TXT.withStanding	= "with standing"	
-FIZ_TXT.needed	= "needed"	
-FIZ_TXT.mob	= "[Mob]"	
-FIZ_TXT.limited	= "is limited to"	
-FIZ_TXT.limitedPl	= "are limited to"	
-FIZ_TXT.quest	= "[Quest]"	
-FIZ_TXT.instance	= "[Instance]"	
-FIZ_TXT.items	= "[Items]"	
-FIZ_TXT.unknown	= "is not known to this player"	
--- mob Details		
-FIZ_TXT.tmob	= "Trash mobs"	
-FIZ_TXT.oboss	= "Other Bosses"	
-FIZ_TXT.aboss	= "All Bosses"	
-FIZ_TXT.pboss	= "Per Boss"	
-FIZ_TXT.fclear	= "full clear"	
-FIZ_TXT.AU	= "Any Unnamed"	
-FIZ_TXT.AN	= "Any named"	
-FIZ_TXT.BB	= "Bloodsail Buccaneer"	
-FIZ_TXT.SSP	= "Southsea Pirate"	
-FIZ_TXT.Wa	= "Wastewander"	
-FIZ_TXT.VCm	= "Any Venture Co. mob"	
-FIZ_TXT.Mob.MoshOgg_Spellcrafter = "Mosh'Ogg Spellcrafter"
-FIZ_TXT.Mob.BoulderfistOgre = "Boulderfist Ogre"
--- Quest Details		
-FIZ_TXT.cdq	= "Main city cooking daily quests"	
-FIZ_TXT.coq	= "Other city cooking daily quests"	
-FIZ_TXT.fdq	= "Main city fishing daily quests"	
-FIZ_TXT.foq	= "Other city fishing daily quests"	
-FIZ_TXT.ndq	= "no daily quests"	
-FIZ_TXT.deleted	= "Outdated"	
-FIZ_TXT.Championing	= "Championing (Tabard)"	
-FIZ_TXT.bpqfg	= "By percent of quest faction gain"	
-		
--- items Details		
-FIZ_TXT.cbadge	= "Other city Commendation Badge"	
--- instance Details		
-FIZ_TXT.srfd	= "Spillover rep from dungeons"	
-FIZ_TXT.tbd	= "ToBe Done"	
-FIZ_TXT.nci	= "Normal Cataclysm instances"	
-FIZ_TXT.hci	= "Heroic Cataclysm instances"	
--- ToBeDone general		
-FIZ_TXT.tfr	= "Tiller Farming rep"	
-FIZ_TXT.nswts	= "Not sure when this starts"	
-FIZ_TXT.mnd	= "Max number of daily quests"	
-FIZ_TXT.mnds	= "The max number of dallies is "	
-		
-		
-		
-		
-		
--- ReputationDetails		
-FIZ_TXT.currentRep	= "Current reputation"	
-FIZ_TXT.neededRep	= "Reputation needed"	
-FIZ_TXT.missingRep	= "Reputation missing"	
-FIZ_TXT.repInBag	= "Reputation in bag"	
-FIZ_TXT.repInBagBank	= "Reputation in bag & bank"	
-FIZ_TXT.repInQuest	= "Reputation in quests"	
-FIZ_TXT.factionGained	= "Gained this session"	
-FIZ_TXT.noInfo	= "No information available for this faction/reputation."	
-FIZ_TXT.toExalted	= "Reputation to exalted"	
--- to chat		
-FIZ_TXT.stats	= " (Total: %s%d, Left: %d)"	
--- config changed		
-FIZ_TXT.configQuestion	= "Some (new) settings were enabled. This is only done once for a setting. It is recommended that you verify the Factionizer options."	
-FIZ_TXT.showConfig	= "View config"	
-FIZ_TXT.later	= "Later"	
--- UpdateList		
-FIZ_TXT.mobShort	= "[M]"	
-FIZ_TXT.questShort	= "[Q]"	
-FIZ_TXT.instanceShort	= "[D]"	
-FIZ_TXT.itemsShort	= "[I]"	
-FIZ_TXT.generalShort	= "[G]"	
-FIZ_TXT.mobHead	= "Gain reputation by killing this mob"	
-FIZ_TXT.questHead	= "Gain reputation by doing this quest"	
-FIZ_TXT.instanceHead	= "Gain reputation by running this instance"	
-FIZ_TXT.itemsHead	= "Gain reputation by handing in items"	
-FIZ_TXT.generalHead	= "General information about gaining reputation"	
-FIZ_TXT.mobTip	= "Each time you kill this mob, you gain reputation. Doing this often enough, will help you reach the next level."	
-FIZ_TXT.questTip	= "Each time you complete this repeatable or daily quest, you gain reputation. Doing this often enough, will help you reach the next level."	
-FIZ_TXT.instanceTip	= "Each time you run this instance, you gain reputation. Doing this often enough, will help you reach the next level."	
-FIZ_TXT.itemsName	= "Item hand-in"	
-FIZ_TXT.itemsTip	= "Each time you hand in the listed items, you will gain reputation. Doing this often enough, will help you reach the next level."	
-FIZ_TXT.generalTip	= "This is information about reputation gain with a faction that does not necessarily relate to repeatable gain methods."	
-FIZ_TXT.allOfTheAbove	= "Summary of %d quests listed above"	
-FIZ_TXT.questSummaryHead	= FIZ_TXT.allOfTheAbove	
-FIZ_TXT.questSummaryTip	= "This entry shows a summary of all the quests listed above.\r\nThis is useful assuming that all the quests listed are daily quests, as this will show you how many days it will take you to reach the next reputation level if you do all the daily quests each day."	
-FIZ_TXT.complete	= "complete"	
-FIZ_TXT.active	= "active"	
-FIZ_TXT.inBag	= "In bags"	
-FIZ_TXT.turnIns	= "Turn-ins:"	
-FIZ_TXT.reputation	= "Reputation:"	
-FIZ_TXT.reputationCap	= "Reputation cap:"	
-FIZ_TXT.reputationCapCurrent	= "Current reputation:"	
-FIZ_TXT.inBagBank	= "In bags and bank"	
-FIZ_TXT.questCompleted	= "Quest completed"	
-FIZ_TXT.timesToDo	= "Times to do:"	
-FIZ_TXT.instance2	= "Instance:"	
-FIZ_TXT.mode	= "Mode:"	
-FIZ_TXT.timesToRun	= "Times to run:"	
-FIZ_TXT.mob2	= "Mob:"	
-FIZ_TXT.location	= "Location:"	
-FIZ_TXT.toDo	= "To do:"	
-FIZ_TXT.quest2	= "Quest:"	
-FIZ_TXT.itemsRequired	= "Items required"	
-FIZ_TXT.general2	= "General:"	
-FIZ_TXT.maxStanding	= "Yields reputation until"	
--- skills		
-FIZ_TXT.skillHerb	= "Herbalism"	
-FIZ_TXT.skillMine	= "Mining"	
-FIZ_TXT.skillSkin	= "Skinning"	
-FIZ_TXT.skillAlch	= "Alchemy"	
-FIZ_TXT.skillBlack	= "Blacksmithing"	
-FIZ_TXT.skillEnch	= "Enchanting"	
-FIZ_TXT.skillEngi	= "Engineering"	
-FIZ_TXT.skillIncrip	= "Inscription"	
-FIZ_TXT.skillJewel	= "Jewelcrafting"	
-FIZ_TXT.skillLeath	= "Leatherworking"	
-FIZ_TXT.skillTail	= "Tailoring"	
-FIZ_TXT.skillAid	= "First Aid"	
-FIZ_TXT.skillArch	= "Archaeology"	
-FIZ_TXT.skillCook	= "Cooking"	
-FIZ_TXT.skillFish	= "Fishing"	
--- Tooltip		
-FIZ_TXT.elements	= {}	
-FIZ_TXT.elements.name	= {}	
-FIZ_TXT.elements.tip	= {}	
-		
-FIZ_TXT.elements.name.FIZ_OptionsButton	= FIZ_TXT.options	
-FIZ_TXT.elements.tip.FIZ_OptionsButton	= "Open a window to configure Factionizer."	
-FIZ_TXT.elements.name.FIZ_OrderByStandingCheckBox	= FIZ_TXT.orderByStanding	
-FIZ_TXT.elements.tip.FIZ_OrderByStandingCheckBox	= "If this box is unchecked, the faction list is displayed by default (Blizzard) sorting, grouped by logical and alphabetical order.\r\n\r\nIf this box is checked, the faction list is sorted by standing.\r\n\r\nTo view the |cFFFAA0A0inactive|r factions, uncheck this box and go to the bottom of the list."	
-		
-FIZ_TXT.elements.name.FIZ_ShowMobsButton	= FIZ_TXT.showMobs	
-FIZ_TXT.elements.tip.FIZ_ShowMobsButton	= "Check this button to see mobs you can kill to improve your reputation."	
-FIZ_TXT.elements.name.FIZ_ShowQuestButton	= FIZ_TXT.showQuests	
-FIZ_TXT.elements.tip.FIZ_ShowQuestButton	= "Check this button to see quests you can do to improve your reputation."	
-FIZ_TXT.elements.name.FIZ_ShowItemsButton	= FIZ_TXT.showItems	
-FIZ_TXT.elements.tip.FIZ_ShowItemsButton	= "Check this button to see items you can hand in to improve your reputation."	
-FIZ_TXT.elements.name.FIZ_ShowInstancesButton	= FIZ_TXT.showInstances	
-FIZ_TXT.elements.tip.FIZ_ShowInstancesButton	= "Check this button to see instances you can run to improve your reputation."	
-FIZ_TXT.elements.name.FIZ_ShowGeneralButton	= FIZ_TXT.showGeneral	
-FIZ_TXT.elements.tip.FIZ_ShowGeneralButton	= "Check this button to see general information about improving your reputation."	
-		
-FIZ_TXT.elements.name.FIZ_ShowAllButton	= FIZ_TXT.showAll	
-FIZ_TXT.elements.tip.FIZ_ShowAllButton	= "Press this button to check all four of the checkboxes to the left.\r\nThis will show mobs, quests, items and instances that give you reputation for the currently selected faction."	
-FIZ_TXT.elements.name.FIZ_ShowNoneButton	= FIZ_TXT.showNone	
-FIZ_TXT.elements.tip.FIZ_ShowNoneButton	= "Press this button to deselect all four of the checkboxes to the left.\r\nThis will show you none of the ways to gain reputation for the currently selected faction."	
-		
-FIZ_TXT.elements.name.FIZ_ExpandButton	= FIZ_TXT.expand	
-FIZ_TXT.elements.tip.FIZ_ExpandButton	= "Press this button to expand all entries in the list. This will show you the materials needed to hand in any item gathering quests."	
-FIZ_TXT.elements.name.FIZ_CollapseButton	= FIZ_TXT.collapse	
-FIZ_TXT.elements.tip.FIZ_CollapseButton	= "Press this button to collapse all entries in the list. This will hide the materials needed to hand in gathering quests."	
-FIZ_TXT.elements.name.FIZ_SupressNoneFactionButton	= FIZ_TXT.supressNoneFaction	
-FIZ_TXT.elements.tip.FIZ_SupressNoneFactionButton	= "Press this button to re-enable all quests for this faction that you have excluded by righ-clicking on it."	
-FIZ_TXT.elements.name.FIZ_SupressNoneGlobalButton	= FIZ_TXT.supressNoneGlobal	
-FIZ_TXT.elements.tip.FIZ_SupressNoneGlobalButton	= "Press this button to re-enable all quests for all factions that you have excluded by right-clicking on it."	
-FIZ_TXT.elements.name.FIZ_ClearSessionGainButton	= FIZ_TXT.clearSessionGain	
-FIZ_TXT.elements.tip.FIZ_ClearSessionGainButton	= "Press this button to clear reset the counter for reputation gained this session."	
-		
-FIZ_TXT.elements.name.FIZ_EnableMissingBox	= FIZ_TXT.showMissing	
-FIZ_TXT.elements.tip.FIZ_EnableMissingBox	= "Enable this setting to add the missing reputation points needed for the next reputation level behind the current standing of each faction in the reputation frame."	
-FIZ_TXT.elements.name.FIZ_ExtendDetailsBox	= FIZ_TXT.extendDetails	
-FIZ_TXT.elements.tip.FIZ_ExtendDetailsBox	= "Enable this setting to display an extended reputation detail frame.\r\nIn addition the information shown in the original detail frame, this will display the missing reputation needed to reach the next reputation level and a list of ways to gain this reputation by listing quests, mobs, items and instances that yield reputation for the chosen faction."	
-FIZ_TXT.elements.name.FIZ_GainToChatBox	= FIZ_TXT.gainToChat	
-FIZ_TXT.elements.tip.FIZ_GainToChatBox	= "Enable this setting to display reputation gained for all factions whenever you gain reputation.\r\nThis differs from the standard way of reporting reputation gain, as normally, only the gain with the main faction is listed."	
-FIZ_TXT.elements.name.FIZ_NoGuildGainBox	= FIZ_TXT.noGuildGain	
-FIZ_TXT.elements.tip.FIZ_NoGuildGainBox	= "Enable this setting to not print messages to chat for guild reputation."	
-FIZ_TXT.elements.name.FIZ_SupressOriginalGainBox	= FIZ_TXT.suppressOriginalGain	
-FIZ_TXT.elements.tip.FIZ_SupressOriginalGainBox	= "Enable this setting to suppress the standard reputation gain messages.\r\nThis makes sense if you have enabled the detailed faction gain messages, so you don't get identical listings from the standard and extended versions."	
-FIZ_TXT.elements.name.FIZ_ShowPreviewRepBox	= FIZ_TXT.showPreviewRep	
-FIZ_TXT.elements.tip.FIZ_ShowPreviewRepBox	= "Enable this setting to show the reputation you can gain by handing in items and completed quests as a grey bar overlaid over the normal reputation bar in the reputation frame."	
-FIZ_TXT.elements.name.FIZ_SwitchFactionBarBox	= FIZ_TXT.switchFactionBar	
-FIZ_TXT.elements.tip.FIZ_SwitchFactionBarBox	= "Enable this setting to automatically switch the faction being watched to the last faction whom you have gained reputation for."	
-FIZ_TXT.elements.name.FIZ_NoGuildSwitchBox	= FIZ_TXT.noGuildSwitch	
-FIZ_TXT.elements.tip.FIZ_NoGuildSwitchBox	= "Enable this setting to not switch the watched faction for guild reputation gains."	
-FIZ_TXT.elements.name.FIZ_SilentSwitchBox	= FIZ_TXT.silentSwitch	
-FIZ_TXT.elements.tip.FIZ_SilentSwitchBox	= "Enable this setting to switch the reputation bar silently (without a message to chat)."	
-FIZ_TXT.elements.name.FIZ_GuildCapBox	= FIZ_TXT.guildCap	
-FIZ_TXT.elements.name.FIZ_ChatFrameSlider	= "Chat frame"	
-FIZ_TXT.elements.tip.FIZ_ChatFrameSlider	= "Select which chat frame Factionizer prints its messages."	
-		
-FIZ_TXT.elements.name.FIZ_OptionEnableMissing	= FIZ_TXT.elements.name.FIZ_EnableMissingBox	
-FIZ_TXT.elements.tip.FIZ_OptionEnableMissing	= FIZ_TXT.elements.tip.FIZ_EnableMissingBox	
-FIZ_TXT.elements.name.FIZ_OptionEnableMissingCB	= FIZ_TXT.elements.name.FIZ_EnableMissingBox	
-FIZ_TXT.elements.tip.FIZ_OptionEnableMissingCB	= FIZ_TXT.elements.tip.FIZ_EnableMissingBox	
-FIZ_TXT.elements.name.FIZ_OptionExtendDetails	= FIZ_TXT.elements.name.FIZ_ExtendDetailsBox	
-FIZ_TXT.elements.tip.FIZ_OptionExtendDetails	= FIZ_TXT.elements.tip.FIZ_ExtendDetailsBox	
-FIZ_TXT.elements.name.FIZ_OptionExtendDetailsCB	= FIZ_TXT.elements.name.FIZ_ExtendDetailsBox	
-FIZ_TXT.elements.tip.FIZ_OptionExtendDetailsCB	= FIZ_TXT.elements.tip.FIZ_ExtendDetailsBox	
-FIZ_TXT.elements.name.FIZ_OptionGainToChat	= FIZ_TXT.elements.name.FIZ_GainToChatBox	
-FIZ_TXT.elements.tip.FIZ_OptionGainToChat	= FIZ_TXT.elements.tip.FIZ_GainToChatBox	
-FIZ_TXT.elements.name.FIZ_OptionGainToChatCB	= FIZ_TXT.elements.name.FIZ_GainToChatBox	
-FIZ_TXT.elements.tip.FIZ_OptionGainToChatCB	= FIZ_TXT.elements.tip.FIZ_GainToChatBox	
-FIZ_TXT.elements.name.FIZ_OptionNoGuildGain	= FIZ_TXT.elements.name.FIZ_NoGuildGainBox	
-FIZ_TXT.elements.tip.FIZ_OptionNoGuildGain	= FIZ_TXT.elements.tip.FIZ_NoGuildGainBox	
-FIZ_TXT.elements.name.FIZ_OptionNoGuildGainCB	= FIZ_TXT.elements.name.FIZ_NoGuildGainBox	
-FIZ_TXT.elements.tip.FIZ_OptionNoGuildGainCB	= FIZ_TXT.elements.tip.FIZ_NoGuildGainBox	
-FIZ_TXT.elements.name.FIZ_OptionSupressOriginalGain	= FIZ_TXT.elements.name.FIZ_SupressOriginalGainBox	
-FIZ_TXT.elements.tip.FIZ_OptionSupressOriginalGain	= FIZ_TXT.elements.tip.FIZ_SupressOriginalGainBox	
-FIZ_TXT.elements.name.FIZ_OptionSupressOriginalGainCB	= FIZ_TXT.elements.name.FIZ_SupressOriginalGainBox	
-FIZ_TXT.elements.tip.FIZ_OptionSupressOriginalGainCB	= FIZ_TXT.elements.tip.FIZ_SupressOriginalGainBox	
-FIZ_TXT.elements.name.FIZ_OptionShowPreviewRep	= FIZ_TXT.elements.name.FIZ_ShowPreviewRepBox	
-FIZ_TXT.elements.tip.FIZ_OptionShowPreviewRep	= FIZ_TXT.elements.tip.FIZ_ShowPreviewRepBox	
-FIZ_TXT.elements.name.FIZ_OptionShowPreviewRepCB	= FIZ_TXT.elements.name.FIZ_ShowPreviewRepBox	
-FIZ_TXT.elements.tip.FIZ_OptionShowPreviewRepCB	= FIZ_TXT.elements.tip.FIZ_ShowPreviewRepBox	
-FIZ_TXT.elements.name.FIZ_OptionSwitchFactionBar	= FIZ_TXT.elements.name.FIZ_SwitchFactionBarBox	
-FIZ_TXT.elements.tip.FIZ_OptionSwitchFactionBar	= FIZ_TXT.elements.tip.FIZ_SwitchFactionBarBox	
-FIZ_TXT.elements.name.FIZ_OptionSwitchFactionBarCB	= FIZ_TXT.elements.name.FIZ_SwitchFactionBarBox	
-FIZ_TXT.elements.tip.FIZ_OptionSwitchFactionBarCB	= FIZ_TXT.elements.tip.FIZ_SwitchFactionBarBox	
-FIZ_TXT.elements.name.FIZ_OptionNoGuildSwitch	= FIZ_TXT.elements.name.FIZ_NoGuildSwitchBox	
-FIZ_TXT.elements.tip.FIZ_OptionNoGuildSwitch	= FIZ_TXT.elements.tip.FIZ_NoGuildSwitchBox	
-FIZ_TXT.elements.name.FIZ_OptionNoGuildSwitchCB	= FIZ_TXT.elements.name.FIZ_NoGuildSwitchBox	
-FIZ_TXT.elements.tip.FIZ_OptionNoGuildSwitchCB	= FIZ_TXT.elements.tip.FIZ_NoGuildSwitchBox	
-FIZ_TXT.elements.name.FIZ_OptionSilentSwitch	= FIZ_TXT.elements.name.FIZ_SilentSwitchBox	
-FIZ_TXT.elements.tip.FIZ_OptionSilentSwitch	= FIZ_TXT.elements.tip.FIZ_SilentSwitchBox	
-FIZ_TXT.elements.name.FIZ_OptionSilentSwitchCB	= FIZ_TXT.elements.name.FIZ_SilentSwitchBox	
-FIZ_TXT.elements.tip.FIZ_OptionSilentSwitchCB	= FIZ_TXT.elements.tip.FIZ_SilentSwitchBox	
-FIZ_TXT.elements.name.FIZ_OptionGuildCap	= FIZ_TXT.elements.name.FIZ_GuildCapBox	
-FIZ_TXT.elements.tip.FIZ_OptionGuildCap	= FIZ_TXT.elements.tip.FIZ_GuildCapBox	
-FIZ_TXT.elements.name.FIZ_OptionGuildCapCB	= FIZ_TXT.elements.name.FIZ_GuildCapBox	
-FIZ_TXT.elements.tip.FIZ_OptionGuildCapCB	= FIZ_TXT.elements.tip.FIZ_GuildCapBox	
-FIZ_TXT.elements.name.FIZ_OptionChatFrameSlider	= FIZ_TXT.elements.name.FIZ_ChatFrameSlider	
-FIZ_TXT.elements.tip.FIZ_OptionChatFrameSlider	= FIZ_TXT.elements.tip.FIZ_ChatFrameSlider
+--[[
+	Factionizer - English (enUS / enGB) Localization
+	Author: Urbin, A_Nolan, gOOvER
+	License: GNU General Public License v2.0 (GPL-2.0)
+]]
+
+local AceLocale = LibStub("AceLocale-3.0")
+local L = AceLocale:NewLocale("Factionizer", "enUS", true, true)
+if not L then return end
+
+-- Binding names
+L["BINDING_HEADER_FACTIONIZER"] = "Factionizer"
+L["BINDING_NAME_SHOWCONFIG"] = "Show Options Window"
+L["BINDING_NAME_SHOWDETAILS"] = "Show Reputation Detail Window"
+
+-- General & CLI
+L["by"] = "by"
+L["version"] = "Version"
+L["date"] = "Date"
+L["web"] = "Website"
+L["help"] = "Chat command help"
+L["usage"] = "Usage"
+L["helphelp"] = "Shows this help text"
+L["helpabout"] = "Shows author and version information"
+L["helpstatus"] = "Shows current configuration status"
+L["command"] = "Could not parse command"
+L["status"] = "Current settings"
+L["enabled"] = "enabled"
+L["disabled"] = "disabled"
+L["options"] = "Options"
+L["configQuestion"] = "Some (new) settings were enabled by default. This is only done once per setting. Would you like to review the Factionizer options now?"
+L["showConfig"] = "View Config"
+L["later"] = "Later"
+
+-- Standings & Reputation Window
+L["missing"] = "(to next)"
+L["missing2"] = "Missing"
+L["orderByStanding"] = "Order by Standing"
+L["currentRep"] = "Current reputation"
+L["neededRep"] = "Reputation needed"
+L["missingRep"] = "Reputation missing"
+L["repInBag"] = "Reputation in bag"
+L["repInBagBank"] = "Reputation in bag & bank"
+L["repInQuest"] = "Reputation in quests"
+L["factionGained"] = "Gained this session"
+L["toExalted"] = "Reputation to Exalted"
+L["nextLevel"] = "Next level"
+L["noInfo"] = "No information available for this faction and/or standing."
+L["suppressHint"] = "Right-click on a quest to exclude it from the summary"
+L["switchBar"] = "Switching reputation bar to"
+L["stats"] = " (Total: %s%d, Left: %d)"
+L["paragon"] = "Paragon"
+L["renown"] = "Renown %d"
+
+-- Detail Frame Checkboxes & Buttons
+L["showQuests"] = "Quests"
+L["showInstances"] = "Instances"
+L["showMobs"] = "Mobs"
+L["showItems"] = "Items"
+L["showGeneral"] = "General"
+L["showAll"] = "All"
+L["showNone"] = "None"
+L["expand"] = "Expand"
+L["collapse"] = "Collapse"
+L["supressNoneFaction"] = "Clear excl. for faction"
+L["supressNoneGlobal"] = "Clear excl. for all"
+L["clearSessionGain"] = "Reset session gain counter"
+
+-- Options & Status Labels
+L["showMissing"] = "Show missing reputation in the Reputation frame"
+L["extendDetails"] = "Show extended Reputation Detail frame"
+L["gainToChat"] = "Write detailed faction gain messages to chat"
+L["noGuildGain"] = "Do not write chat messages for Guild reputation"
+L["suppressOriginalGain"] = "Suppress original faction gain chat messages"
+L["showPreviewRep"] = "Show reputation that can be handed in in the Reputation frame"
+L["switchFactionBar"] = "Switch reputation bar to the faction for which you just gained reputation"
+L["noGuildSwitch"] = "Do not switch reputation bar for Guild reputation"
+L["silentSwitch"] = "No chat message when switching reputation bar"
+L["minimapButton"] = "Show Minimap Button"
+L["minimapButtonTip"] = "Display the Factionizer icon on the Minimap for quick access to Reputation and Options."
+L["minimapTooltipLeft"] = "|cFFFFFFFFLeft-Click:|r Toggle Reputation Window"
+L["minimapTooltipRight"] = "|cFFFFFFFFRight-Click:|r Open Factionizer Options"
+L["generalOptions"] = "General Options"
+L["chatOptions"] = "Chat & Reputation Bar"
+L["filterOptions"] = "Reputation Gain Sources"
+L["actionsGroup"] = "Session & Suppression Actions"
+L["profiles"] = "Profiles"
+
+L["statMobs"] = "Show Mobs"
+L["statQuests"] = "Show Quests"
+L["statInstances"] = "Show Instances"
+L["statItems"] = "Show Items"
+L["statGeneral"] = "Show General"
+L["statMissing"] = "Show Missing Reputation"
+L["statDetails"] = "Show Extended Details"
+L["statChat"] = "Detailed Chat Message"
+L["statNoGuildChat"] = "No Chat for Guild Rep"
+L["statSuppress"] = "Suppress Original Chat"
+L["statPreview"] = "Show Preview Rep"
+L["statSwitch"] = "Automatically Switch Rep Bar"
+L["statNoGuildSwitch"] = "No Switch for Guild Rep"
+L["statSilentSwitch"] = "Silent Bar Switch"
+
+-- Entry Types & Tooltips
+L["instanceShort"] = "[D]"
+L["instanceHead"] = "Running Instance"
+L["instanceTip"] = "Run this dungeon to gain reputation."
+L["instance2"] = "Instance:"
+L["mode"] = "Difficulty:"
+L["normal"] = "Normal"
+L["heroic"] = "Heroic"
+L["reputation"] = "Reputation:"
+L["timesToRun"] = "Times to run:"
+L["maxStanding"] = "Yields rep until:"
+
+L["mobShort"] = "[M]"
+L["mobHead"] = "Killing Mob"
+L["mobTip"] = "Each time you kill this mob, you gain reputation. Doing this often enough will help you reach the next level."
+L["mob2"] = "Mob:"
+L["location"] = "Location:"
+L["toDo"] = "Times to do:"
+
+L["questShort"] = "[Q]"
+L["questHead"] = "Completing Quest"
+L["questTip"] = "Each time you complete this repeatable or daily quest, you gain reputation. Right-click to toggle exclusion from summary."
+L["quest2"] = "Quest:"
+L["itemsRequired"] = "Items required"
+L["active"] = "Active"
+L["complete"] = "Completed"
+L["inBag"] = "In Bags"
+L["inBagBank"] = "In Bags and Bank"
+L["turnIns"] = "Turn-ins:"
+L["questCompleted"] = "Quest completed"
+L["allOfTheAbove"] = "Summary of %d quests listed above"
+L["questSummaryHead"] = "Summary of all %d quests"
+L["questSummaryTip"] = "This entry shows a summary of all the quests listed above.\r\nThis is useful assuming that all the quests listed are daily quests, as this will show you how many days it will take you to reach the next reputation level if you do all the daily quests each day."
+L["timesToDo"] = "Times to do:"
+
+L["itemsShort"] = "[I]"
+L["itemsName"] = "Turn in items"
+L["itemsHead"] = "Item Turn-in"
+L["itemsTip"] = "Each time you hand in the listed items, you will gain reputation."
+
+L["generalShort"] = "[G]"
+L["generalHead"] = "General Information"
+L["generalTip"] = "Each time you perform this activity, you gain reputation."
+L["general2"] = "Activity:"
+
+-- Content Strings & Abbreviations
+L["srfd"] = "Spillover rep from dungeons"
+L["tbd"] = "ToBeDone"
+L["mnd"] = "Max number of daily quests"
+L["nci"] = "Normal Cataclysm instances"
+L["hci"] = "Heroic Cataclysm instances"
+L["tmob"] = "Trash mobs"
+L["oboss"] = "Other bosses"
+L["aboss"] = "All Bosses"
+L["pboss"] = "Per Boss"
+L["fclear"] = "Full clear"
+L["AU"] = "Any Unnamed"
+L["AN"] = "Any Named"
+L["BB"] = "Bloodsail Buccaneer"
+L["SSP"] = "Southsea Pirate"
+L["Wa"] = "Wastewander"
+L["VCm"] = "Any Venture Co. mob"
+L["cdq"] = "Main city cooking daily quests"
+L["coq"] = "Other city cooking daily quests"
+L["fdq"] = "Main city fishing daily quests"
+L["foq"] = "Other city fishing daily quests"
+L["ndq"] = "no daily quests"
+L["deleted"] = "Outdated"
+L["Championing"] = "Championing (Tabard)"
+L["bpqfg"] = "By percent of quest faction gain"
+L["djdq"] = "Dalaran jewelcrafting daily quests"
+L["cbadge"] = "Other city Commendation Badge"
+L["tfr"] = "Tiller Farming rep"
+L["nswts"] = "Not sure when this starts"
+
+-- Professions
+L["skillHerb"] = "Herbalism"
+L["skillSkin"] = "Skinning"
+L["skillMine"] = "Mining"
+L["skillAlch"] = "Alchemy"
+L["skillBlack"] = "Blacksmithing"
+L["skillEnch"] = "Enchanting"
+L["skillEngi"] = "Engineering"
+L["skillIncrip"] = "Inscription"
+L["skillJewel"] = "Jewelcrafting"
+L["skillLeath"] = "Leatherworking"
+L["skillTail"] = "Tailoring"
+L["skillAid"] = "First Aid"
+L["skillArch"] = "Archaeology"
+L["skillCook"] = "Cooking"
+L["skillFish"] = "Fishing"
+
+-- Standing Levels
+L["STAND_LV_0"] = "Unknown"
+L["STAND_LV_1"] = "Hated"
+L["STAND_LV_2"] = "Hostile"
+L["STAND_LV_3"] = "Unfriendly"
+L["STAND_LV_4"] = "Neutral"
+L["STAND_LV_5"] = "Friendly"
+L["STAND_LV_6"] = "Honored"
+L["STAND_LV_7"] = "Revered"
+L["STAND_LV_8"] = "Exalted"
+
+-- UI Element Tooltips
+L["ELEM_NAME_FIZ_OptionsButton"] = "Factionizer Options"
+L["ELEM_TIP_FIZ_OptionsButton"] = "Open the Factionizer configuration window."
+L["ELEM_NAME_FIZ_OrderByStandingCheckBox"] = "Order by Standing"
+L["ELEM_TIP_FIZ_OrderByStandingCheckBox"] = "If this box is not checked, the faction list is displayed by default Blizzard sorting, grouped into logical headers.\r\n\r\nIf this box is checked, the faction list is sorted by standing.\r\n\r\nTo view the |cFFFAA0A0inactive|r factions, uncheck this box and go to the bottom of the list."
+L["ELEM_NAME_FIZ_ShowMobsButton"] = "Show Mobs"
+L["ELEM_TIP_FIZ_ShowMobsButton"] = "Check this button to see mobs you can kill to improve your reputation."
+L["ELEM_NAME_FIZ_ShowQuestButton"] = "Show Quests"
+L["ELEM_TIP_FIZ_ShowQuestButton"] = "Check this button to see quests you can do to improve your reputation."
+L["ELEM_NAME_FIZ_ShowItemsButton"] = "Show Items"
+L["ELEM_TIP_FIZ_ShowItemsButton"] = "Check this button to see items you can hand in to improve your reputation."
+L["ELEM_NAME_FIZ_ShowInstancesButton"] = "Show Instances"
+L["ELEM_TIP_FIZ_ShowInstancesButton"] = "Check this button to see instances you can run to improve your reputation."
+L["ELEM_NAME_FIZ_ShowGeneralButton"] = "Show General"
+L["ELEM_TIP_FIZ_ShowGeneralButton"] = "Check this button to see general ways to improve your reputation."
+L["ELEM_NAME_FIZ_ShowAllButton"] = "Show All"
+L["ELEM_TIP_FIZ_ShowAllButton"] = "Press this button to check all four of the checkboxes to the left.\r\nThis will show mobs, quests, items and instances that give you reputation for the currently selected faction."
+L["ELEM_NAME_FIZ_ShowNoneButton"] = "Show None"
+L["ELEM_TIP_FIZ_ShowNoneButton"] = "Press this button to deselect all four of the checkboxes to the left.\r\nThis will show you none of the ways to gain reputation for the currently selected faction."
+L["ELEM_NAME_FIZ_ExpandButton"] = "Expand All"
+L["ELEM_TIP_FIZ_ExpandButton"] = "Press this button to expand all entries in the list. This will show you the materials needed to hand in any item collection quests."
+L["ELEM_NAME_FIZ_CollapseButton"] = "Collapse All"
+L["ELEM_TIP_FIZ_CollapseButton"] = "Press this button to collapse all entries in the list. This will hide the materials needed to hand in quest."
+L["ELEM_NAME_FIZ_SupressNoneFactionButton"] = "Clear Exclusions (Faction)"
+L["ELEM_TIP_FIZ_SupressNoneFactionButton"] = "Press this button to re-enable all quests for this faction that you have excluded by right-clicking on them."
+L["ELEM_NAME_FIZ_SupressNoneGlobalButton"] = "Clear Exclusions (All)"
+L["ELEM_TIP_FIZ_SupressNoneGlobalButton"] = "Press this button to re-enable all quests for all factions that you have excluded by right-clicking on them."
+L["ELEM_NAME_FIZ_ClearSessionGainButton"] = "Reset Session Gain"
+L["ELEM_TIP_FIZ_ClearSessionGainButton"] = "Press this button to reset the counter for reputation gained this session."
+L["ELEM_NAME_FIZ_EnableMissingBox"] = "Show Missing Reputation"
+L["ELEM_TIP_FIZ_EnableMissingBox"] = "Enable this setting to add the missing reputation points needed for the next reputation level behind the current standing of each faction in the reputation frame."
+L["ELEM_NAME_FIZ_ExtendDetailsBox"] = "Extend Detail Frame"
+L["ELEM_TIP_FIZ_ExtendDetailsBox"] = "Enable this setting to display an extended reputation detail frame.\r\nIn addition to the information shown in the original detail frame, this will display the missing reputation needed to reach the next reputation level and a list of ways to gain this reputation."
+L["ELEM_NAME_FIZ_GainToChatBox"] = "Detailed Chat Messages"
+L["ELEM_TIP_FIZ_GainToChatBox"] = "Enable this setting to display reputation gained for all factions whenever you gain reputation.\r\nThis differs from the standard way of reporting reputation gain, as normally only the gain with the main faction is listed."
+L["ELEM_NAME_FIZ_NoGuildGainBox"] = "Ignore Guild Reputation in Chat"
+L["ELEM_TIP_FIZ_NoGuildGainBox"] = "Enable this setting to not print messages to chat for guild reputation."
+L["ELEM_NAME_FIZ_SupressOriginalGainBox"] = "Suppress Default Chat Messages"
+L["ELEM_TIP_FIZ_SupressOriginalGainBox"] = "Enable this setting to suppress the standard reputation gain messages.\r\nThis makes sense if you have enabled the detailed faction gain messages, so you don't get the listings twice."
+L["ELEM_NAME_FIZ_ShowPreviewRepBox"] = "Preview Reputation in Bags"
+L["ELEM_TIP_FIZ_ShowPreviewRepBox"] = "Enable this setting to show the reputation you can gain by handing in items and completed quests as a grey bar overlaid over the normal reputation bar in the reputation frame."
+L["ELEM_NAME_FIZ_SwitchFactionBarBox"] = "Auto-Switch Watched Faction"
+L["ELEM_TIP_FIZ_SwitchFactionBarBox"] = "Enable this setting to automatically switch the faction being watched to the last faction whom you have gained reputation for."
+L["ELEM_NAME_FIZ_NoGuildSwitchBox"] = "Do Not Switch to Guild Reputation"
+L["ELEM_TIP_FIZ_NoGuildSwitchBox"] = "Enable this setting to not switch the watched faction for guild reputation gains."
+L["ELEM_NAME_FIZ_SilentSwitchBox"] = "Silent Watched Faction Switch"
+L["ELEM_TIP_FIZ_SilentSwitchBox"] = "Enable this setting to switch the reputation bar silently (without a message to chat)."
+
+-- 7.0.0 Modern UI, LDB Tooltip & Options Strings
+L["faction"] = "Faction"
+L["standing"] = "Standing"
+L["session"] = "Session"
+L["noActiveFactions"] = "No active factions found."
+L["qtipRowLeft"] = "Row Left-Click:"
+L["qtipRowLeftDesc"] = "Open Faction Details"
+L["qtipRowRight"] = "Row Right-Click:"
+L["qtipRowRightDesc"] = "Watch Faction"
+L["qtipIconLeft"] = "Icon Left-Click:"
+L["qtipIconLeftDesc"] = "Toggle Reputation Panel"
+L["qtipIconRight"] = "Icon Right-Click:"
+L["qtipIconRightDesc"] = "Open Options"
+L["dock"] = "Dock"
+L["detach"] = "Detach"
+L["categories"] = "CATEGORIES"
+L["notifications"] = "Notifications"
+L["sharingExport"] = "Sharing & Export"
+L["about"] = "About"
+L["aboutTitle"] = "About Factionizer"
+L["profileLabel"] = "Profile:"
+L["statusbarTexture"] = "StatusBar Texture (LibSharedMedia)"
+L["statusbarTextureTip"] = "Texture used for the reputation preview and detail progress bars."
+L["showMinimap"] = "Show Minimap Button"
+L["showMinimapTip"] = "Toggle the Factionizer minimap icon."
+L["detachWindow"] = "Detach Detail Window from Reputation Frame"
+L["detachWindowTip"] = "When enabled, the detail window remembers its last dragged screen position instead of docking to the Blizzard Reputation Frame."
+L["windowScale"] = "Detail Window Scale (or Ctrl + MouseWheel)"
+L["windowGroupTitle"] = "Window Position, Scaling & Minimap"
+L["writeChatMessage"] = "Write detailed faction gain messages to chat"
+L["suppressOriginalChat"] = "Suppress original faction gain chat messages"
+L["visibleSourcesTitle"] = "Visible Reputation Sources"
+L["quickSourceActions"] = "Quick Source Actions"
+L["suppressNone"] = "Reset Suppressed Quests (All)"
+L["sinkHeader"] = "Notification Output Routing (LibSink-2.0)"
+L["sendTestAlert"] = "Send Test Notification"
+L["sendTestAlertDesc"] = "Sends a sample reputation alert to the selected output sink."
+L["commSyncGroup"] = "Guild & Group Exclusion Sync (AceComm-3.0)"
+L["enableCommSync"] = "Receive Quest/Item Exclusions from Party, Raid & Guild"
+L["enableCommSyncDesc"] = "Automatically merge quest/item exclusions shared by other Factionizer users in your group or guild."
+L["shareGuild"] = "Share Exclusions (Guild)"
+L["shareGroup"] = "Share Exclusions (Party / Raid)"
+L["exportImportGroup"] = "Profile & Exclusions Export / Import (LibDeflate)"
+L["exportString"] = "Export String (Ctrl+C to copy)"
+L["exportStringDesc"] = "Compressed string containing your current profile settings and suppressed quests."
+L["importString"] = "Import String (Paste & Click Import)"
+L["importBtn"] = "Import Profile & Exclusions"
+L["importSuccess"] = "Profile imported successfully!"
+L["importFailed"] = "Import failed: "
+L["dbSummaryTitle"] = "Database & Profile Summary"
+L["linksTitle"] = "GitHub, Wago.io & Support (Ctrl+C)"
+L["supportDonate"] = "Support & Donate (gOOvER)"
+L["aboutDesc"] = "\nComprehensive reputation assistant across all World of Warcraft expansions (Classic, Forever, TBC, Wrath, Cataclysm, Mists of Pandaria, Warlords of Draenor, Legion, Battle for Azeroth, Shadowlands, Dragonflight, The War Within, and Midnight).\n"
+L["reputationDetails"] = "Reputation Details"
+L["uiFontSize"] = "UI Font Size (10 - 18 pt)"
+L["authorsLabel"] = "Authors:"
+L["architectureLabel"] = "Architecture:"
+L["expansionModules"] = "Expansion Modules:"
+L["registeredZones"] = "Registered Zones:"
+L["suppressedQuestsCount"] = "Suppressed Quests:"
+L["githubRepo"] = "GitHub Repository"
+L["commNotInGroup"] = "Cannot share (not in a group or guild)."
+L["commSharedVia"] = "Shared quest/item exclusions via %s."
+L["commReceivedFrom"] = "Received %d exclusion(s) from %s."
+L["worldQuests"] = "World Quests"
+L["emissaryQuest"] = "Emissary Quest"
+L["weeklyQuest"] = "Weekly Quest"
+L["contractWQ"] = "Contract (World Quests)"
+L["covenantCalling"] = "Covenant Calling"
+L["bountifulDelve"] = "Bountiful Delve"
+L["specialAssignment"] = "Special Assignment"
+L["extendDetailsTip"] = "Enable this setting to display an extended reputation detail frame.\r\nIn addition to the information shown in the original detail frame, this will display the missing reputation needed to reach the next reputation level and a list of ways to gain this reputation."
+L["showMissingTip"] = "Enable this setting to add the missing reputation points needed for the next reputation level behind the current standing of each faction in the reputation frame."
+L["orderByStandingTip"] = "If this box is not checked, the faction list is displayed by default Blizzard sorting, grouped into logical headers.\r\n\r\nIf this box is checked, the faction list is sorted by standing.\r\n\r\nTo view the |cFFFAA0A0inactive|r factions, uncheck this box and go to the bottom of the list."
+L["showPreviewRepTip"] = "Enable this setting to show the reputation you can gain by handing in items and completed quests as a grey bar overlaid over the normal reputation bar in the reputation frame."
+L["writeChatMessageTip"] = "Enable this setting to display reputation gained for all factions whenever you gain reputation.\r\nThis differs from the standard way of reporting reputation gain, as normally only the gain with the main faction is listed."
+L["noGuildGainTip"] = "Enable this setting to not print messages to chat for guild reputation."
+L["suppressOriginalChatTip"] = "Enable this setting to suppress the standard reputation gain messages.\r\nThis makes sense if you have enabled the detailed faction gain messages, so you don't get the listings twice."
+L["switchFactionBarTip"] = "Enable this setting to automatically switch the faction being watched to the last faction whom you have gained reputation for."
+L["noGuildSwitchTip"] = "Enable this setting to not switch the watched faction for guild reputation gains."
+L["silentSwitchTip"] = "Enable this setting to switch the reputation bar silently (without a message to chat)."
+L["showQuestsTip"] = "Check this button to see quests you can do to improve your reputation."
+L["showItemsTip"] = "Check this button to see items you can hand in to improve your reputation."
+L["showMobsTip"] = "Check this button to see mobs you can kill to improve your reputation."
+L["showInstancesTip"] = "Check this button to see instances you can run to improve your reputation."
+L["showGeneralTip"] = "Check this button to see general ways to improve your reputation."
+L["showAllTip"] = "Press this button to check all four of the checkboxes to the left.\r\nThis will show mobs, quests, items and instances that give you reputation for the currently selected faction."
+L["showNoneTip"] = "Press this button to deselect all four of the checkboxes to the left.\r\nThis will show you none of the ways to gain reputation for the currently selected faction."
+L["suppressNoneTip"] = "Press this button to re-enable all quests for all factions that you have excluded by right-clicking on them."
+
+
+

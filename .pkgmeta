@@ -1,0 +1,99 @@
+package-as: Factionizer
+enable-nolib-creation: yes
+enable-toc-creation: yes
+
+externals:
+  # Ace3 (GitHub: WoWUIDev/Ace3)
+  libs/LibStub:
+    url: https://github.com/WoWUIDev/Ace3
+    path: LibStub
+  libs/CallbackHandler-1.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: CallbackHandler-1.0
+  libs/AceAddon-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceAddon-3.0
+  libs/AceEvent-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceEvent-3.0
+  libs/AceTimer-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceTimer-3.0
+  libs/AceBucket-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceBucket-3.0
+  libs/AceHook-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceHook-3.0
+  libs/AceDB-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceDB-3.0
+  libs/AceDBOptions-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceDBOptions-3.0
+  libs/AceLocale-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceLocale-3.0
+  libs/AceConsole-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceConsole-3.0
+  libs/AceGUI-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceGUI-3.0
+  libs/AceConfig-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceConfig-3.0
+  libs/AceComm-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceComm-3.0
+  libs/AceTab-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceTab-3.0
+  libs/AceSerializer-3.0:
+    url: https://github.com/WoWUIDev/Ace3
+    path: AceSerializer-3.0
+
+  # GitHub-hosted External Libraries
+  libs/LibDataBroker-1.1:
+    url: https://github.com/tekkub/libdatabroker-1-1
+  libs/HereBeDragons:
+    url: https://github.com/Nevcairiel/HereBeDragons
+  libs/LibQTip-1.0:
+    url: https://github.com/Torhal/LibQTip-1.0
+  libs/LibDeflate:
+    url: https://github.com/SafeteeWoW/LibDeflate
+
+  # WowAce-hosted External Libraries (no official GitHub upstream)
+  libs/LibDBIcon-1.0:
+    url: https://repos.wowace.com/wow/libdbicon-1-0/trunk/LibDBIcon-1.0
+  libs/LibSharedMedia-3.0:
+    url: https://repos.wowace.com/wow/libsharedmedia-3-0/trunk/LibSharedMedia-3.0
+  libs/AceGUI-3.0-SharedMediaWidgets:
+    url: https://repos.wowace.com/wow/ace-gui-3-0-shared-media-widgets/trunk/AceGUI-3.0-SharedMediaWidgets
+  libs/LibWindow-1.1:
+    url: https://repos.wowace.com/wow/libwindow-1-1/trunk/LibWindow-1.1
+  libs/LibSink-2.0:
+    url: https://repos.wowace.com/wow/libsink-2-0/trunk/LibSink-2.0
+
+manual-changelog: CHANGELOG.md
+
+ignore:
+  - .github
+  - .gitignore
+  - .gitattributes
+  - .luacheckrc
+  - .pkgmeta
+  - README.md
+  - CHANGELOG.md
+  - LICENSE
+  - libs/HereBeDragons/HereBeDragons.toc
+  - libs/HereBeDragons/HereBeDragons-Pins-2.0.lua
+  - libs/LibQTip-1.0/LibQTip-1.0.toc
+  - libs/LibQTip-1.0/LibStub
+  - libs/LibDeflate/LibDeflate.toc
+  - libs/LibDeflate/docs
+  - libs/LibDeflate/dev_docs
+  - libs/LibDeflate/examples
+  - libs/LibDeflate/rockspecs
+  - libs/LibDeflate/tests
+  - libs/LibDeflate/tools
