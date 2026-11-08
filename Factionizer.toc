@@ -68,3 +68,4 @@ GUI\Options.lua
 GUI\Minimap.lua
 GUI\ReputationFrame.lua
 GUI\DetailFrame.lua
+## X-License: GPL-3.0

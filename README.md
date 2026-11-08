@@ -11,7 +11,7 @@
   [![CurseForge](https://img.shields.io/badge/CurseForge-Factionizer-f16436?logo=curseforge&logoColor=white)](https://www.curseforge.com/wow/addons/factionizer)
   [![Wago.io](https://img.shields.io/badge/Wago.io-Factionizer-c1272d?logo=wagtail&logoColor=white)](https://addons.wago.io/addons/factionizer)
   [![WoW Versions](https://img.shields.io/badge/WoW-Retail%20%7C%20MoP%20%7C%20Cata%20%7C%20Wrath%20%7C%20TBC%20%7C%20Classic%20%7C%20Forever-f8b700?logo=battle.net&logoColor=white)](#-supported-wow-versions)
-  [![License: GPL v2](https://img.shields.io/badge/License-GPLv2-blue.svg)](LICENSE)
+  [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
   [![Support](https://img.shields.io/badge/Support-donate.goover.dev-ff69b4?logo=ko-fi&logoColor=white)](https://donate.goover.dev)
 </div>
 
@@ -71,5 +71,5 @@
 ## 👥 Credits & License
 
 - **Authors**: Urbin (Original Author), Millán-Aszune, **gOOvER** (v7.0.0 Ace3 & Modern UI Overhaul)
-- **License**: [GNU General Public License v2.0 (GPL-2.0)](LICENSE)
+- **License**: [GNU General Public License v3.0 (GPL-3.0)](LICENSE)
 - **Support Development**: [donate.goover.dev](https://donate.goover.dev) • [Ko-fi](https://ko-fi.com/oldnoob) • [Buy Me a Coffee](https://buymeacoffee.com/goover)
