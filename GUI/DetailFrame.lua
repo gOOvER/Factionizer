@@ -29,6 +29,193 @@ local function GetBadgeColor(badgeText)
 	return TYPE_BADGE_COLORS[badgeText] or "|cFFFFFFFF"
 end
 
+function FIZ:LayoutDetailFrameControls()
+	local frame = _G.FIZ_ReputationDetailFrame
+	if not frame then return end
+	local UIStyle = self.UIStyle
+
+	-- 1. Header buttons (Dock / Options / A- / 13pt / A+ / Close)
+	if frame.GearButton and frame.DockButton and frame.Header then
+		frame.GearButton._lockHeight = true
+		frame.GearButton:SetHeight(24)
+		frame.GearButton:UpdateSize()
+		frame.GearButton:ClearAllPoints()
+		frame.GearButton:SetPoint("RIGHT", frame.Header.FontMinusBtn, "LEFT", -8, 0)
+
+		frame.DockButton._lockHeight = true
+		frame.DockButton:SetHeight(24)
+		frame.DockButton:UpdateSize()
+		frame.DockButton:ClearAllPoints()
+		frame.DockButton:SetPoint("RIGHT", frame.GearButton, "LEFT", -6, 0)
+
+		if frame.Header.Title then
+			frame.Header.Title:ClearAllPoints()
+			frame.Header.Title:SetPoint("LEFT", frame.Header.Icon, "RIGHT", 10, 0)
+			frame.Header.Title:SetPoint("RIGHT", frame.DockButton, "LEFT", -8, 0)
+		end
+	end
+
+	-- 2. Blizzard Faction Controls Bar (At War, Inactive, Watch Bar)
+	if frame.CtrlBar and _G.FIZ_ReputationDetailAtWarCheckBox and _G.FIZ_ReputationDetailInactiveCheckBox and _G.FIZ_ReputationDetailMainScreenCheckBox then
+		local atWarCB = _G.FIZ_ReputationDetailAtWarCheckBox
+		local inactiveCB = _G.FIZ_ReputationDetailInactiveCheckBox
+		local watchCB = _G.FIZ_ReputationDetailMainScreenCheckBox
+
+		local atWarW = 22 + math.ceil((atWarCB.Text and atWarCB.Text:GetStringWidth() or 60))
+		local inactiveW = 22 + math.ceil((inactiveCB.Text and inactiveCB.Text:GetStringWidth() or 60))
+		local watchW = 22 + math.ceil((watchCB.Text and watchCB.Text:GetStringWidth() or 160))
+		local barW = frame.CtrlBar:GetWidth()
+		if not barW or barW < 100 then barW = 564 end
+
+		atWarCB:ClearAllPoints()
+		atWarCB:SetPoint("LEFT", frame.CtrlBar, "LEFT", 12, 0)
+
+		watchCB:ClearAllPoints()
+		watchCB:SetPoint("LEFT", frame.CtrlBar, "RIGHT", -(watchW + 12), 0)
+
+		local midStart = 12 + atWarW
+		local midEnd = barW - watchW - 12
+		local inactiveX = math.max(midStart + 14, math.floor((midStart + midEnd - inactiveW) * 0.5))
+		inactiveCB:ClearAllPoints()
+		inactiveCB:SetPoint("LEFT", frame.CtrlBar, "LEFT", inactiveX, 0)
+	end
+
+	-- 3. Filter Pills Row (5 Pills proportionally filling FilterCard width)
+	if frame.FilterCard and frame.SourcePills and #frame.SourcePills == 5 then
+		local cardW = frame.FilterCard:GetWidth()
+		if not cardW or cardW < 100 then cardW = 564 end
+		local gap = 5
+		local padX = 6
+		local availW = cardW - (padX * 2) - (gap * (#frame.SourcePills - 1))
+
+		local natWidths = {}
+		local totalNat = 0
+		for i, pill in ipairs(frame.SourcePills) do
+			local nw = pill.GetNaturalWidth and pill:GetNaturalWidth() or 80
+			natWidths[i] = nw
+			totalNat = totalNat + nw
+		end
+
+		local usedW = 0
+		for i, pill in ipairs(frame.SourcePills) do
+			local w
+			if i == #frame.SourcePills then
+				w = math.max(60, availW - usedW)
+			else
+				w = math.max(60, math.floor((natWidths[i] / math.max(1, totalNat)) * availW + 0.5))
+				usedW = usedW + w
+			end
+			pill:SetHeight(24)
+			pill:SetFixedWidth(w)
+			pill:ClearAllPoints()
+			if i == 1 then
+				pill:SetPoint("TOPLEFT", frame.FilterCard, "TOPLEFT", padX, -6)
+			else
+				pill:SetPoint("LEFT", frame.SourcePills[i - 1], "RIGHT", gap, 0)
+			end
+		end
+	end
+
+	-- 4. Filter Action Buttons + Search Box (Anchored right-to-left so buttons never overflow)
+	if frame.FilterCard and _G.FIZ_ShowAllButton and _G.FIZ_ShowNoneButton and _G.FIZ_ExpandButton and _G.FIZ_CollapseButton and self.SearchBox then
+		local allBtn = _G.FIZ_ShowAllButton
+		local noneBtn = _G.FIZ_ShowNoneButton
+		local expBtn = _G.FIZ_ExpandButton
+		local colBtn = _G.FIZ_CollapseButton
+
+		for _, b in ipairs({ allBtn, noneBtn, expBtn, colBtn }) do
+			b._lockHeight = true
+			b:SetHeight(24)
+			b:UpdateSize()
+		end
+
+		colBtn:ClearAllPoints()
+		colBtn:SetPoint("BOTTOMRIGHT", frame.FilterCard, "BOTTOMRIGHT", -6, 6)
+
+		expBtn:ClearAllPoints()
+		expBtn:SetPoint("RIGHT", colBtn, "LEFT", -4, 0)
+
+		noneBtn:ClearAllPoints()
+		noneBtn:SetPoint("RIGHT", expBtn, "LEFT", -4, 0)
+
+		allBtn:ClearAllPoints()
+		allBtn:SetPoint("RIGHT", noneBtn, "LEFT", -4, 0)
+
+		self.SearchBox:SetHeight(24)
+		self.SearchBox:ClearAllPoints()
+		self.SearchBox:SetPoint("BOTTOMLEFT", frame.FilterCard, "BOTTOMLEFT", 6, 6)
+		self.SearchBox:SetPoint("RIGHT", allBtn, "LEFT", -6, 0)
+	end
+
+	-- 5. Footer Buttons (3 equal-width buttons in top row, hint text in bottom row)
+	if frame.FooterCard and _G.FIZ_SupressNoneFactionButton and _G.FIZ_SupressNoneGlobalButton and _G.FIZ_ClearSessionGainButton then
+		local cardW = frame.FooterCard:GetWidth()
+		if not cardW or cardW < 100 then cardW = 564 end
+		local padX = 6
+		local gap = 6
+		local availW = cardW - (padX * 2) - (gap * 2)
+		local btnW = math.floor(availW / 3)
+		local lastW = availW - (btnW * 2)
+
+		local b1 = _G.FIZ_SupressNoneFactionButton
+		local b2 = _G.FIZ_SupressNoneGlobalButton
+		local b3 = _G.FIZ_ClearSessionGainButton
+
+		b1._lockHeight = true
+		b1:SetHeight(26)
+		b1:SetFixedWidth(btnW)
+		b1:ClearAllPoints()
+		b1:SetPoint("TOPLEFT", frame.FooterCard, "TOPLEFT", padX, -6)
+
+		b2._lockHeight = true
+		b2:SetHeight(26)
+		b2:SetFixedWidth(btnW)
+		b2:ClearAllPoints()
+		b2:SetPoint("LEFT", b1, "RIGHT", gap, 0)
+
+		b3._lockHeight = true
+		b3:SetHeight(26)
+		b3:SetFixedWidth(lastW)
+		b3:ClearAllPoints()
+		b3:SetPoint("TOPRIGHT", frame.FooterCard, "TOPRIGHT", -padX, -6)
+	end
+
+	-- 6. Apply Font Scaling to Detail Frame Text Elements
+	if UIStyle then
+		UIStyle.ApplyFont(_G.FIZ_ReputationDetailFactionName, 1)
+		UIStyle.ApplyFont(_G.FIZ_ReputationDetailStandingName, 1)
+		UIStyle.ApplyFont(_G.FIZ_ReputationDetailStandingNextValue, 0)
+		UIStyle.ApplyFont(self.DetailProgressText, -1, "OUTLINE")
+		UIStyle.ApplyFont(_G.FIZ_ReputationDetailFactionDescription, -1)
+		UIStyle.ApplyFont(_G.FIZ_ReputationDetailSuppressHint, -2)
+
+		local statFontStrings = {
+			_G.FIZ_ReputationDetailStandingNeeded, _G.FIZ_ReputationDetailStandingNeededValue,
+			_G.FIZ_ReputationDetailStandingCurrent, _G.FIZ_ReputationDetailStandingCurrentValue,
+			_G.FIZ_ReputationDetailStandingMissing, _G.FIZ_ReputationDetailStandingMissingValue,
+			_G.FIZ_ReputationDetailStandingToExaltedHeader, _G.FIZ_ReputationDetailStandingToExaltedValue,
+			_G.FIZ_ReputationDetailStandingBag, _G.FIZ_ReputationDetailStandingBagValue,
+			_G.FIZ_ReputationDetailStandingBagBank, _G.FIZ_ReputationDetailStandingBagBankValue,
+			_G.FIZ_ReputationDetailStandingQuests, _G.FIZ_ReputationDetailStandingQuestsValue,
+			_G.FIZ_ReputationDetailStandingGained, _G.FIZ_ReputationDetailStandingGainedValue,
+		}
+		for _, fs in ipairs(statFontStrings) do
+			if fs then UIStyle.ApplyFont(fs, -1) end
+		end
+
+		for row = 1, (FIZ_UPDATE_LIST_HEIGHT or 13) do
+			local prefix = "FIZ_UpdateEntry" .. row
+			UIStyle.ApplyFont(_G[prefix .. "Label"], -1)
+			UIStyle.ApplyFont(_G[prefix .. "Times"], -1)
+			UIStyle.ApplyFont(_G[prefix .. "Name"], -1)
+			UIStyle.ApplyFont(_G[prefix .. "Rep"], -1)
+			UIStyle.ApplyFont(_G[prefix .. "ItemTimes"], -1)
+			UIStyle.ApplyFont(_G[prefix .. "ItemName"], -1)
+			UIStyle.ApplyFont(_G[prefix .. "TotalTimes"], -1)
+		end
+	end
+end
+
 function FIZ:UpdateDetailWindowDocking()
 	local frame = _G.FIZ_ReputationDetailFrame
 	if not frame then return end
@@ -44,6 +231,7 @@ function FIZ:UpdateDetailWindowDocking()
 		frame:ClearAllPoints()
 		frame:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", 4, 0)
 	end
+	self:LayoutDetailFrameControls()
 end
 
 function FIZ:CreateModernDetailFrame()
@@ -52,7 +240,7 @@ function FIZ:CreateModernDetailFrame()
 	local UIStyle = self.UIStyle
 	local parentFrame = ReputationFrame or UIParent
 	local frame = CreateFrame("Frame", "FIZ_ReputationDetailFrame", parentFrame, BackdropTemplateMixin and "BackdropTemplate" or nil)
-	frame:SetSize(540, 656)
+	frame:SetSize(580, 672)
 	frame:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", 4, 0)
 	frame:SetFrameStrata("HIGH")
 	frame:SetToplevel(true)
@@ -79,10 +267,11 @@ function FIZ:CreateModernDetailFrame()
 			if self.DockButton then
 				self.DockButton:SetText(FIZ_TXT.dock or "Dock")
 			end
+			FIZ:LayoutDetailFrameControls()
 		end
 	end
 
-	-- 1. Top Dark-Gold Header Bar (Gatherer Style)
+	-- 1. Top Dark-Gold Header Bar
 	frame.Header = UIStyle.CreateHeader(
 		frame,
 		FIZ_NAME .. "  |cff667080—|r  |cffffffff" .. (_G.REPUTATION or FIZ_TXT.reputation or "Reputation") .. "|r",
@@ -91,17 +280,20 @@ function FIZ:CreateModernDetailFrame()
 	)
 	_G.FIZ_ReputationDetailCloseButton = frame.Header.CloseButton
 
-	-- Quick Options Button in Header
-	local gearBtn = UIStyle.CreateButton(frame.Header, 88, 26, FIZ_TXT.options or "Options", "primary", nil, "FIZ_DetailOptionsShortcutButton")
-	gearBtn:SetPoint("RIGHT", frame.Header.CloseButton, "LEFT", -6, 0)
+	-- Quick Options Button in Header (anchored to the left of FontMinusBtn so it never overlaps A- / 13pt / A+)
+	local gearBtn = UIStyle.CreateButton(frame.Header, 88, 24, FIZ_TXT.options or "Options", "primary", "Interface\\Icons\\INV_Gizmo_02", "FIZ_DetailOptionsShortcutButton")
+	gearBtn._lockHeight = true
+	gearBtn:SetPoint("RIGHT", frame.Header.FontMinusBtn, "LEFT", -8, 0)
 	gearBtn:SetScript("OnClick", function()
 		FIZ:ToggleConfigWindow()
 	end)
+	frame.GearButton = gearBtn
 
 	-- Dock / Detach Toggle Button in Header
 	local isDetached = self.db and self.db.profile and self.db.profile.window and self.db.profile.window.detached
-	local dockBtn = UIStyle.CreateButton(frame.Header, 76, 26, isDetached and (FIZ_TXT.dock or "Dock") or (FIZ_TXT.detach or "Detach"), "default", nil, "FIZ_DetailDockButton")
-	dockBtn:SetPoint("RIGHT", gearBtn, "LEFT", -4, 0)
+	local dockBtn = UIStyle.CreateButton(frame.Header, 72, 24, isDetached and (FIZ_TXT.dock or "Dock") or (FIZ_TXT.detach or "Detach"), "default", nil, "FIZ_DetailDockButton")
+	dockBtn._lockHeight = true
+	dockBtn:SetPoint("RIGHT", gearBtn, "LEFT", -6, 0)
 	dockBtn:SetScript("OnClick", function()
 		if FIZ.db and FIZ.db.profile then
 			FIZ.db.profile.window = FIZ.db.profile.window or {}
@@ -123,10 +315,11 @@ function FIZ:CreateModernDetailFrame()
 	headerCard:SetPoint("TOPRIGHT", frame.Header, "BOTTOMRIGHT", -8, -6)
 	headerCard:SetHeight(112)
 	UIStyle.ApplyBox(headerCard, 0.10, 0.12, 0.16, 0.96, 0.22, 0.25, 0.32, 1)
+	frame.HeaderCard = headerCard
 
 	local facName = headerCard:CreateFontString("FIZ_ReputationDetailFactionName", "OVERLAY", "GameFontNormalLarge")
 	facName:SetPoint("TOPLEFT", headerCard, "TOPLEFT", 12, -9)
-	facName:SetPoint("RIGHT", headerCard, "RIGHT", -200, 0)
+	facName:SetPoint("RIGHT", headerCard, "RIGHT", -220, 0)
 	facName:SetJustifyH("LEFT")
 	facName:SetWordWrap(false)
 	facName:SetTextColor(1, 0.85, 0.25)
@@ -187,19 +380,30 @@ function FIZ:CreateModernDetailFrame()
 	statsCard:SetPoint("TOPRIGHT", headerCard, "BOTTOMRIGHT", 0, -5)
 	statsCard:SetHeight(80)
 	UIStyle.ApplyBox(statsCard, 0.09, 0.11, 0.14, 0.96, 0.22, 0.25, 0.32, 1)
+	frame.StatsCard = statsCard
+
+	local statsDiv = statsCard:CreateTexture(nil, "ARTWORK")
+	statsDiv:SetWidth(1)
+	statsDiv:SetPoint("TOP", statsCard, "TOP", 0, -6)
+	statsDiv:SetPoint("BOTTOM", statsCard, "BOTTOM", 0, 6)
+	statsDiv:SetColorTexture(0.22, 0.25, 0.32, 0.75)
 
 	local function CreateStatPair(labelGlobal, valGlobal, col, row)
-		local xLeft = (col == 1) and 12 or 268
-		local xRight = (col == 1) and -274 or -12
 		local yOffset = -8 - (row - 1) * 17
-
 		local lbl = statsCard:CreateFontString(labelGlobal, "OVERLAY", "GameFontNormal")
-		lbl:SetPoint("TOPLEFT", statsCard, "TOPLEFT", xLeft, yOffset)
-		lbl:SetJustifyH("LEFT")
-		lbl:SetTextColor(0.82, 0.86, 0.92)
-
 		local val = statsCard:CreateFontString(valGlobal, "OVERLAY", "GameFontHighlight")
-		val:SetPoint("TOPRIGHT", statsCard, "TOPRIGHT", xRight, yOffset)
+
+		if col == 1 then
+			lbl:SetPoint("TOPLEFT", statsCard, "TOPLEFT", 12, yOffset)
+			val:SetPoint("TOPRIGHT", statsCard, "TOP", -12, yOffset)
+		else
+			lbl:SetPoint("TOPLEFT", statsCard, "TOP", 12, yOffset)
+			val:SetPoint("TOPRIGHT", statsCard, "TOPRIGHT", -12, yOffset)
+		end
+		lbl:SetPoint("RIGHT", val, "LEFT", -6, 0)
+		lbl:SetJustifyH("LEFT")
+		lbl:SetWordWrap(false)
+		lbl:SetTextColor(0.82, 0.86, 0.92)
 		val:SetJustifyH("RIGHT")
 		return lbl, val
 	end
@@ -224,62 +428,41 @@ function FIZ:CreateModernDetailFrame()
 	ctrlBar:SetPoint("TOPRIGHT", statsCard, "BOTTOMRIGHT", 0, -4)
 	ctrlBar:SetHeight(28)
 	UIStyle.ApplyBox(ctrlBar, 0.10, 0.12, 0.15, 0.96, 0.20, 0.23, 0.29, 1)
+	frame.CtrlBar = ctrlBar
 
-	local atWarCB = CreateFrame("CheckButton", "FIZ_ReputationDetailAtWarCheckBox", ctrlBar)
-	atWarCB:SetSize(22, 22)
-	atWarCB:SetPoint("LEFT", ctrlBar, "LEFT", 10, 0)
-	atWarCB:SetNormalTexture("Interface\\Buttons\\UI-CheckBox-Up")
-	atWarCB:SetPushedTexture("Interface\\Buttons\\UI-CheckBox-Down")
-	atWarCB:SetHighlightTexture("Interface\\Buttons\\UI-CheckBox-Highlight", "ADD")
-	atWarCB:SetCheckedTexture("Interface\\Buttons\\UI-CheckBox-SwordCheck")
-	atWarCB:SetDisabledCheckedTexture("Interface\\Buttons\\UI-CheckBox-Check-Disabled")
-	local atWarText = atWarCB:CreateFontString("FIZ_ReputationDetailAtWarCheckBoxText", "ARTWORK", "GameFontNormal")
-	atWarText:SetPoint("LEFT", atWarCB, "RIGHT", 4, 0)
-	atWarText:SetText(_G.AT_WAR or "At War")
-	atWarText:SetTextColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
+	local atWarCB = UIStyle.CreateCheckBox(ctrlBar, _G.AT_WAR or "At War", "FIZ_ReputationDetailAtWarCheckBox", true)
+	atWarCB:SetPoint("LEFT", ctrlBar, "LEFT", 12, 0)
 	atWarCB:SetScript("OnClick", function(selfBtn)
 		FIZ:ToggleAtWar(FIZ:GetSelectedFaction())
 		FIZ:PlayCheckBoxSound(selfBtn:GetChecked())
 		FIZ:RefreshReputationFrame()
 	end)
-	atWarCB:SetScript("OnEnter", function(selfBtn)
+	atWarCB:HookScript("OnEnter", function(selfBtn)
 		if GameTooltip and _G.REPUTATION_AT_WAR_DESCRIPTION then
 			GameTooltip:SetOwner(selfBtn, "ANCHOR_RIGHT")
 			GameTooltip:SetText(_G.REPUTATION_AT_WAR_DESCRIPTION, nil, nil, nil, nil, true)
 			GameTooltip:Show()
 		end
 	end)
-	atWarCB:SetScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
+	atWarCB:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
 
-	local inactiveCB = CreateFrame("CheckButton", "FIZ_ReputationDetailInactiveCheckBox", ctrlBar, "UICheckButtonTemplate")
-	inactiveCB:SetSize(22, 22)
-	inactiveCB:SetPoint("LEFT", ctrlBar, "LEFT", 140, 0)
-	local inactiveText = _G["FIZ_ReputationDetailInactiveCheckBoxText"] or inactiveCB.Text
-	if inactiveText then
-		inactiveText:SetFontObject(GameFontNormal)
-		inactiveText:SetText(_G.MOVE_TO_INACTIVE or "Move to Inactive")
-	end
+	local inactiveCB = UIStyle.CreateCheckBox(ctrlBar, _G.MOVE_TO_INACTIVE or "Move to Inactive", "FIZ_ReputationDetailInactiveCheckBox", false)
+	inactiveCB:SetPoint("LEFT", ctrlBar, "LEFT", 160, 0)
 	inactiveCB:SetScript("OnClick", function(selfBtn)
 		FIZ:PlayCheckBoxSound(selfBtn:GetChecked())
 		FIZ:SetFactionInactive(FIZ:GetSelectedFaction(), selfBtn:GetChecked())
 	end)
-	inactiveCB:SetScript("OnEnter", function(selfBtn)
+	inactiveCB:HookScript("OnEnter", function(selfBtn)
 		if GameTooltip and _G.REPUTATION_MOVE_TO_INACTIVE then
 			GameTooltip:SetOwner(selfBtn, "ANCHOR_RIGHT")
 			GameTooltip:SetText(_G.REPUTATION_MOVE_TO_INACTIVE, nil, nil, nil, nil, true)
 			GameTooltip:Show()
 		end
 	end)
-	inactiveCB:SetScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
+	inactiveCB:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
 
-	local watchCB = CreateFrame("CheckButton", "FIZ_ReputationDetailMainScreenCheckBox", ctrlBar, "UICheckButtonTemplate")
-	watchCB:SetSize(22, 22)
-	watchCB:SetPoint("LEFT", ctrlBar, "LEFT", 285, 0)
-	local watchText = _G["FIZ_ReputationDetailMainScreenCheckBoxText"] or watchCB.Text
-	if watchText then
-		watchText:SetFontObject(GameFontNormal)
-		watchText:SetText(_G.SHOW_FACTION_ON_MAINSCREEN or "Show as Experience Bar")
-	end
+	local watchCB = UIStyle.CreateCheckBox(ctrlBar, _G.SHOW_FACTION_ON_MAINSCREEN or "Show as Experience Bar", "FIZ_ReputationDetailMainScreenCheckBox", false)
+	watchCB:SetPoint("LEFT", ctrlBar, "LEFT", 310, 0)
 	watchCB:SetScript("OnClick", function(selfBtn)
 		FIZ:PlayCheckBoxSound(selfBtn:GetChecked())
 		if selfBtn:GetChecked() then
@@ -291,26 +474,27 @@ function FIZ:CreateModernDetailFrame()
 			_G.ReputationWatchBar_Update()
 		end
 	end)
-	watchCB:SetScript("OnEnter", function(selfBtn)
+	watchCB:HookScript("OnEnter", function(selfBtn)
 		if GameTooltip and _G.REPUTATION_SHOW_AS_XP then
 			GameTooltip:SetOwner(selfBtn, "ANCHOR_RIGHT")
 			GameTooltip:SetText(_G.REPUTATION_SHOW_AS_XP, nil, nil, nil, nil, true)
 			GameTooltip:Show()
 		end
 	end)
-	watchCB:SetScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
+	watchCB:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
 
 	-------------------------------------------------------------------
-	-- 5. Filter Pills + Search Box Toolbar (Gatherer Style)
+	-- 5. Filter Pills + Search Box Toolbar
 	-------------------------------------------------------------------
 	local filterCard = CreateFrame("Frame", nil, frame, BackdropTemplateMixin and "BackdropTemplate" or nil)
 	filterCard:SetPoint("TOPLEFT", ctrlBar, "BOTTOMLEFT", 0, -4)
 	filterCard:SetPoint("TOPRIGHT", ctrlBar, "BOTTOMRIGHT", 0, -4)
-	filterCard:SetHeight(66)
+	filterCard:SetHeight(64)
 	UIStyle.ApplyBox(filterCard, 0.10, 0.12, 0.15, 0.96, 0.20, 0.23, 0.29, 1)
+	frame.FilterCard = filterCard
 
-	local prevPill = nil
-	local function CreateSourcePill(globalName, optionKey, defaultLabel, width)
+	frame.SourcePills = {}
+	local function CreateSourcePill(globalName, optionKey, defaultLabel)
 		local pill = UIStyle.CreateFilterPill(
 			filterCard,
 			defaultLabel,
@@ -322,36 +506,29 @@ function FIZ:CreateModernDetailFrame()
 			end,
 			globalName
 		)
-		pill:SetFixedWidth(width)
-		if not prevPill then
-			pill:SetPoint("TOPLEFT", filterCard, "TOPLEFT", 6, -6)
-		else
-			pill:SetPoint("LEFT", prevPill, "RIGHT", 5, 0)
-		end
-		prevPill = pill
 		pill:HookScript("OnEnter", function(selfBtn)
 			FIZ_ShowHelpToolTip(selfBtn, globalName)
 		end)
+		table.insert(frame.SourcePills, pill)
 		return pill
 	end
 
-	CreateSourcePill("FIZ_ShowQuestButton", "ShowQuests", FIZ_TXT.showQuests or "Quests", 90)
-	CreateSourcePill("FIZ_ShowInstancesButton", "ShowInstances", FIZ_TXT.showInstances or "Instances", 102)
-	CreateSourcePill("FIZ_ShowMobsButton", "ShowMobs", FIZ_TXT.showMobs or "Mobs", 86)
-	CreateSourcePill("FIZ_ShowItemsButton", "ShowItems", FIZ_TXT.showItems or "Items", 118)
-	CreateSourcePill("FIZ_ShowGeneralButton", "ShowGeneral", FIZ_TXT.showGeneral or "General", 96)
+	CreateSourcePill("FIZ_ShowQuestButton", "ShowQuests", FIZ_TXT.showQuests or "Quests")
+	CreateSourcePill("FIZ_ShowInstancesButton", "ShowInstances", FIZ_TXT.showInstances or "Instances")
+	CreateSourcePill("FIZ_ShowMobsButton", "ShowMobs", FIZ_TXT.showMobs or "Mobs")
+	CreateSourcePill("FIZ_ShowItemsButton", "ShowItems", FIZ_TXT.showItems or "Items")
+	CreateSourcePill("FIZ_ShowGeneralButton", "ShowGeneral", FIZ_TXT.showGeneral or "General")
 
 	-- Row 2 of Filter Card: Modern Search Box + All / None / Expand / Collapse Buttons
-	local searchBox = UIStyle.CreateEditBox(filterCard, 214, 26, (_G.SEARCH or "Search") .. "...", "FIZ_SearchEditBox")
-	searchBox:SetPoint("BOTTOMLEFT", filterCard, "BOTTOMLEFT", 6, 6)
+	local searchBox = UIStyle.CreateEditBox(filterCard, 200, 24, (_G.SEARCH or "Search") .. "...", "FIZ_SearchEditBox")
 	searchBox.OnValueChanged = function(_, text)
 		FIZ.searchFilter = string.lower(strtrim(text or ""))
 		FIZ_UpdateList_Update()
 	end
 	self.SearchBox = searchBox
 
-	local showAllBtn = UIStyle.CreateButton(filterCard, 58, 26, FIZ_TXT.showAll or "All", "default", nil, "FIZ_ShowAllButton")
-	showAllBtn:SetPoint("LEFT", searchBox, "RIGHT", 5, 0)
+	local showAllBtn = UIStyle.CreateButton(filterCard, 54, 24, FIZ_TXT.showAll or "All", "default", nil, "FIZ_ShowAllButton")
+	showAllBtn._lockHeight = true
 	showAllBtn:SetScript("OnClick", function()
 		FIZ:SetOption("ShowQuests", true)
 		FIZ:SetOption("ShowMobs", true)
@@ -365,8 +542,8 @@ function FIZ:CreateModernDetailFrame()
 	showAllBtn:HookScript("OnEnter", function(btn) FIZ_ShowHelpToolTip(btn, "FIZ_ShowAllButton") end)
 	showAllBtn:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
 
-	local showNoneBtn = UIStyle.CreateButton(filterCard, 58, 26, FIZ_TXT.showNone or "None", "default", nil, "FIZ_ShowNoneButton")
-	showNoneBtn:SetPoint("LEFT", showAllBtn, "RIGHT", 4, 0)
+	local showNoneBtn = UIStyle.CreateButton(filterCard, 54, 24, FIZ_TXT.showNone or "None", "default", nil, "FIZ_ShowNoneButton")
+	showNoneBtn._lockHeight = true
 	showNoneBtn:SetScript("OnClick", function()
 		FIZ:SetOption("ShowQuests", false)
 		FIZ:SetOption("ShowMobs", false)
@@ -380,8 +557,8 @@ function FIZ:CreateModernDetailFrame()
 	showNoneBtn:HookScript("OnEnter", function(btn) FIZ_ShowHelpToolTip(btn, "FIZ_ShowNoneButton") end)
 	showNoneBtn:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
 
-	local expandBtn = UIStyle.CreateButton(filterCard, 84, 26, FIZ_TXT.expand or "Expand", "default", nil, "FIZ_ExpandButton")
-	expandBtn:SetPoint("LEFT", showNoneBtn, "RIGHT", 4, 0)
+	local expandBtn = UIStyle.CreateButton(filterCard, 80, 24, FIZ_TXT.expand or "Expand", "default", "Interface\\Buttons\\UI-PlusButton-Up", "FIZ_ExpandButton")
+	expandBtn._lockHeight = true
 	expandBtn:SetScript("OnClick", function()
 		FIZ:PlayCheckBoxSound(true)
 		FIZ_ShowUpdateEntries(true)
@@ -389,8 +566,8 @@ function FIZ:CreateModernDetailFrame()
 	expandBtn:HookScript("OnEnter", function(btn) FIZ_ShowHelpToolTip(btn, "FIZ_ExpandButton") end)
 	expandBtn:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
 
-	local collapseBtn = UIStyle.CreateButton(filterCard, 84, 26, FIZ_TXT.collapse or "Collapse", "default", nil, "FIZ_CollapseButton")
-	collapseBtn:SetPoint("LEFT", expandBtn, "RIGHT", 4, 0)
+	local collapseBtn = UIStyle.CreateButton(filterCard, 80, 24, FIZ_TXT.collapse or "Collapse", "default", "Interface\\Buttons\\UI-MinusButton-Up", "FIZ_CollapseButton")
+	collapseBtn._lockHeight = true
 	collapseBtn:SetScript("OnClick", function()
 		FIZ:PlayCheckBoxSound(false)
 		FIZ_ShowUpdateEntries(false)
@@ -399,35 +576,91 @@ function FIZ:CreateModernDetailFrame()
 	collapseBtn:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
 
 	-------------------------------------------------------------------
-	-- 6. Scrollable Reputation Sources List Card
+	-- 6. Footer Action Bar & Hint (62px at bottom of frame)
+	-------------------------------------------------------------------
+	local footerCard = CreateFrame("Frame", nil, frame, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	footerCard:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 8, 8)
+	footerCard:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -8, 8)
+	footerCard:SetHeight(62)
+	UIStyle.ApplyBox(footerCard, 0.10, 0.12, 0.15, 0.96, 0.20, 0.23, 0.29, 1)
+	frame.FooterCard = footerCard
+
+	local clearFacBtn = UIStyle.CreateButton(footerCard, 180, 26, FIZ_TXT.supressNoneFaction or "Clear Faction", "default", "Interface\\Buttons\\UI-RefreshButton", "FIZ_SupressNoneFactionButton")
+	clearFacBtn._lockHeight = true
+	clearFacBtn:SetScript("OnClick", function()
+		FIZ:PlayCheckBoxSound(false)
+		FIZ:SupressNone(false)
+	end)
+	clearFacBtn:HookScript("OnEnter", function(btn) FIZ_ShowHelpToolTip(btn, "FIZ_SupressNoneFactionButton") end)
+	clearFacBtn:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
+
+	local clearAllBtn = UIStyle.CreateButton(footerCard, 180, 26, FIZ_TXT.supressNoneGlobal or "Clear All", "danger", 136243, "FIZ_SupressNoneGlobalButton")
+	clearAllBtn._lockHeight = true
+	clearAllBtn:SetScript("OnClick", function()
+		FIZ:PlayCheckBoxSound(false)
+		FIZ:SupressNone(true)
+	end)
+	clearAllBtn:HookScript("OnEnter", function(btn) FIZ_ShowHelpToolTip(btn, "FIZ_SupressNoneGlobalButton") end)
+	clearAllBtn:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
+
+	local resetGainBtn = UIStyle.CreateButton(footerCard, 180, 26, FIZ_TXT.clearSessionGain or "Reset Session", "primary", "Interface\\Buttons\\UI-RefreshButton", "FIZ_ClearSessionGainButton")
+	resetGainBtn._lockHeight = true
+	resetGainBtn:SetScript("OnClick", function()
+		FIZ:PlayCheckBoxSound(false)
+		FIZ:ClearSessionGain()
+	end)
+	resetGainBtn:HookScript("OnEnter", function(btn) FIZ_ShowHelpToolTip(btn, "FIZ_ClearSessionGainButton") end)
+	resetGainBtn:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
+
+	local footerDiv = footerCard:CreateTexture(nil, "ARTWORK")
+	footerDiv:SetHeight(1)
+	footerDiv:SetPoint("TOPLEFT", footerCard, "TOPLEFT", 8, -37)
+	footerDiv:SetPoint("TOPRIGHT", footerCard, "TOPRIGHT", -8, -37)
+	footerDiv:SetColorTexture(0.22, 0.25, 0.32, 0.75)
+
+	local hintText = footerCard:CreateFontString("FIZ_ReputationDetailSuppressHint", "OVERLAY", "GameFontDisableSmall")
+	hintText:SetPoint("BOTTOMLEFT", footerCard, "BOTTOMLEFT", 8, 6)
+	hintText:SetPoint("BOTTOMRIGHT", footerCard, "BOTTOMRIGHT", -8, 6)
+	hintText:SetJustifyH("CENTER")
+	hintText:SetWordWrap(false)
+	hintText:SetTextColor(0.62, 0.68, 0.78)
+	hintText:SetText(FIZ_TXT.suppressHint or "")
+
+	-------------------------------------------------------------------
+	-- 7. Scrollable Reputation Sources List Card
 	-------------------------------------------------------------------
 	local listCard = CreateFrame("Frame", nil, frame, BackdropTemplateMixin and "BackdropTemplate" or nil)
 	listCard:SetPoint("TOPLEFT", filterCard, "BOTTOMLEFT", 0, -4)
 	listCard:SetPoint("TOPRIGHT", filterCard, "BOTTOMRIGHT", 0, -4)
-	listCard:SetHeight(268)
+	listCard:SetPoint("BOTTOMLEFT", footerCard, "TOPLEFT", 0, 4)
+	listCard:SetPoint("BOTTOMRIGHT", footerCard, "TOPRIGHT", 0, 4)
 	UIStyle.ApplyBox(listCard, 0.08, 0.09, 0.12, 0.98, 0.22, 0.25, 0.32, 1)
+	frame.ListCard = listCard
 
 	local scrollFrame = CreateFrame("ScrollFrame", "FIZ_UpdateListScrollFrame", listCard, "FauxScrollFrameTemplate")
 	scrollFrame:SetPoint("TOPLEFT", listCard, "TOPLEFT", 4, -4)
-	scrollFrame:SetPoint("BOTTOMRIGHT", listCard, "BOTTOMRIGHT", -24, 4)
+	scrollFrame:SetPoint("BOTTOMRIGHT", listCard, "BOTTOMRIGHT", -22, 4)
 	scrollFrame:SetScript("OnVerticalScroll", function(selfScroll, offset)
 		FauxScrollFrame_OnVerticalScroll(selfScroll, offset, ROW_HEIGHT, FIZ_UpdateList_Update)
 	end)
+	UIStyle.StyleScrollBar(scrollFrame)
 
 	local noInfoText = listCard:CreateFontString("FIZ_NoInformationText", "OVERLAY", "GameFontDisableLarge")
 	noInfoText:SetPoint("CENTER", listCard, "CENTER", 0, 0)
-	noInfoText:SetWidth(460)
+	noInfoText:SetWidth(500)
 	noInfoText:SetJustifyH("CENTER")
 	noInfoText:Hide()
 
 	for row = 1, FIZ_UPDATE_LIST_HEIGHT do
 		local entryName = "FIZ_UpdateEntry" .. row
 		local btn = CreateFrame("Button", entryName, listCard)
-		btn:SetSize(492, ROW_HEIGHT)
+		btn:SetHeight(ROW_HEIGHT)
 		if row == 1 then
 			btn:SetPoint("TOPLEFT", scrollFrame, "TOPLEFT", 0, 0)
+			btn:SetPoint("TOPRIGHT", scrollFrame, "TOPRIGHT", -2, 0)
 		else
 			btn:SetPoint("TOPLEFT", _G["FIZ_UpdateEntry" .. (row - 1)], "BOTTOMLEFT", 0, 0)
+			btn:SetPoint("TOPRIGHT", _G["FIZ_UpdateEntry" .. (row - 1)], "BOTTOMRIGHT", 0, 0)
 		end
 		btn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 
@@ -448,8 +681,8 @@ function FIZ:CreateModernDetailFrame()
 		hlTex:SetVertexColor(0.95, 0.80, 0.25, 0.18)
 
 		local tex = btn:CreateTexture(entryName .. "Texture", "OVERLAY")
-		tex:SetSize(16, 16)
-		tex:SetPoint("LEFT", btn, "LEFT", 4, 0)
+		tex:SetSize(14, 14)
+		tex:SetPoint("LEFT", btn, "LEFT", 5, 0)
 		tex:SetTexture("Interface\\Buttons\\UI-MinusButton-Up")
 
 		local lbl = btn:CreateFontString(entryName .. "Label", "OVERLAY", "GameFontNormal")
@@ -458,36 +691,38 @@ function FIZ:CreateModernDetailFrame()
 		lbl:SetJustifyH("LEFT")
 
 		local times = btn:CreateFontString(entryName .. "Times", "OVERLAY", "GameFontHighlight")
-		times:SetSize(52, ROW_HEIGHT)
+		times:SetSize(54, ROW_HEIGHT)
 		times:SetPoint("LEFT", btn, "LEFT", 52, 0)
 		times:SetJustifyH("RIGHT")
 
+		local repFS = btn:CreateFontString(entryName .. "Rep", "OVERLAY", "GameFontHighlight")
+		repFS:SetSize(56, ROW_HEIGHT)
+		repFS:SetPoint("RIGHT", btn, "RIGHT", -6, 0)
+		repFS:SetJustifyH("RIGHT")
+
 		local nameFS = btn:CreateFontString(entryName .. "Name", "OVERLAY", "GameFontHighlight")
-		nameFS:SetSize(326, ROW_HEIGHT)
-		nameFS:SetPoint("LEFT", btn, "LEFT", 110, 0)
+		nameFS:SetPoint("LEFT", btn, "LEFT", 112, 0)
+		nameFS:SetPoint("RIGHT", repFS, "LEFT", -6, 0)
+		nameFS:SetHeight(ROW_HEIGHT)
 		nameFS:SetJustifyH("LEFT")
 		nameFS:SetWordWrap(false)
 
-		local repFS = btn:CreateFontString(entryName .. "Rep", "OVERLAY", "GameFontHighlight")
-		repFS:SetSize(52, ROW_HEIGHT)
-		repFS:SetPoint("RIGHT", btn, "RIGHT", -4, 0)
-		repFS:SetJustifyH("RIGHT")
-
 		local itemTimes = btn:CreateFontString(entryName .. "ItemTimes", "OVERLAY", "GameFontDisable")
-		itemTimes:SetSize(52, ROW_HEIGHT)
+		itemTimes:SetSize(54, ROW_HEIGHT)
 		itemTimes:SetPoint("LEFT", btn, "LEFT", 52, 0)
 		itemTimes:SetJustifyH("RIGHT")
 
-		local itemName = btn:CreateFontString(entryName .. "ItemName", "OVERLAY", "GameFontDisable")
-		itemName:SetSize(300, ROW_HEIGHT)
-		itemName:SetPoint("LEFT", btn, "LEFT", 110, 0)
-		itemName:SetJustifyH("LEFT")
-		itemName:SetWordWrap(false)
-
 		local totalTimes = btn:CreateFontString(entryName .. "TotalTimes", "OVERLAY", "GameFontDisable")
 		totalTimes:SetSize(90, ROW_HEIGHT)
-		totalTimes:SetPoint("RIGHT", btn, "RIGHT", -4, 0)
+		totalTimes:SetPoint("RIGHT", btn, "RIGHT", -6, 0)
 		totalTimes:SetJustifyH("RIGHT")
+
+		local itemName = btn:CreateFontString(entryName .. "ItemName", "OVERLAY", "GameFontDisable")
+		itemName:SetPoint("LEFT", btn, "LEFT", 112, 0)
+		itemName:SetPoint("RIGHT", totalTimes, "LEFT", -6, 0)
+		itemName:SetHeight(ROW_HEIGHT)
+		itemName:SetJustifyH("LEFT")
+		itemName:SetWordWrap(false)
 
 		btn:SetScript("OnEnter", function(selfBtn) FIZ_ShowLineToolTip(selfBtn) end)
 		btn:SetScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
@@ -495,46 +730,13 @@ function FIZ:CreateModernDetailFrame()
 		btn:Hide()
 	end
 
-	-------------------------------------------------------------------
-	-- 7. Footer Action Bar & Hint
-	-------------------------------------------------------------------
-	local footerCard = CreateFrame("Frame", nil, frame, BackdropTemplateMixin and "BackdropTemplate" or nil)
-	footerCard:SetPoint("TOPLEFT", listCard, "BOTTOMLEFT", 0, -4)
-	footerCard:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -8, 8)
-	UIStyle.ApplyBox(footerCard, 0.10, 0.12, 0.15, 0.96, 0.20, 0.23, 0.29, 1)
-
-	local clearFacBtn = UIStyle.CreateButton(footerCard, 166, 26, FIZ_TXT.supressNoneFaction or "Clear Faction", "default", nil, "FIZ_SupressNoneFactionButton")
-	clearFacBtn:SetPoint("TOPLEFT", footerCard, "TOPLEFT", 6, -6)
-	clearFacBtn:SetScript("OnClick", function()
-		FIZ:PlayCheckBoxSound(false)
-		FIZ:SupressNone(false)
+	UIStyle.RegisterFontListener(function()
+		FIZ:LayoutDetailFrameControls()
 	end)
-	clearFacBtn:HookScript("OnEnter", function(btn) FIZ_ShowHelpToolTip(btn, "FIZ_SupressNoneFactionButton") end)
-	clearFacBtn:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
 
-	local clearAllBtn = UIStyle.CreateButton(footerCard, 166, 26, FIZ_TXT.supressNoneGlobal or "Clear All", "danger", nil, "FIZ_SupressNoneGlobalButton")
-	clearAllBtn:SetPoint("LEFT", clearFacBtn, "RIGHT", 6, 0)
-	clearAllBtn:SetScript("OnClick", function()
-		FIZ:PlayCheckBoxSound(false)
-		FIZ:SupressNone(true)
+	frame:HookScript("OnShow", function()
+		FIZ:LayoutDetailFrameControls()
 	end)
-	clearAllBtn:HookScript("OnEnter", function(btn) FIZ_ShowHelpToolTip(btn, "FIZ_SupressNoneGlobalButton") end)
-	clearAllBtn:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
-
-	local resetGainBtn = UIStyle.CreateButton(footerCard, 168, 26, FIZ_TXT.clearSessionGain or "Reset Session", "primary", nil, "FIZ_ClearSessionGainButton")
-	resetGainBtn:SetPoint("LEFT", clearAllBtn, "RIGHT", 6, 0)
-	resetGainBtn:SetScript("OnClick", function()
-		FIZ:PlayCheckBoxSound(false)
-		FIZ:ClearSessionGain()
-	end)
-	resetGainBtn:HookScript("OnEnter", function(btn) FIZ_ShowHelpToolTip(btn, "FIZ_ClearSessionGainButton") end)
-	resetGainBtn:HookScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
-
-	local hintText = footerCard:CreateFontString("FIZ_ReputationDetailSuppressHint", "OVERLAY", "GameFontDisableSmall")
-	hintText:SetPoint("BOTTOMLEFT", footerCard, "BOTTOMLEFT", 8, 5)
-	hintText:SetPoint("BOTTOMRIGHT", footerCard, "BOTTOMRIGHT", -8, 5)
-	hintText:SetJustifyH("CENTER")
-	hintText:SetText(FIZ_TXT.suppressHint or "")
 
 	self:UpdateDetailWindowDocking()
 	return frame
@@ -564,11 +766,11 @@ function FIZ_UpdateList_Update()
 	FIZ_ShowInstancesButton:SetChecked(FIZ_Data.ShowInstances)
 	FIZ_ShowGeneralButton:SetChecked(FIZ_Data.ShowGeneral)
 
-	if FIZ_ShowQuestButtonText then FIZ_ShowQuestButtonText:SetText(FIZ_TXT.showQuests) end
-	if FIZ_ShowItemsButtonText then FIZ_ShowItemsButtonText:SetText(FIZ_TXT.showItems) end
-	if FIZ_ShowMobsButtonText then FIZ_ShowMobsButtonText:SetText(FIZ_TXT.showMobs) end
-	if FIZ_ShowInstancesButtonText then FIZ_ShowInstancesButtonText:SetText(FIZ_TXT.showInstances) end
-	if FIZ_ShowGeneralButtonText then FIZ_ShowGeneralButtonText:SetText(FIZ_TXT.showGeneral) end
+	FIZ_ShowQuestButton:SetText(FIZ_TXT.showQuests)
+	FIZ_ShowItemsButton:SetText(FIZ_TXT.showItems)
+	FIZ_ShowMobsButton:SetText(FIZ_TXT.showMobs)
+	FIZ_ShowInstancesButton:SetText(FIZ_TXT.showInstances)
+	FIZ_ShowGeneralButton:SetText(FIZ_TXT.showGeneral)
 
 	FIZ_ShowAllButton:SetText(FIZ_TXT.showAll)
 	FIZ_ShowNoneButton:SetText(FIZ_TXT.showNone)
@@ -579,6 +781,8 @@ function FIZ_UpdateList_Update()
 	FIZ_SupressNoneGlobalButton:SetText(FIZ_TXT.supressNoneGlobal)
 	FIZ_ReputationDetailSuppressHint:SetText(FIZ_TXT.suppressHint)
 	FIZ_ClearSessionGainButton:SetText(FIZ_TXT.clearSessionGain)
+
+	FIZ:LayoutDetailFrameControls()
 
 	local filter = FIZ.searchFilter or ""
 	local visibleIndices = {}
@@ -643,13 +847,19 @@ function FIZ_UpdateList_Update()
 						else
 							entryTexture:SetTexture("Interface\\Buttons\\UI-PlusButton-Up")
 						end
+						if F_UL_ei.suppress then
+							entryTexture:SetVertexColor(0.55, 0.55, 0.55, 0.85)
+						else
+							entryTexture:SetVertexColor(0.35, 1.0, 0.45, 1.0)
+						end
 					else
-						entryTexture:SetTexture("Interface\\Buttons\\UI-CheckBox-Up")
-					end
-					if F_UL_ei.suppress then
-						entryTexture:SetVertexColor(0.5, 0.5, 0.5, 0.8)
-					else
-						entryTexture:SetVertexColor(0.3, 1.0, 0.4, 1.0)
+						if F_UL_ei.suppress then
+							entryTexture:SetTexture("Interface\\Buttons\\UI-StopButton")
+							entryTexture:SetVertexColor(0.75, 0.35, 0.35, 0.85)
+						else
+							entryTexture:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+							entryTexture:SetVertexColor(0.35, 0.95, 0.55, 0.95)
+						end
 					end
 					if F_UL_ei.canSuppress or F_UL_ei.hasList then
 						entryTexture:Show()
@@ -1070,6 +1280,7 @@ function FIZ:Rep_Detail_Frame(faction, colorID, barValue, barMax, origBarValue, 
 
 	FIZ_ReputationDetailInactiveCheckBox:SetChecked(self:IsFactionInactive(faction))
 	FIZ_ReputationDetailMainScreenCheckBox:SetChecked(isWatched and true or false)
+	self:LayoutDetailFrameControls()
 end
 
 function FIZ_Friend_Detail(factionID, standingID, factionRow)

@@ -143,20 +143,12 @@ function FIZ:GetOptionsTable()
 								width = "full",
 								order = 3,
 							},
-						},
-					},
-					previewGroup = {
-						type = "group",
-						name = FIZ_TXT.showPreviewRep or "Reputation Preview Bar",
-						inline = true,
-						order = 20,
-						args = {
 							ShowPreviewRep = {
 								type = "toggle",
 								name = FIZ_TXT.showPreviewRep,
 								desc = FIZ_TXT.showPreviewRepTip,
 								width = "full",
-								order = 1,
+								order = 4,
 							},
 							StatusBarTexture = {
 								type = "select",
@@ -165,7 +157,7 @@ function FIZ:GetOptionsTable()
 								desc = FIZ.L["statusbarTextureTip"] or "Texture used for the reputation preview and detail progress bars",
 								values = statusbarValues,
 								width = "double",
-								order = 2,
+								order = 5,
 							},
 						},
 					},
@@ -648,6 +640,56 @@ local CONFIG_SECTIONS = {
 	{ key = "about",         icon = 133738, label = function() return FIZ_TXT.about or "About" end },
 }
 
+local function styleAceCheckBox(widget, UIStyle)
+	if not widget or not widget.frame or not widget.checkbg then return end
+	local frame = widget.frame
+
+	if not frame._fizCheckBoxBg then
+		local box = CreateFrame("Frame", nil, frame, BackdropTemplateMixin and "BackdropTemplate" or nil)
+		box:SetSize(18, 18)
+		box:SetPoint("CENTER", widget.checkbg, "CENTER", 0, 0)
+		UIStyle.ApplyBox(box, 0.06, 0.07, 0.10, 1, 0.30, 0.34, 0.44, 1)
+		frame._fizCheckBoxBg = box
+
+		local icon = box:CreateTexture(nil, "OVERLAY", nil, 7)
+		icon:SetSize(16, 16)
+		icon:SetPoint("CENTER", box, "CENTER", 0, 0)
+		icon:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+		frame._fizCheckIcon = icon
+
+		local function syncBoxState(w)
+			if not w or not w.frame or not w.frame._fizCheckBoxBg then return end
+			local b = w.frame._fizCheckBoxBg
+			local ic = w.frame._fizCheckIcon
+			if w.check then w.check:SetAlpha(0) end
+			if w.checkbg then w.checkbg:SetAlpha(0) end
+			if w.checkbg and w.checkbg.backdrop then w.checkbg.backdrop:SetAlpha(0) end
+			if w.checked then
+				ic:Show()
+				UIStyle.ApplyBox(b, 0.13, 0.23, 0.19, 1, 0.82, 0.68, 0.20, 1)
+			else
+				ic:Hide()
+				UIStyle.ApplyBox(b, 0.06, 0.07, 0.10, 1, 0.30, 0.34, 0.44, 1)
+			end
+			if w.disabled then
+				ic:SetDesaturated(true)
+				b:SetAlpha(0.45)
+			else
+				ic:SetDesaturated(false)
+				b:SetAlpha(1.0)
+			end
+		end
+
+		hooksecurefunc(widget, "SetValue", syncBoxState)
+		hooksecurefunc(widget, "SetDisabled", syncBoxState)
+		frame._fizSyncCheck = syncBoxState
+	end
+
+	if frame._fizSyncCheck then
+		frame._fizSyncCheck(widget)
+	end
+end
+
 local function styleAceWidgetsRecursive(widget)
 	if not widget then return end
 	local UIStyle = FIZ.UIStyle
@@ -664,6 +706,7 @@ local function styleAceWidgetsRecursive(widget)
 		elseif (widget.type == "Label" or widget.type == "InteractiveLabel") and widget.label then
 			UIStyle.ApplyFont(widget.label, 0)
 		elseif widget.type == "CheckBox" and widget.text then
+			styleAceCheckBox(widget, UIStyle)
 			UIStyle.ApplyFont(widget.text, 0)
 			if widget.SetHeight then
 				widget:SetHeight(math.max(24, fontSize + 11))
@@ -684,9 +727,19 @@ local function styleAceWidgetsRecursive(widget)
 		elseif widget.type == "MultiLineEditBox" then
 			if widget.label then UIStyle.ApplyFont(widget.label, 0) end
 			if widget.editBox then UIStyle.ApplyFont(widget.editBox, 0) end
-		elseif widget.type == "Dropdown" then
-			if widget.label then UIStyle.ApplyFont(widget.label, -1) end
-			if widget.text then UIStyle.ApplyFont(widget.text, 0) end
+		elseif widget.type == "Dropdown" or widget.type == "LSM30_Statusbar" then
+			if widget.label then
+				UIStyle.ApplyFont(widget.label, -1)
+				widget.label:SetTextColor(0.95, 0.80, 0.28)
+			elseif widget.frame and widget.frame.label then
+				UIStyle.ApplyFont(widget.frame.label, -1)
+				widget.frame.label:SetTextColor(0.95, 0.80, 0.28)
+			end
+			if widget.text then
+				UIStyle.ApplyFont(widget.text, 0)
+			elseif widget.frame and widget.frame.text then
+				UIStyle.ApplyFont(widget.frame.text, 0)
+			end
 		elseif widget.type == "Slider" then
 			if widget.label then UIStyle.ApplyFont(widget.label, 0) end
 			if widget.editbox then UIStyle.ApplyFont(widget.editbox, 0) end
@@ -797,6 +850,7 @@ local function ensureConfigFrame()
 	UIStyle.ApplyBox(frame.Footer, 0.10, 0.12, 0.15, 1, 0.20, 0.23, 0.29, 1)
 
 	frame.RepBtn = UIStyle.CreateButton(frame.Footer, 170, 26, _G.REPUTATION or "Reputation Panel", "default", "Interface\\Icons\\Achievement_Reputation_01")
+	frame.RepBtn._lockHeight = true
 	frame.RepBtn:SetPoint("LEFT", frame.Footer, "LEFT", 8, 0)
 	frame.RepBtn:SetScript("OnClick", function()
 		FIZ:HideConfigWindow()
@@ -804,6 +858,7 @@ local function ensureConfigFrame()
 	end)
 
 	frame.ResetSupBtn = UIStyle.CreateButton(frame.Footer, 180, 26, FIZ_TXT.suppressNone or "Reset Exclusions", "danger", 136243)
+	frame.ResetSupBtn._lockHeight = true
 	frame.ResetSupBtn:SetPoint("LEFT", frame.RepBtn, "RIGHT", 8, 0)
 	frame.ResetSupBtn:SetScript("OnClick", function()
 		FIZ:SupressNone(true)
@@ -813,7 +868,8 @@ local function ensureConfigFrame()
 	frame.ProfileBadge = frame.Footer:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	frame.ProfileBadge:SetPoint("LEFT", frame.ResetSupBtn, "RIGHT", 18, 0)
 
-	frame.DoneBtn = UIStyle.CreateButton(frame.Footer, 100, 26, CLOSE or "Done", "primary")
+	frame.DoneBtn = UIStyle.CreateButton(frame.Footer, 110, 26, CLOSE or "Done", "primary", "Interface\\Buttons\\UI-CheckBox-Check")
+	frame.DoneBtn._lockHeight = true
 	frame.DoneBtn:SetPoint("RIGHT", frame.Footer, "RIGHT", -8, 0)
 	frame.DoneBtn:SetScript("OnClick", function() FIZ:HideConfigWindow() end)
 

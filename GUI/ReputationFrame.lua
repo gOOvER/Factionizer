@@ -4,6 +4,50 @@
 
 local FIZ = _G.FIZ
 
+function FIZ:PositionReputationFrameControls()
+	if not ReputationFrame then return end
+	local optBtn = _G.FIZ_OptionsButton
+	local pill = _G.FIZ_OrderByStandingCheckBox
+	local baseLevel = (ReputationListScrollFrame and ReputationListScrollFrame:GetFrameLevel())
+		or ReputationFrame:GetFrameLevel()
+		or 1
+	local targetLevel = baseLevel + 15
+
+	if ReputationFrameFactionLabel then
+		ReputationFrameFactionLabel:Hide()
+	end
+	if ReputationFrameStandingLabel then
+		ReputationFrameStandingLabel:Hide()
+	end
+
+	if optBtn then
+		optBtn:SetFrameLevel(targetLevel)
+		optBtn._lockHeight = true
+		optBtn:SetHeight(20)
+		optBtn:ClearAllPoints()
+		if ReputationListScrollFrame then
+			optBtn:SetPoint("BOTTOMRIGHT", ReputationListScrollFrame, "TOPRIGHT", -2, 6)
+		elseif ReputationFrame.ReputationDetailFrame then
+			optBtn:SetPoint("TOPRIGHT", ReputationFrame, "TOPRIGHT", -28, -28)
+		else
+			optBtn:SetPoint("TOPLEFT", ReputationFrame, "TOPLEFT", 210, -42)
+		end
+	end
+
+	if pill then
+		pill:SetFrameLevel(targetLevel)
+		pill:SetHeight(20)
+		pill:ClearAllPoints()
+		if ReputationListScrollFrame and optBtn then
+			pill:SetPoint("BOTTOMLEFT", ReputationListScrollFrame, "TOPLEFT", 46, 6)
+			pill:SetPoint("RIGHT", optBtn, "LEFT", -6, 0)
+			pill._fixedWidth = true
+		else
+			pill:SetPoint("TOPLEFT", ReputationFrame, "TOPLEFT", 68, -42)
+		end
+	end
+end
+
 function FIZ:CreateReputationFrameControls()
 	if not ReputationFrame then return end
 	local UIStyle = self.UIStyle
@@ -12,13 +56,14 @@ function FIZ:CreateReputationFrameControls()
 	if not _G.FIZ_OptionsButton then
 		local optBtn
 		if UIStyle then
-			optBtn = UIStyle.CreateButton(ReputationFrame, 96, 22, FIZ_TXT.options or "Options", "primary", "Interface\\Icons\\Achievement_Reputation_01", "FIZ_OptionsButton")
+			optBtn = UIStyle.CreateButton(ReputationFrame, 88, 20, FIZ_TXT.options or "Options", "primary", "Interface\\Icons\\Achievement_Reputation_01", "FIZ_OptionsButton")
+			optBtn._lockHeight = true
+			optBtn:SetHeight(20)
 		else
 			optBtn = CreateFrame("Button", "FIZ_OptionsButton", ReputationFrame, "UIPanelButtonTemplate")
-			optBtn:SetSize(84, 22)
+			optBtn:SetSize(84, 20)
 			optBtn:SetText(FIZ_TXT.options or "Options")
 		end
-		optBtn:SetPoint("TOPRIGHT", ReputationFrame, "TOPRIGHT", -38, -38)
 		optBtn:SetScript("OnClick", function()
 			FIZ:ToggleConfigWindow()
 		end)
@@ -45,15 +90,14 @@ function FIZ:CreateReputationFrameControls()
 				end,
 				"FIZ_OrderByStandingCheckBox"
 			)
-			pill:SetPoint("TOPLEFT", ReputationFrame, "TOPLEFT", 68, -38)
+			pill:SetHeight(20)
 			pill:HookScript("OnEnter", function(selfBtn)
 				FIZ_ShowHelpToolTip(selfBtn, "FIZ_OrderByStandingCheckBox")
 			end)
 		else
 			local cb = CreateFrame("CheckButton", "FIZ_OrderByStandingCheckBox", ReputationFrame, "UICheckButtonTemplate")
-			cb:SetSize(24, 24)
-			cb:SetPoint("TOPLEFT", ReputationFrame, "TOPLEFT", 55, -20)
-			cb:SetHitRectInsets(0, -160, 0, 0)
+			cb:SetSize(22, 22)
+			cb:SetHitRectInsets(0, -140, 0, 0)
 			local cbText = _G["FIZ_OrderByStandingCheckBoxText"] or cb.Text or cb.text
 			if cbText then
 				cbText:SetText(FIZ_TXT.orderByStanding or "Order by Standing")
@@ -72,11 +116,23 @@ function FIZ:CreateReputationFrameControls()
 			end)
 		end
 	else
-		local cbText = _G["FIZ_OrderByStandingCheckBoxText"] or _G.FIZ_OrderByStandingCheckBox.Text
-		if cbText then
-			cbText:SetText(FIZ_TXT.orderByStanding or "Order by Standing")
+		if _G.FIZ_OrderByStandingCheckBox.SetText then
+			_G.FIZ_OrderByStandingCheckBox:SetText(FIZ_TXT.orderByStanding or "Order by Standing")
+		else
+			local cbText = _G["FIZ_OrderByStandingCheckBoxText"] or _G.FIZ_OrderByStandingCheckBox.Text
+			if cbText then
+				cbText:SetText(FIZ_TXT.orderByStanding or "Order by Standing")
+			end
 		end
 		_G.FIZ_OrderByStandingCheckBox:SetChecked(FIZ_Data and FIZ_Data.SortByStanding or false)
+	end
+
+	self:PositionReputationFrameControls()
+	if not ReputationFrame._fizShowHooked then
+		ReputationFrame._fizShowHooked = true
+		ReputationFrame:HookScript("OnShow", function()
+			FIZ:PositionReputationFrameControls()
+		end)
 	end
 
 	-- 3. Create preview bars dynamically on Classic clients where ReputationBar1..15 exist
@@ -189,6 +245,7 @@ function FIZ_GetFactionInfo(factionIndex)
 end
 
 function FIZ:ReputationFrame_Update()
+	self:PositionReputationFrameControls()
 	local numFactions
 	if FIZ_Data.SortByStanding then
 		self:StandingSort()
@@ -227,14 +284,6 @@ function FIZ:ReputationFrame_Update()
 		end
 	end
 	local factionOffset = ReputationListScrollFrame and FauxScrollFrame_GetOffset(ReputationListScrollFrame) or 0
-
-	if ReputationFrameStandingLabel and FIZ_Orig_StandingText then
-		if FIZ_Data.ShowMissing then
-			ReputationFrameStandingLabel:SetText(FIZ_Orig_StandingText .. " " .. FIZ_TXT.missing)
-		else
-			ReputationFrameStandingLabel:SetText(FIZ_Orig_StandingText)
-		end
-	end
 
 	for i = 1, numDisplayed do
 		local factionIndex = factionOffset + i

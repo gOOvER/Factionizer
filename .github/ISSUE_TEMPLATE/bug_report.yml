@@ -68,3 +68,4 @@ body:
       label: Lua Error Log (BugSack / Swatter) or Screenshots
       description: Please paste any Lua stack trace or attach screenshots here.
       render: lua
+
