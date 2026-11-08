@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to release (e.g., 1.0.0 or 1.0.0-beta1). Use "auto" to read from CHANGELOG.md or .toc'
+        description: 'Version to release (e.g., 1.0.0 or 1.0.0-beta1). Use "auto" to read from .github/CHANGELOG.md or .toc'
         required: true
         type: string
         default: 'auto'
@@ -39,7 +39,9 @@ jobs:
 
           VERSION="${{ github.event.inputs.version }}"
           if [[ -z "$VERSION" || "$VERSION" == "auto" ]]; then
-            if [[ -f CHANGELOG.md ]]; then
+            if [[ -f .github/CHANGELOG.md ]]; then
+              VERSION=$(awk '/^## \[/{gsub(/\[|\]/, "", $2); print $2; exit}' .github/CHANGELOG.md)
+            elif [[ -f CHANGELOG.md ]]; then
               VERSION=$(awk '/^## \[/{gsub(/\[|\]/, "", $2); print $2; exit}' CHANGELOG.md)
             fi
             if [[ -z "$VERSION" ]]; then
@@ -49,14 +51,25 @@ jobs:
           TAG_NAME="v${VERSION#v}"
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
 
-          if ! git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
-            git tag -a "$TAG_NAME" -m "Release $TAG_NAME"
-          else
-            git tag -f -a "$TAG_NAME" -m "Release $TAG_NAME"
+          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "::error::Tag $TAG_NAME already exists! Never overwrite an existing tag to prevent duplicate uploads on CurseForge and Wago.io. Please bump the version number."
+            exit 1
           fi
 
+          git tag -a "$TAG_NAME" -m "Release $TAG_NAME"
           if [[ "${{ github.event.inputs.create_tag }}" == "true" ]]; then
-            git push -f origin "$TAG_NAME"
+            git push origin "$TAG_NAME"
+          fi
+
+      - name: Prevent duplicate uploads to CurseForge & Wago.io
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG_NAME="${TAG_NAME:-${GITHUB_REF_NAME}}"
+          EXISTING_ASSETS=$(gh release view "$TAG_NAME" --json assets --jq '.assets | length' 2>/dev/null || echo "0")
+          if [[ "$EXISTING_ASSETS" -gt 0 ]]; then
+            echo "::error::Release $TAG_NAME already exists with $EXISTING_ASSETS uploaded assets! Aborting before BigWigs Packager to prevent duplicate releases on CurseForge and Wago.io. Bump the version number for a new release."
+            exit 1
           fi
 
       - name: Ensure CHANGELOG.md exists for BigWigs Packager release notes
@@ -94,4 +107,3 @@ jobs:
               fi
             done
           fi
-
