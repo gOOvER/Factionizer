@@ -708,6 +708,90 @@ function FIZ:StandingSort()
 	FIZ_OBS_numFactions = count
 end
 
+local STANDING_CHAT_HEX = {
+	[1] = "cc2222",
+	[2] = "ff3333",
+	[3] = "ee6622",
+	[4] = "e5cc33",
+	[5] = "33cc33",
+	[6] = "00ffaa",
+	[7] = "00ccff",
+	[8] = "00ffcc",
+}
+
+function FIZ:FormatReputationProgressChatLine(name, standingID, barMin, barMax, barValue, prevRep, factionID)
+	local diff = (barValue or 0) - (prevRep or 0)
+	local normMax = (barMax or 0) - (barMin or 0)
+	local normCurrent = (barValue or 0) - (barMin or 0)
+	if normMax <= 0 then
+		normMax = 1
+	end
+	if normCurrent < 0 then
+		normCurrent = 0
+	elseif normCurrent > normMax then
+		normCurrent = normMax
+	end
+
+	local deltaPct = (math.abs(diff) / normMax) * 100
+	local progressRatio = normCurrent / normMax
+	local progressPct = math.floor(progressRatio * 100 + 0.5)
+
+	local totalBars = 20
+	local filledBars = math.floor(progressRatio * totalBars + 0.5)
+	if filledBars < 0 then filledBars = 0 end
+	if filledBars > totalBars then filledBars = totalBars end
+	local emptyBars = totalBars - filledBars
+
+	local nextLabel
+	local nextColorHex = STANDING_CHAT_HEX[math.min(8, (standingID or 4) + 1)] or "00ffaa"
+
+	if factionID and C_Reputation and C_Reputation.IsFactionParagon and C_Reputation.IsFactionParagon(factionID) then
+		nextLabel = FIZ_TXT.paragon or "Paragon"
+		nextColorHex = "00ffcc"
+	elseif factionID and self.IsMajorFaction and self:IsMajorFaction(factionID) and C_MajorFactions and C_MajorFactions.GetMajorFactionData then
+		local majorData = C_MajorFactions.GetMajorFactionData(factionID)
+		local nextRenown = (majorData and majorData.renownLevel or 1) + 1
+		nextLabel = string.format(FIZ_TXT.renown or "Renown %d", nextRenown)
+		nextColorHex = "00ccff"
+	elseif factionID and self.GetFriendshipInfo then
+		local friendID, _, _, _, _, _, friendReaction, _, nextThreshold = self:GetFriendshipInfo(factionID)
+		if friendID then
+			nextLabel = friendReaction or (_G["FACTION_STANDING_LABEL" .. math.min(8, (standingID or 5) + 1)])
+			nextColorHex = nextThreshold and "00ffaa" or "00ffcc"
+		end
+	end
+
+	if not nextLabel or nextLabel == "" then
+		local nextStandingID = math.min(8, (standingID or 4) + 1)
+		nextLabel = _G["FACTION_STANDING_LABEL" .. nextStandingID]
+			or (FIZ_TXT.StandLv and FIZ_TXT.StandLv[nextStandingID])
+			or tostring(nextStandingID)
+		nextColorHex = STANDING_CHAT_HEX[nextStandingID] or "00ffaa"
+	end
+
+	local signStr = diff >= 0 and "+" or "-"
+	local barColor = diff >= 0 and "|cff00ff00" or "|cffff4040"
+	local barVisual = "|cffffff00[|r"
+		.. barColor .. string.rep("||", filledBars) .. "|r"
+		.. "|cff808080" .. string.rep("||", emptyBars) .. "|r"
+		.. "|cffffff00]|r"
+
+	local toWord = FIZ_TXT.repTo or "to"
+	local coloredNext = "|cff" .. nextColorHex .. nextLabel .. "|r"
+
+	return string.format(
+		"|cffffffff%s: %s%d (%.1f%%) - %d%% %s %s: |r%s",
+		tostring(name),
+		signStr,
+		math.abs(diff),
+		deltaPct,
+		progressPct,
+		toWord,
+		coloredNext,
+		barVisual
+	)
+end
+
 function FIZ:DumpReputationChangesToChat(initOnly)
 	if not FIZ_StoredRep then FIZ_StoredRep = {} end
 
@@ -717,7 +801,7 @@ function FIZ:DumpReputationChangesToChat(initOnly)
 	local watchName = nil
 
 	for factionIndex = 1, numFactions do
-		local name, _, standingID, _, barMax, barValue, _, _, isHeader, _, hasRep, isWatched = self:GetRawFactionInfo(factionIndex)
+		local name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, isWatched, _, factionID = self:GetRawFactionInfo(factionIndex)
 		if name and (not isHeader or hasRep) then
 			if isWatched then
 				watchedIndex = factionIndex
@@ -728,6 +812,9 @@ function FIZ:DumpReputationChangesToChat(initOnly)
 						local sign = ""
 						if (barValue - FIZ_StoredRep[name].origRep) > 0 then
 							sign = "+"
+						end
+						if barValue ~= FIZ_StoredRep[name].rep and FIZ_Data.ShowProgressChat ~= false then
+							FIZ:Print(self:FormatReputationProgressChatLine(name, standingID, barMin, barMax, barValue, FIZ_StoredRep[name].rep, factionID))
 						end
 						if barValue > FIZ_StoredRep[name].rep then
 							FIZ:Print(FIZ_NEW_REP_COLOUR .. string.format(FACTION_STANDING_INCREASED .. FIZ_TXT.stats, name, barValue - FIZ_StoredRep[name].rep, sign, barValue - FIZ_StoredRep[name].origRep, barMax - barValue))

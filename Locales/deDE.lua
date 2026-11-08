@@ -341,6 +341,10 @@ L["showGeneralTip"] = "Aktiviere diese Option, um allgemeine Möglichkeiten zum 
 L["showAllTip"] = "Klicke hier, um alle vier links stehenden Filter zu aktivieren.\r\nDadurch werden Gegner, Quests, Gegenstände und Instanzen für die ausgewählte Fraktion angezeigt."
 L["showNoneTip"] = "Klicke hier, um alle vier links stehenden Filter zu deaktivieren."
 L["suppressNoneTip"] = "Klicke hier, um alle durch Rechtsklick ausgeschlossenen Quests für alle Fraktionen wieder zu aktivieren."
+L["repTo"] = "bis"
+L["showProgressChat"] = "Visuelle Ruf-Fortschrittsleiste im Chat anzeigen"
+L["showProgressChatTip"] = "Zeigt bei Rufänderungen zusätzlich eine kompakte Fortschrittszeile (z. B. 'Fraktion: +10 (0.2%) - 40% bis Wohlwollend: [||||...]') im Chat an."
+
 
 
 

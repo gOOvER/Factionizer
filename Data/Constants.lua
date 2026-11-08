@@ -173,6 +173,7 @@ FIZ.DEFAULT_PROFILE = {
 	ShowMissing = true,
 	ExtendDetails = true,
 	WriteChatMessage = true,
+	ShowProgressChat = true,
 	NoGuildGain = true,
 	SuppressOriginalChat = true,
 	ShowPreviewRep = true,

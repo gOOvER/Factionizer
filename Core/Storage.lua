@@ -144,7 +144,7 @@ end
 
 local EXPORT_KEYS = {
 	"ShowMobs", "ShowQuests", "ShowInstances", "ShowItems", "ShowGeneral",
-	"ShowMissing", "ExtendDetails", "WriteChatMessage", "NoGuildGain",
+	"ShowMissing", "ExtendDetails", "WriteChatMessage", "ShowProgressChat", "NoGuildGain",
 	"SuppressOriginalChat", "ShowPreviewRep", "SwitchFactionBar",
 	"SilentSwitch", "NoGuildSwitch", "SortByStanding", "StatusBarTexture",
 }

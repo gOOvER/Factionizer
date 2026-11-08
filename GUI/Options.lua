@@ -267,6 +267,14 @@ function FIZ:GetOptionsTable()
 								width = "full",
 								order = 1,
 							},
+							ShowProgressChat = {
+								type = "toggle",
+								name = FIZ_TXT.showProgressChat or "Show visual reputation progress bar in chat",
+								desc = FIZ_TXT.showProgressChatTip,
+								width = "full",
+								order = 1.5,
+								disabled = function() return not FIZ.db.profile.WriteChatMessage end,
+							},
 							NoGuildGain = {
 								type = "toggle",
 								name = FIZ_TXT.noGuildGain,
@@ -663,7 +671,10 @@ local function styleAceCheckBox(widget, UIStyle)
 			local ic = w.frame._fizCheckIcon
 			if w.check then w.check:SetAlpha(0) end
 			if w.checkbg then w.checkbg:SetAlpha(0) end
-			if w.checkbg and w.checkbg.backdrop then w.checkbg.backdrop:SetAlpha(0) end
+			if w.checkbg and w.checkbg.backdrop then
+				w.checkbg.backdrop:SetAlpha(0)
+				w.checkbg.backdrop:Hide()
+			end
 			if w.checked then
 				ic:Show()
 				UIStyle.ApplyBox(b, 0.13, 0.23, 0.19, 1, 0.82, 0.68, 0.20, 1)
@@ -737,8 +748,14 @@ local function styleAceWidgetsRecursive(widget)
 			end
 			if widget.text then
 				UIStyle.ApplyFont(widget.text, 0)
+				if widget.text.SetJustifyH then
+					widget.text:SetJustifyH("LEFT")
+				end
 			elseif widget.frame and widget.frame.text then
 				UIStyle.ApplyFont(widget.frame.text, 0)
+				if widget.frame.text.SetJustifyH then
+					widget.frame.text:SetJustifyH("LEFT")
+				end
 			end
 		elseif widget.type == "Slider" then
 			if widget.label then UIStyle.ApplyFont(widget.label, 0) end

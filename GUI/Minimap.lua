@@ -103,13 +103,16 @@ function FIZ:ShowQTip(anchorFrame)
 	self.qtip = tip
 	self.qtipAnchor = anchorFrame
 	tip:Clear()
+	if _G.ElvUI and not tip.isSkinned and tip.SetTemplate then
+		pcall(tip.SetTemplate, tip, "Transparent")
+	end
 
 	-- Title Banner
 	local titleLine = tip:AddHeader()
 	tip:SetCell(
 		titleLine,
 		1,
-		"|TInterface\\Icons\\Achievement_Reputation_01:15:15:0:0:64:64:5:59:5:59|t  |cffffd200" .. FIZ_NAME .. "|r  |cff00ff96v7.0.0|r",
+		"|TInterface\\Icons\\Achievement_Reputation_01:15:15:0:0:64:64:5:59:5:59|t  |cffffd200" .. FIZ_NAME .. "|r  |cff00ff96v7.0.2|r",
 		"GameFontNormal",
 		"LEFT",
 		5

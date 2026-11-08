@@ -341,6 +341,10 @@ L["showGeneralTip"] = "Check this button to see general ways to improve your rep
 L["showAllTip"] = "Press this button to check all four of the checkboxes to the left.\r\nThis will show mobs, quests, items and instances that give you reputation for the currently selected faction."
 L["showNoneTip"] = "Press this button to deselect all four of the checkboxes to the left.\r\nThis will show you none of the ways to gain reputation for the currently selected faction."
 L["suppressNoneTip"] = "Press this button to re-enable all quests for all factions that you have excluded by right-clicking on them."
+L["repTo"] = "to"
+L["showProgressChat"] = "Show visual reputation progress bar in chat"
+L["showProgressChatTip"] = "Displays a compact progress bar line (e.g. 'Faction: +10 (0.2%) - 40% to Honored: [||||...]') in chat whenever reputation changes."
+
 
 
 

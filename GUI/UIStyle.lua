@@ -50,6 +50,9 @@ function UIStyle.ApplyBox(f, bgR, bgG, bgB, bgA, brR, brG, brB, brA)
 		Mixin(f, BackdropTemplateMixin)
 	end
 	if not f.SetBackdrop then return end
+	f.callbackBackdropColor = nil
+	if f.iborder then f.iborder:Hide() end
+	if f.oborder then f.oborder:Hide() end
 	f:SetBackdrop({
 		bgFile = WHITE_TEX,
 		edgeFile = WHITE_TEX,
