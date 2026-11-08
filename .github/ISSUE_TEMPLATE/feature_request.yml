@@ -1,0 +1,33 @@
+name: ✨ Feature / Faction Request
+description: Suggest a new feature, UI improvement, or missing faction/reputation source
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to make **Factionizer** even better, or want a missing faction/reputation source added? Let us know!
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Use Case
+      description: A clear and concise description of the faction, expansion, or reputation workflow this would improve.
+    validations:
+      required: false
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Additional Context / Wowhead Links
+      description: Any relevant faction IDs, quest IDs, item IDs, or screenshots.
+    validations:
+      required: false

@@ -1,0 +1,70 @@
+name: 🐛 Bug Report
+description: Report a bug, Lua error, or missing reputation source in Factionizer
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue with **Factionizer**! Please fill out the details below so we can reproduce and fix it quickly.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: wow_flavor
+    attributes:
+      label: World of Warcraft Client / Flavor
+      description: Which WoW version are you playing on?
+      options:
+        - "WoW Forever (16001)"
+        - "Retail / Midnight (12.x)"
+        - "Mists of Pandaria Classic (5.5.x)"
+        - "Cataclysm Classic (4.4.x)"
+        - "Wrath of the Lich King Classic (3.4.x / 3.8.x)"
+        - "Burning Crusade Classic Anniversary (2.5.x)"
+        - "Classic Era / SoD (1.15.x)"
+        - "Other"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Factionizer Version
+      description: What version of Factionizer are you using?
+      placeholder: "e.g., 7.0.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce the issue in-game?
+      placeholder: |
+        1. Open the Reputation Frame ('U')
+        2. Select faction '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Lua Error Log (BugSack / Swatter) or Screenshots
+      description: Please paste any Lua stack trace or attach screenshots here.
+      render: lua
