@@ -19,6 +19,7 @@ libs/
 
 # Changelog (do not include in AddOns folder / repo)
 CHANGELOG.md
+!.github/CHANGELOG.md
 
 # Build / Release artifacts
 pkg/
