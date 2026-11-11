@@ -5,6 +5,11 @@ All notable changes to **Factionizer** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+- **Packager Multi-Flavor TOC Headers (`Factionizer.toc`)**: Separated `## Interface-Forever: 16001` and `## Interface-Titan: 38002` from `Interface-Classic` and `Interface-Wrath` for `BigWigsMods/packager@v2` compatibility across CurseForge and Wago Addons (`QKyqdEK7`).
+
 ## [7.0.0] - 2026-11-11
 
 ### Added

@@ -1,7 +1,7 @@
 <div align="center">
   <img src=".github/assets/social-banner.png" alt="Factionizer — Ultimate Reputation & Renown Tracker for World of Warcraft" width="100%" />
 
-  # Factionizer (v7.0.0 — Ace3 Edition)
+  # Factionizer (v7.0.1 — Ace3 Edition)
 
   **The Ultimate Multi-Version Reputation, Renown, Paragon & Friendship Companion for World of Warcraft!**
 

@@ -3,6 +3,7 @@
 .gitattributes export-ignore
 .luacheckrc export-ignore
 .pkgmeta export-ignore
+assets export-ignore
 CHANGELOG.md export-ignore
 README.md export-ignore
 LICENSE export-ignore

@@ -1,15 +1,17 @@
 ## Interface: 11508, 11509, 16001, 20505, 20506, 30405, 38002, 40402, 50503, 50504, 120007, 120100, 120105, 120107
 ## Interface-Retail: 120007, 120100, 120105, 120107
-## Interface-Classic: 11508, 11509, 16001
+## Interface-Classic: 11508, 11509
+## Interface-Forever: 16001
 ## Interface-BCC: 20505, 20506
-## Interface-Wrath: 30405, 38002
+## Interface-Wrath: 30405
+## Interface-Titan: 38002
 ## Interface-Cata: 40402
 ## Interface-Mists: 50503, 50504
-## Title: Factionizer |cff00aa007.0.0|r
+## Title: Factionizer |cff00aa007.0.1|r
 ## Notes: Reputation management tool showing how to gain reputation with any faction (Ace3 Edition)
 ## Notes-deDE: Ruf-Verwaltungs-Addon, das anzeigt, wie man Ruf bei allen Fraktionen steigern kann (Ace3 Edition)
 ## Author: Urbin, Millán-Aszune, gOOvER
-## Version: 7.0.0
+## Version: 7.0.1
 ## X-Date: 2026-11-11
 ## Category: Reputation
 ## X-Category: Reputation
