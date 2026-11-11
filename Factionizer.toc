@@ -10,9 +10,13 @@
 ## Notes-deDE: Ruf-Verwaltungs-Addon, das anzeigt, wie man Ruf bei allen Fraktionen steigern kann (Ace3 Edition)
 ## Author: Urbin, Millán-Aszune, gOOvER
 ## Version: 7.0.0
-## X-Date: 2026-11-08
+## X-Date: 2026-11-11
+## Category: Reputation
 ## X-Category: Reputation
+## X-License: GPL-3.0
 ## X-Website: https://github.com/gOOvER/Factionizer
+## X-Curse-Project-ID: 4964
+## X-Wago-ID: QKyqdEK7
 ## IconTexture: Interface\Icons\Achievement_Reputation_01
 ## AddonCompartmentFunc: Factionizer_OnAddonCompartmentClick
 ## AddonCompartmentFuncOnEnter: Factionizer_OnAddonCompartmentEnter
@@ -20,7 +24,9 @@
 ## SavedVariables: FactionizerDB
 ## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, LibDataBroker-1.1, LibDBIcon-1.0, LibSharedMedia-3.0, HereBeDragons-2.0, LibQTip-1.0, LibWindow-1.1, LibSink-2.0, LibDeflate, ElvUI
 
+#@no-lib-strip@
 embeds.xml
+#@end-no-lib-strip@
 
 # Locales
 Locales\enUS.lua
@@ -68,4 +74,3 @@ GUI\Options.lua
 GUI\Minimap.lua
 GUI\ReputationFrame.lua
 GUI\DetailFrame.lua
-## X-License: GPL-3.0
