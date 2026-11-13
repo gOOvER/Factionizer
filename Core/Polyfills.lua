@@ -118,9 +118,34 @@ function FIZ:GetRawFactionInfo(factionIndex)
 	return nil
 end
 
+local FIZ_CityFactionNames_DE = {
+	["Stormwind"] = "Sturmwind",
+	["Stormwind City"] = "Sturmwind",
+	["Ironforge"] = "Eisenschmiede",
+	["Undercity"] = "Unterstadt",
+	["Thunder Bluff"] = "Donnerfels",
+	["Silvermoon City"] = "Silbermond",
+	["Silvermoon"] = "Silbermond",
+	["The Exodar"] = "Die Exodar",
+	["Exodar"] = "Exodar",
+	["Gnomeregan Exiles"] = "Gnomeregangnome",
+	["Darkspear Trolls"] = "Dunkelspeertrolle",
+	["Bilgewater Cartel"] = "Bilgewasserkartell",
+	["Gilneas"] = "Gilneas",
+	["Shattrath City"] = "Shattrath",
+}
+
+local function TranslateFactionDisplayName(name)
+	if not name or not _G.GetLocale or _G.GetLocale() ~= "deDE" then
+		return name
+	end
+	return FIZ_CityFactionNames_DE[name] or name
+end
+
 function FIZ:GetFactionInfo(factionIndex)
 	local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = FIZ:GetRawFactionInfo(factionIndex)
 	if not name then return nil end
+	name = TranslateFactionDisplayName(name)
 	local normMax = (barMax or 0) - (barMin or 0)
 	local normCurrent = (barValue or 0) - (barMin or 0)
 	if FIZ_Data and FIZ_Data.ShowMissing and isHeader and not hasRep and ((normMax - normCurrent) > 0) then
@@ -133,10 +158,10 @@ function FIZ:GetFactionNameByID(factionID)
 	if not factionID then return nil end
 	if C_Reputation and C_Reputation.GetFactionDataByID then
 		local data = C_Reputation.GetFactionDataByID(factionID)
-		return data and data.name or nil
+		return data and TranslateFactionDisplayName(data.name) or nil
 	elseif _G.GetFactionInfoByID then
 		local name = _G.GetFactionInfoByID(factionID)
-		return name
+		return TranslateFactionDisplayName(name)
 	end
 	return nil
 end

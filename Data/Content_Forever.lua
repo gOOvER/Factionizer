@@ -45,6 +45,10 @@ FIZ:RegisterContentModule("Forever", function(self, zone, mob, quest, items, ins
 	MapAliases("Gnomeregan", { "Gnomeregangnome", "Gnomeregan Exiles", "Gnomeregan-Exilanten" })
 	MapAliases("Stormwind", { "Sturmwind", "Stormwind City" })
 	MapAliases("Ironforge", { "Eisenschmiede" })
+	MapAliases("Undercity", { "Unterstadt" })
+	MapAliases("Thunder Bluff", { "Donnerfels" })
+	MapAliases("Silvermoon City", { "Silbermond", "Silvermoon" })
+	MapAliases("Exodar", { "Die Exodar", "The Exodar" })
 
 	----------------------------------------------------------
 	-- Season of Discovery / Classic Era (1.15.x) Factions  --

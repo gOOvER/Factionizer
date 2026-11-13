@@ -551,8 +551,10 @@ local FIZ_ZoneFallbackTranslations = {
 		["Searing Gorge"] = "Sengende Schlucht",
 		["Shimmering Expanse"] = "Schimmernde Weiten",
 		["Silvermoon City"] = "Silbermond",
+		["Silvermoon"] = "Silbermond",
 		["Silverpine Forest"] = "Silberwald",
 		["Stormwind City"] = "Sturmwind",
+		["Stormwind"] = "Sturmwind",
 		["Stranglethorn Vale"] = "Schlingendorntal",
 		["Sunstrider Isle"] = "Insel der Sonnenwanderer",
 		["Swamp of Sorrows"] = "Sümpfe des Elends",
@@ -787,7 +789,7 @@ local function FIZ_TranslateFallbackZone(englishName)
 	return englishName
 end
 
-function FIZ_ResolveZoneName(areaID)
+local function FIZ_ResolveZoneNameRaw(areaID)
 	if not areaID then return nil end
 	local entry = FIZ_LegacyZoneMap[areaID]
 	if entry then
@@ -842,7 +844,7 @@ function FIZ_ResolveZoneName(areaID)
 			end
 		end
 
-		return FIZ_TranslateFallbackZone(fallback)
+		return fallback
 	end
 
 	-- Direct uiMapID or areaTableID lookup if not in FIZ_LegacyZoneMap
@@ -871,6 +873,11 @@ function FIZ_ResolveZoneName(areaID)
 		end
 	end
 	return tostring(areaID)
+end
+
+function FIZ_ResolveZoneName(areaID)
+	local resolved = FIZ_ResolveZoneNameRaw(areaID)
+	return FIZ_TranslateFallbackZone(resolved)
 end
 
 function FIZ_InitEnFactions()

@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- **German (`deDE`) City & Zone Name Localization (`Core/Polyfills.lua`, `Data/Mapping.lua`, `Data/Content_Forever.lua`)**:
+  - Passed all resolved zone/city names in `FIZ_ResolveZoneName()` through `FIZ_TranslateFallbackZone()` so English strings returned by `HereBeDragons` or map APIs are properly localized on `deDE` clients.
+  - Added `TranslateFactionDisplayName()` in `FIZ:GetFactionInfo()` and `FIZ:GetFactionNameByID()` plus canonical city alias mappings (`Sturmwind`, `Eisenschmiede`, `Unterstadt`, `Donnerfels`, `Silbermond`, `Die Exodar`, `Gnomeregangnome`) so capital city faction names always display in German on `deDE` clients.
 - **Packager Multi-Flavor TOC Headers (`Factionizer.toc`)**: Separated `## Interface-Forever: 16001` and `## Interface-Titan: 38002` from `Interface-Classic` and `Interface-Wrath` for `BigWigsMods/packager@v2` compatibility across CurseForge and Wago Addons (`QKyqdEK7`).
 
 ## [7.0.0] - 2026-11-11
