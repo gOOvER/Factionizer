@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [7.0.1] - 2026-11-14
+
 ### Fixed
 - **German (`deDE`) City & Zone Name Localization (`Core/Polyfills.lua`, `Data/Mapping.lua`, `Data/Content_Forever.lua`)**:
   - Passed all resolved zone/city names in `FIZ_ResolveZoneName()` through `FIZ_TranslateFallbackZone()` so English strings returned by `HereBeDragons` or map APIs are properly localized on `deDE` clients.

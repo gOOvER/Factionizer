@@ -12,7 +12,7 @@
 ## Notes-deDE: Ruf-Verwaltungs-Addon, das anzeigt, wie man Ruf bei allen Fraktionen steigern kann (Ace3 Edition)
 ## Author: Urbin, Millán-Aszune, gOOvER
 ## Version: 7.0.1
-## X-Date: 2026-11-11
+## X-Date: 2026-11-14
 ## Category: Reputation
 ## X-Category: Reputation
 ## X-License: GPL-3.0
