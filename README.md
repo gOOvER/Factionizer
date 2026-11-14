@@ -73,3 +73,9 @@
 - **Authors**: Urbin (Original Author), Millán-Aszune, **gOOvER** (v7.0.0 Ace3 & Modern UI Overhaul)
 - **License**: [GNU General Public License v3.0 (GPL-3.0)](LICENSE)
 - **Support Development**: [donate.goover.dev](https://donate.goover.dev) • [Ko-fi](https://ko-fi.com/oldnoob) • [Buy Me a Coffee](https://buymeacoffee.com/goover)
+
+---
+
+## 🐛 Bug Reports & Feedback
+
+Found a bug or have a feature request? Please report it on the **[GitHub Issue Tracker](https://github.com/gOOvER/Factionizer/issues)** (please include your WoW client version, addon version, and any Lua errors if available).
